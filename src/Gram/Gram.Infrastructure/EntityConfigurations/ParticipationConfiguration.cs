@@ -12,7 +12,7 @@ namespace Gram.Infrastructure.EntityConfigurations
             builder.ToTable("Participation", "Events");
             builder.Property(m => m.StatusDate)
                 .HasColumnType("date")
-                .HasDefaultValue(DateTime.UtcNow)
+                .HasDefaultValueSql("GETUTCDATE()")
                 .IsRequired();
             builder.Property(m => m.Remarks)
                 .HasMaxLength(50);
