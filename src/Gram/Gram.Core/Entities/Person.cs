@@ -9,6 +9,7 @@ namespace Gram.Core.Entities
         public Person()
         {
             Employees = new HashSet<Employee>();
+            ParticipatingPeople = new HashSet<Participation>();
         }
 
         public int Id { get; set; }
@@ -20,5 +21,6 @@ namespace Gram.Core.Entities
 
         public virtual GeneralType Nationality { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Participation> ParticipatingPeople { get; set; }
     }
 }

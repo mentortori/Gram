@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gram.Web", "Gram.Web\Gram.Web.csproj", "{9F344937-726B-49DA-A166-AC52A6B962E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gram.Web", "Gram.Web\Gram.Web.csproj", "{9F344937-726B-49DA-A166-AC52A6B962E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gram.Core", "Gram.Core\Gram.Core.csproj", "{AB947B16-36D7-44C1-9580-B2EEB777E23A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gram.Core", "Gram.Core\Gram.Core.csproj", "{AB947B16-36D7-44C1-9580-B2EEB777E23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gram.Infrastructure", "Gram.Infrastructure\Gram.Infrastructure.csproj", "{DAD1CC09-EF15-457D-B7D6-054A14B9470B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gram.Infrastructure", "Gram.Infrastructure\Gram.Infrastructure.csproj", "{DAD1CC09-EF15-457D-B7D6-054A14B9470B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

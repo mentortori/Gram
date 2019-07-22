@@ -16,7 +16,7 @@ namespace Gram.Core.Validators
 
             RuleFor(m => m.EventDescription)
                 .NotEmpty().WithMessage("Event description is required!")
-                .MaximumLength(50).WithMessage("Event description cannot be longer than 4000 characters!");
+                .MaximumLength(4000).WithMessage("Event description cannot be longer than 4000 characters!");
         }
     }
 }

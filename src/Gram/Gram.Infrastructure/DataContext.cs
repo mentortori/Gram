@@ -37,6 +37,7 @@ namespace Gram.Infrastructure
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<GeneralType> GeneralTypes { get; set; }
+        public virtual DbSet<Participation> Participations { get; set; }
         public virtual DbSet<Person> People { get; set; }
     }
 }

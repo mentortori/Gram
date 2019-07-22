@@ -10,6 +10,7 @@ namespace Gram.Core.Entities
             ChildTypes = new HashSet<GeneralType>();
             EventStatuses = new HashSet<Event>();
             PersonNationalities = new HashSet<Person>();
+            ParticipationStatus = new HashSet<Participation>();
         }
 
         public int Id { get; set; }
@@ -23,5 +24,6 @@ namespace Gram.Core.Entities
         public virtual ICollection<GeneralType> ChildTypes { get; set; }
         public virtual ICollection<Event> EventStatuses { get; set; }
         public virtual ICollection<Person> PersonNationalities { get; set; }
+        public virtual ICollection<Participation> ParticipationStatus { get; set; }
     }
 }
