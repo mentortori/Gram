@@ -31,5 +31,12 @@ namespace Gram.Infrastructure.Extensions
                 applyConfigurationMethod.Invoke(modelBuilder, new object[] { configuration });
             }
         }
+        internal static void ChangeOnDeleteConvention(this ModelBuilder modelBuilder)
+        {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(p => p.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+        }
     }
 }

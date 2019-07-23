@@ -31,21 +31,21 @@ namespace Gram.Infrastructure.Migrations
                         principalSchema: "Events",
                         principalTable: "Event",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Participation_Person_PersonId",
                         column: x => x.PersonId,
                         principalSchema: "Subjects",
                         principalTable: "Person",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Participation_GeneralType_StatusId",
                         column: x => x.StatusId,
                         principalSchema: "General",
                         principalTable: "GeneralType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

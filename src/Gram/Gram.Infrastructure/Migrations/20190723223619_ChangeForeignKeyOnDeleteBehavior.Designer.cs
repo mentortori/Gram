@@ -4,14 +4,16 @@ using Gram.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gram.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190723223619_ChangeForeignKeyOnDeleteBehavior")]
+    partial class ChangeForeignKeyOnDeleteBehavior
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,45 +121,6 @@ namespace Gram.Infrastructure.Migrations
                         .HasName("UQ_GeneralType_Title_Parent");
 
                     b.ToTable("GeneralType","General");
-                });
-
-            modelBuilder.Entity("Gram.Core.Entities.Participation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventId");
-
-                    b.Property<int>("PersonId");
-
-                    b.Property<string>("Remarks")
-                        .HasMaxLength(50);
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<DateTime>("StatusDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<int>("StatusId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId")
-                        .HasName("IX_Participation_Event");
-
-                    b.HasIndex("PersonId")
-                        .HasName("IX_Participation_Person");
-
-                    b.HasIndex("StatusId")
-                        .HasName("IX_Participation_Status");
-
-                    b.ToTable("Participation","Events");
                 });
 
             modelBuilder.Entity("Gram.Core.Entities.Person", b =>
@@ -383,24 +346,6 @@ namespace Gram.Infrastructure.Migrations
                     b.HasOne("Gram.Core.Entities.GeneralType", "Parent")
                         .WithMany("ChildTypes")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Gram.Core.Entities.Participation", b =>
-                {
-                    b.HasOne("Gram.Core.Entities.Event", "Event")
-                        .WithMany("EventParticipations")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Gram.Core.Entities.Person", "Person")
-                        .WithMany("ParticipatingPeople")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Gram.Core.Entities.GeneralType", "Status")
-                        .WithMany("ParticipationStatus")
-                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
