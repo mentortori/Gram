@@ -24,6 +24,7 @@ namespace Gram.Infrastructure
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyBaseEntityConfigurations();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly, p => p.Namespace == typeof(BaseEntityConfiguration<>).Namespace);
+            modelBuilder.ChangeOnDeletePolicy();
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
