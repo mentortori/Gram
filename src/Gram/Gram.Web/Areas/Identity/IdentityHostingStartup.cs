@@ -1,5 +1,5 @@
 ﻿using System;
-using Gram.Infrastructure;
+using Gram.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
