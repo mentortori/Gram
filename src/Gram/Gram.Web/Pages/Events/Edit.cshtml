@@ -13,26 +13,27 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Event.Id" />
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
             <div class="form-group">
-                <label asp-for="Event.EventName" class="control-label"></label>
-                <input asp-for="Event.EventName" class="form-control" />
-                <span asp-validation-for="Event.EventName" class="text-danger"></span>
+                <label asp-for="Entity.EventName" class="control-label"></label>
+                <input asp-for="Entity.EventName" class="form-control" />
+                <span asp-validation-for="Entity.EventName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Event.EventStatusId" class="control-label"></label>
-                <select asp-for="Event.EventStatusId" class="form-control" asp-items="ViewBag.EventStatusId"></select>
-                <span asp-validation-for="Event.EventStatusId" class="text-danger"></span>
+                <label asp-for="Entity.EventStatusId" class="control-label"></label>
+                <select asp-for="Entity.EventStatusId" class="form-control" asp-items="ViewBag.EventStatusId"></select>
+                <span asp-validation-for="Entity.EventStatusId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Event.EventDescription" class="control-label"></label>
-                <input asp-for="Event.EventDescription" class="form-control" />
-                <span asp-validation-for="Event.EventDescription" class="text-danger"></span>
+                <label asp-for="Entity.EventDescription" class="control-label"></label>
+                <textarea asp-for="Entity.EventDescription" class="form-control"></textarea>
+                <span asp-validation-for="Entity.EventDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Event.EventDate" class="control-label"></label>
-                <input asp-for="Event.EventDate" class="form-control" />
-                <span asp-validation-for="Event.EventDate" class="text-danger"></span>
+                <label asp-for="Entity.EventDate" class="control-label"></label>
+                <input asp-for="Entity.EventDate" class="form-control" />
+                <span asp-validation-for="Entity.EventDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

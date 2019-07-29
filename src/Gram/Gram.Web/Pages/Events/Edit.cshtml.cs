@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Gram.Application.Events.Commands.UpdateEvent;
+using Gram.Application.Events.Models;
+using Gram.Application.Events.Queries;
+using Gram.Application.GeneralTypes.Queries;
+using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Gram.Domain.Entities;
-using Gram.Persistence;
+using System.Threading.Tasks;
+using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Web.Pages.Events
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
-        private readonly Gram.Persistence.DataContext _context;
-
-        public EditModel(Gram.Persistence.DataContext context)
-        {
-            _context = context;
-        }
-
         [BindProperty]
-        public Event Event { get; set; }
+        public EventEditModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,48 +23,39 @@ namespace Gram.Web.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Events
-                .Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == id);
+            Entity = await Mediator.Send(new GetEventEditQuery { Id = id.Value });
 
-            if (Event == null)
+            if (Entity == null)
             {
                 return NotFound();
             }
-           ViewData["EventStatusId"] = new SelectList(_context.GeneralTypes, "Id", "Title");
+
+            ViewData["EventStatusId"] = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title");
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Event).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await Mediator.Send(new UpdateEventCommand { Id = id.Value, EventEditModel = Entity });
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!EventExists(Event.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw ex;
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool EventExists(int id)
-        {
-            return _context.Events.Any(e => e.Id == id);
         }
     }
 }
