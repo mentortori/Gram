@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,12 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gram.Domain\Gram.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Events\Commands\DeleteEvent\" />
-    <Folder Include="Events\Commands\UpdateEvent\" />
-    <Folder Include="Events\Queries\" />
   </ItemGroup>
 
 </Project>

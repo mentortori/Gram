@@ -40,7 +40,7 @@ namespace Gram.Web
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<DataContext>();
 
-            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Application.Validators.EventValidator>());
+            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
             services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
 
             services.AddScoped<IAuditContext, AuditContext>();

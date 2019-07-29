@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using Gram.Domain.Entities;
 
-namespace Gram.Application.Validators
+namespace Gram.Application.Events.Commands.CreateEvent
 {
-    public class EventValidator : AbstractValidator<Event>
+    public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
     {
-        public EventValidator()
+        public CreateEventCommandValidator()
         {
             RuleFor(m => m.EventName)
                 .NotEmpty().WithMessage("Event name is required!")
