@@ -7,20 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Gram.Domain.Entities;
 using Gram.Persistence;
+using Gram.Application.Events.Models;
+using Gram.Web.Pages.Abstraction;
+using Gram.Application.Events.Queries;
+using Gram.Application.Events.Commands.DeleteEvent;
 
 namespace Gram.Web.Pages.Events
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
-        private readonly Gram.Persistence.DataContext _context;
-
-        public DeleteModel(Gram.Persistence.DataContext context)
-        {
-            _context = context;
-        }
-
         [BindProperty]
-        public Event Event { get; set; }
+        public EventDetailModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,10 +26,9 @@ namespace Gram.Web.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Events
-                .Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == id);
+            Entity = await Mediator.Send(new GetEventDetailQuery { Id = id.Value });
 
-            if (Event == null)
+            if (Entity == null)
             {
                 return NotFound();
             }
@@ -46,12 +42,11 @@ namespace Gram.Web.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Events.FindAsync(id);
+            Entity = await Mediator.Send(new GetEventDetailQuery { Id = id.Value });
 
-            if (Event != null)
+            if (Entity != null)
             {
-                _context.Events.Remove(Event);
-                await _context.SaveChangesAsync();
+                await Mediator.Send(new DeleteEventCommand { Id = id.Value });
             }
 
             return RedirectToPage("./Index");
