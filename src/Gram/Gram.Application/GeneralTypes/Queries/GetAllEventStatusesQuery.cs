@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Gram.Application.GeneralTypes.Queries
 {
-    public class GetAllEventStatusesQuery : IRequest<List<GeneralTypeDto>>
+    public class GetAllEventStatusesQuery : IRequest<List<GeneralTypeDropDownViewModel>>
     {
     }
 }

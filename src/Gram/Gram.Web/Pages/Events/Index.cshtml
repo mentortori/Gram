@@ -14,19 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EventName)
+                @Html.DisplayNameFor(model => model.Entity[0].EventName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EventStatus)
+                @Html.DisplayNameFor(model => model.Entity[0].EventStatus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EventDate)
+                @Html.DisplayNameFor(model => model.Entity[0].EventDate)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Event) {
+        @foreach (var item in Model.Entity) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.EventName)

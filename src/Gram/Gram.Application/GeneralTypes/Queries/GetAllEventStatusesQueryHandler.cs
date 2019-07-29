@@ -10,7 +10,7 @@ using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Application.GeneralTypes.Queries
 {
-    public class GetAllEventStatusesQueryHandler : IRequestHandler<GetAllEventStatusesQuery, List<GeneralTypeDto>>
+    public class GetAllEventStatusesQueryHandler : IRequestHandler<GetAllEventStatusesQuery, List<GeneralTypeDropDownViewModel>>
     {
         private readonly IDataContext _context;
 
@@ -19,8 +19,8 @@ namespace Gram.Application.GeneralTypes.Queries
             _context = context;
         }
 
-        public async Task<List<GeneralTypeDto>> Handle(GetAllEventStatusesQuery request, CancellationToken cancellationToken) => await _context.GeneralTypes
-            .Where(m => m.ParentId == (int)GeneralTypeParents.EventStatus).Select(m => new GeneralTypeDto
+        public async Task<List<GeneralTypeDropDownViewModel>> Handle(GetAllEventStatusesQuery request, CancellationToken cancellationToken) => await _context.GeneralTypes
+            .Where(m => m.ParentId == (int)GeneralTypeParents.EventStatus).Select(m => new GeneralTypeDropDownViewModel
                 {
                     Id = m.Id,
                     Title = m.Title

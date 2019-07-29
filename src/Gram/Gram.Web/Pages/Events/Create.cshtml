@@ -14,23 +14,23 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Command.EventName" class="control-label"></label>
-                <input asp-for="Command.EventName" class="form-control" />
-                <span asp-validation-for="Command.EventName" class="text-danger"></span>
+                <label asp-for="Entity.EventName" class="control-label"></label>
+                <input asp-for="Entity.EventName" class="form-control" />
+                <span asp-validation-for="Entity.EventName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Command.EventStatusId" class="control-label"></label>
-                <select asp-for="Command.EventStatusId" class="form-control" asp-items="ViewBag.EventStatusId"></select>
+                <label asp-for="Entity.EventStatusId" class="control-label"></label>
+                <select asp-for="Entity.EventStatusId" class="form-control" asp-items="ViewBag.EventStatusId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Command.EventDescription" class="control-label"></label>
-                <input asp-for="Command.EventDescription" class="form-control" />
-                <span asp-validation-for="Command.EventDescription" class="text-danger"></span>
+                <label asp-for="Entity.EventDescription" class="control-label"></label>
+                <input asp-for="Entity.EventDescription" class="form-control" />
+                <span asp-validation-for="Entity.EventDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Command.EventDate" class="control-label"></label>
-                <input asp-for="Command.EventDate" class="form-control" />
-                <span asp-validation-for="Command.EventDate" class="text-danger"></span>
+                <label asp-for="Entity.EventDate" class="control-label"></label>
+                <input asp-for="Entity.EventDate" class="form-control" />
+                <span asp-validation-for="Entity.EventDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

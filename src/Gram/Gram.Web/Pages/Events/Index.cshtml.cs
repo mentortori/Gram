@@ -8,11 +8,11 @@ namespace Gram.Web.Pages.Events
 {
     public class IndexModel : BasePageModel
     {
-        public IList<EventsListViewModel> Event { get;set; }
+        public IList<EventsListViewModel> Entity { get;set; }
 
         public async Task OnGetAsync()
         {
-            Event = await Mediator.Send(new GetAllEventsQuery());
+            Entity = await Mediator.Send(new GetAllEventsQuery());
         }
     }
 }

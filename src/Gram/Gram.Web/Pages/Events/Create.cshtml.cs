@@ -16,14 +16,14 @@ namespace Gram.Web.Pages.Events
         }
 
         [BindProperty]
-        public CreateEventCommand Command { get; set; }
+        public CreateEventCommand Entity { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            await Mediator.Send(Command);
+            await Mediator.Send(Entity);
             return RedirectToPage("./Index");
         }
     }

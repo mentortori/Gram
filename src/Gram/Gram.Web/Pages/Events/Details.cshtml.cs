@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Gram.Application.Events.Models;
+using Gram.Application.Events.Queries;
+using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Gram.Domain.Entities;
-using Gram.Persistence;
+using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Events
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : BasePageModel
     {
-        private readonly Gram.Persistence.DataContext _context;
-
-        public DetailsModel(Gram.Persistence.DataContext context)
-        {
-            _context = context;
-        }
-
-        public Event Event { get; set; }
+        public EventDetailModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,10 +17,9 @@ namespace Gram.Web.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Events
-                .Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == id);
+            Entity = await Mediator.Send(new GetEventDetailQuery { Id = id.Value });
 
-            if (Event == null)
+            if (Entity == null)
             {
                 return NotFound();
             }
