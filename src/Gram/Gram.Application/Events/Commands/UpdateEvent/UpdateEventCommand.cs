@@ -1,4 +1,5 @@
-﻿using Gram.Application.Events.Models;
+﻿using Gram.Application.Abstraction;
+using Gram.Application.Events.Models;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
@@ -15,13 +16,10 @@ namespace Gram.Application.Events.Commands.UpdateEvent
 
         public EventEditModel EventEditModel { get; set; }
 
-        public class Handler : IRequestHandler<UpdateEventCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<UpdateEventCommand, Unit>
         {
-            private readonly IDataContext _context;
-
-            public Handler(IDataContext context)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _context = context;
             }
 
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
@@ -36,14 +34,14 @@ namespace Gram.Application.Events.Commands.UpdateEvent
                     RowVersion = request.EventEditModel.RowVersion
                 };
 
-                _context.Events.Attach(entity).State = EntityState.Modified;
+                DataContext.Events.Attach(entity).State = EntityState.Modified;
 
-                var exists = await _context.Events.FindAsync(request.Id);
+                var exists = await DataContext.Events.FindAsync(request.Id);
 
                 if (exists == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
         }

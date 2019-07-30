@@ -1,4 +1,5 @@
-﻿using Gram.Application.Events.Models;
+﻿using Gram.Application.Abstraction;
+using Gram.Application.Events.Models;
 using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
 using MediatR;
@@ -11,13 +12,10 @@ namespace Gram.Application.Events.Commands.CreateEvent
     {
         public EventCreateModel EventCreateModel { get; set; }
 
-        public class Handler : IRequestHandler<CreateEventCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<CreateEventCommand, Unit>
         {
-            private readonly IDataContext _context;
-
-            public Handler(IDataContext context)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _context = context;
             }
 
             public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
@@ -30,8 +28,8 @@ namespace Gram.Application.Events.Commands.CreateEvent
                     EventDate = request.EventCreateModel.EventDate
                 };
 
-                _context.Events.Add(entity);
-                await _context.SaveChangesAsync(cancellationToken);
+                DataContext.Events.Add(entity);
+                await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
         }

@@ -1,4 +1,5 @@
-﻿using Gram.Application.Events.Models;
+﻿using Gram.Application.Abstraction;
+using Gram.Application.Events.Models;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
@@ -13,18 +14,15 @@ namespace Gram.Application.Events.Queries
     {
         public int Id { get; set; }
 
-        public class Handler : IRequestHandler<GetEventEditQuery, EventEditModel>
+        public class Handler : BaseHandler, IRequestHandler<GetEventEditQuery, EventEditModel>
         {
-            private readonly IDataContext _context;
-
-            public Handler(IDataContext context)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _context = context;
             }
 
             public async Task<EventEditModel> Handle(GetEventEditQuery request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Events.Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.Events.Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == request.Id);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);

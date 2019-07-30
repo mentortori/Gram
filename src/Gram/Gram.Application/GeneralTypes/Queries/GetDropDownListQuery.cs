@@ -1,4 +1,5 @@
-﻿using Gram.Application.GeneralTypes.Models;
+﻿using Gram.Application.Abstraction;
+using Gram.Application.GeneralTypes.Models;
 using Gram.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -18,23 +19,21 @@ namespace Gram.Application.GeneralTypes.Queries
             ParentId = parentId;
         }
 
-        public class Handler : IRequestHandler<GetDropDownListQuery, List<GeneralTypeDropDownItemModel>>
+        public class Handler : BaseHandler, IRequestHandler<GetDropDownListQuery, List<GeneralTypeDropDownItemModel>>
         {
-            private readonly IDataContext _context;
-
-            public Handler(IDataContext context)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _context = context;
             }
 
-            public async Task<List<GeneralTypeDropDownItemModel>> Handle(GetDropDownListQuery request, CancellationToken cancellationToken) => await _context.GeneralTypes
-                .Where(m => m.ParentId == request.ParentId).Select(m => new GeneralTypeDropDownItemModel
-                {
-                    Id = m.Id,
-                    Title = m.Title
-                })
-                .OrderBy(m => m.Title)
-                .ToListAsync(cancellationToken);
+            public async Task<List<GeneralTypeDropDownItemModel>> Handle(GetDropDownListQuery request, CancellationToken cancellationToken)
+                => await DataContext.GeneralTypes
+                    .Where(m => m.ParentId == request.ParentId).Select(m => new GeneralTypeDropDownItemModel
+                    {
+                        Id = m.Id,
+                        Title = m.Title
+                    })
+                    .OrderBy(m => m.Title)
+                    .ToListAsync(cancellationToken);
         }
     }
 }

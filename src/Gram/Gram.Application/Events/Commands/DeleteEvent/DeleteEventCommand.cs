@@ -1,4 +1,5 @@
-﻿using Gram.Application.Exceptions;
+﻿using Gram.Application.Abstraction;
+using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
 using MediatR;
@@ -11,24 +12,21 @@ namespace Gram.Application.Events.Commands.DeleteEvent
     {
         public int Id { get; set; }
 
-        public class Handler : IRequestHandler<DeleteEventCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<DeleteEventCommand, Unit>
         {
-            private readonly IDataContext _context;
-
-            public Handler(IDataContext context)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _context = context;
             }
 
             public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Events.FindAsync(request.Id);
+                var entity = await DataContext.Events.FindAsync(request.Id);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
 
-                _context.Events.Remove(entity);
-                await _context.SaveChangesAsync(cancellationToken);
+                DataContext.Events.Remove(entity);
+                await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
         }
