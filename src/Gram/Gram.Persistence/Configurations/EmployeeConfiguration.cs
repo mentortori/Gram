@@ -9,9 +9,6 @@ namespace Gram.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.ToTable("Employee", "Subjects");
-            builder.Property(m => m.UserId)
-                .HasMaxLength(450)
-                .IsRequired();
             builder.Property(m => m.DateOfEmployment)
                 .HasColumnType("date");
             builder.Property(m => m.EmploymentExpiryDate)

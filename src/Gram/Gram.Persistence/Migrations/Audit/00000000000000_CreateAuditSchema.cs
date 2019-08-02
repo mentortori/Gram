@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gram.Persistence.Migrations.AuditContextMigrations
+namespace Gram.Persistence.Migrations.Audit
 {
-    public partial class AddAudit : Migration
+    public partial class CreateAuditSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,7 @@ namespace Gram.Persistence.Migrations.AuditContextMigrations
                         principalSchema: "Audit",
                         principalTable: "AuditLog",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

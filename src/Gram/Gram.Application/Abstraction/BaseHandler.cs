@@ -10,6 +10,5 @@ namespace Gram.Application.Abstraction
         {
             DataContext = dataContext;
         }
-
     }
 }

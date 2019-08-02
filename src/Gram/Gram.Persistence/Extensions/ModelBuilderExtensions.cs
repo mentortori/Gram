@@ -32,7 +32,7 @@ namespace Gram.Persistence.Extensions
             }
         }
 
-        internal static void ChangeOnDeleteConvention(this ModelBuilder modelBuilder)
+        public static void ChangeOnDeleteConvention(this ModelBuilder modelBuilder)
         {
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(p => p.GetForeignKeys()))
             {

@@ -1,5 +1,6 @@
-﻿using Gram.Domain.Interfaces;
-using Gram.Application.Interfaces;
+﻿using Gram.Application.Interfaces;
+using Gram.Domain.Interfaces;
+using Gram.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -24,12 +25,13 @@ namespace Gram.Persistence.Services
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new AuditDetailConfiguration());
             modelBuilder.ApplyConfiguration(new AuditLogConfiguration());
+            modelBuilder.ChangeOnDeleteConvention();
         }
 
         internal virtual DbSet<AuditDetail> AuditDetails { get; set; }
         internal virtual DbSet<AuditLog> AuditLogs { get; set; }
 
-        private static readonly string[] _excludedProperties = new[] { "Id", "RowModifyDate", "RowModifyUser", "RowVersion", "Password" };
+        private static readonly string[] _excludedProperties = new[] { "Id", "RowVersion" };
         private IUserService _userService { get; }
         private List<EntityEntry<IEntity>> _addedEntries { get; set; }
         private List<EntityEntry<IEntity>> _modifiedEntries { get; set; }

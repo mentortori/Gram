@@ -6,6 +6,7 @@ namespace Gram.Application.Events.Models
     public class EventEditModel
     {
         public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
 
         [Display(Name = "Event name")]
         public string EventName { get; set; }
@@ -20,7 +21,5 @@ namespace Gram.Application.Events.Models
         [Display(Name = "Event date")]
         [DataType(DataType.Date)]
         public DateTime? EventDate { get; set; }
-
-        public byte[] RowVersion { get; set; }
     }
 }

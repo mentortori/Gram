@@ -3,6 +3,8 @@ using Gram.Application.Events.Commands.CreateEvent;
 using Gram.Application.Interfaces;
 using Gram.Persistence;
 using Gram.Persistence.Services;
+using Gram.Web.Areas.Identity;
+using Gram.Web.Areas.Identity.Models;
 using Gram.Web.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -38,14 +40,15 @@ namespace Gram.Web
 
             services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<DataContext>();
-
-            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
-            services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<WebUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
 
             services.AddScoped<IAuditContext, AuditContext>();
             services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
+            services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
