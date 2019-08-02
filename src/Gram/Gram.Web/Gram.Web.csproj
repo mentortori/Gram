@@ -13,6 +13,35 @@
     <None Remove="Areas\Identity\Data\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\Identity\Migrations\20190802095221_AddEmployeeColumn.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802095221_AddEmployeeColumn.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802095655_AddEmployeeColumn.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802095655_AddEmployeeColumn.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802095747_AddEmployeeColumn.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802095747_AddEmployeeColumn.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802121145_AddEmployeeRelation.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802121145_AddEmployeeRelation.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802121714_AddEmployee.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802121714_AddEmployee.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802133640_AddEmployee.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802133640_AddEmployee.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141140_AddEmployee.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141140_AddEmployee.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141209_AddTest.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141209_AddTest.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141254_AddTest.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141254_AddTest.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141456_AddTest.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802141456_AddTest.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802143044_AddTest.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802143044_AddTest.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802145902_AddEmployee.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802145902_AddEmployee.Designer.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802150020_AddEmployee.cs" />
+    <Compile Remove="Areas\Identity\Migrations\20190802150020_AddEmployee.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />

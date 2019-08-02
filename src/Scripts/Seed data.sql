@@ -24,54 +24,6 @@ DELETE Subjects.Person
 DELETE General.GeneralType
 DELETE Events.Event
 
--- Create admin user joe@doe.com with password Pa$$w0rd
-INSERT dbo.AspNetUsers
-(
-	 [Id]
-    ,[UserName]
-    ,[NormalizedUserName]
-    ,[Email]
-    ,[NormalizedEmail]
-    ,[EmailConfirmed]
-    ,[PasswordHash]
-    ,[SecurityStamp]
-    ,[ConcurrencyStamp]
-    ,[PhoneNumber]
-    ,[PhoneNumberConfirmed]
-    ,[TwoFactorEnabled]
-    ,[LockoutEnd]
-    ,[LockoutEnabled]
-    ,[AccessFailedCount]
-)
-SELECT
-	 @UserId
-	,@UserName
-	,UPPER(@UserName)
-	,@UserName
-	,UPPER(@UserName)
-	,0
-	,@PasswordHash
-	,@SecurityStamp
-	,@UserConcurrencyStamp
-	,NULL
-	,0
-	,0
-	,NULL
-	,1
-	,0
-
--- Create roles
-INSERT dbo.AspNetRoles([Id], [Name], [NormalizedName], [ConcurrencyStamp])
-VALUES
-     (@AdministratorRoleId, @AdministratorRoleName, UPPER(@AdministratorRoleName), @AdministratorConcurrencyStamp)
-    ,(@EmployeeRoleId, @EmployeeRoleName, UPPER(@EmployeeRoleName), @EmployeeConcurrencyStamp)
-
--- Create user roles
-INSERT dbo.AspNetUserRoles([UserId], [RoleId])
-VALUES
-     (@UserId, @AdministratorRoleId)
-    ,(@UserId, @EmployeeRoleId)
-
 -- Create person
 SET IDENTITY_INSERT Subjects.Person ON
 
@@ -83,8 +35,8 @@ SET IDENTITY_INSERT Subjects.Person OFF
 -- Create employee
 SET IDENTITY_INSERT Subjects.Employee ON
 
-INSERT Subjects.Employee (Id, PersonId, UserId)
-SELECT 1, 1, @UserId
+INSERT Subjects.Employee (Id, PersonId)
+SELECT 1, 1
 
 SET IDENTITY_INSERT Subjects.Employee OFF
 
@@ -310,3 +262,53 @@ VALUES
 
 
 SET IDENTITY_INSERT General.GeneralType OFF
+
+-- Create admin user joe@doe.com with password Pa$$w0rd
+INSERT dbo.AspNetUsers
+(
+	 [Id]
+    ,[UserName]
+    ,[NormalizedUserName]
+    ,[Email]
+    ,[NormalizedEmail]
+    ,[EmailConfirmed]
+    ,[PasswordHash]
+    ,[SecurityStamp]
+    ,[ConcurrencyStamp]
+    ,[PhoneNumber]
+    ,[PhoneNumberConfirmed]
+    ,[TwoFactorEnabled]
+    ,[LockoutEnd]
+    ,[LockoutEnabled]
+    ,[AccessFailedCount]
+    ,[EmployeeId]
+)
+SELECT
+	 @UserId
+	,@UserName
+	,UPPER(@UserName)
+	,@UserName
+	,UPPER(@UserName)
+	,0
+	,@PasswordHash
+	,@SecurityStamp
+	,@UserConcurrencyStamp
+	,NULL
+	,0
+	,0
+	,NULL
+	,1
+	,0
+    ,1
+
+-- Create roles
+INSERT dbo.AspNetRoles([Id], [Name], [NormalizedName], [ConcurrencyStamp])
+VALUES
+     (@AdministratorRoleId, @AdministratorRoleName, UPPER(@AdministratorRoleName), @AdministratorConcurrencyStamp)
+    ,(@EmployeeRoleId, @EmployeeRoleName, UPPER(@EmployeeRoleName), @EmployeeConcurrencyStamp)
+
+-- Create user roles
+INSERT dbo.AspNetUserRoles([UserId], [RoleId])
+VALUES
+     (@UserId, @AdministratorRoleId)
+    ,(@UserId, @EmployeeRoleId)

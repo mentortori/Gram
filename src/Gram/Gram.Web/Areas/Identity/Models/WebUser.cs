@@ -5,7 +5,7 @@ namespace Gram.Web.Areas.Identity.Models
 {
     public class WebUser : IdentityUser
     {
-        //public int EmployeeId { get; set; }
-        //public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

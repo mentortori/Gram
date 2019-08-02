@@ -43,12 +43,12 @@ namespace Gram.Web
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<WebUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
 
-            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
-            services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
-
             services.AddScoped<IAuditContext, AuditContext>();
             services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
+            services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
