@@ -56,7 +56,6 @@ namespace Gram.Web
         {
             if (env.IsDevelopment())
             {
-                InitializeDatabase(app);
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -74,16 +73,6 @@ namespace Gram.Web
             app.UseAuthentication();
 
             app.UseMvc();
-        }
-
-        private void InitializeDatabase(IApplicationBuilder app)
-        {
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                scope.ServiceProvider.GetRequiredService<AuditContext>().Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<IdentityContext>().Database.Migrate();
-            }
         }
     }
 }

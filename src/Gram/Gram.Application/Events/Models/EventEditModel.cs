@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Gram.Application.GeneralTypes.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Events.Models
@@ -7,6 +9,7 @@ namespace Gram.Application.Events.Models
     {
         public int Id { get; set; }
         public byte[] RowVersion { get; set; }
+        public List<GeneralTypeDropDownItemModel> Statuses { get; set; }
 
         [Display(Name = "Event name")]
         public string EventName { get; set; }

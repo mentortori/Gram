@@ -1,13 +1,11 @@
 ﻿using Gram.Application.Events.Commands.UpdateEvent;
 using Gram.Application.Events.Models;
 using Gram.Application.Events.Queries;
-using Gram.Application.GeneralTypes.Queries;
 using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Web.Pages.Events
 {
@@ -15,6 +13,7 @@ namespace Gram.Web.Pages.Events
     {
         [BindProperty]
         public EventEditModel Entity { get; set; }
+        public SelectList StatusesList { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -24,13 +23,8 @@ namespace Gram.Web.Pages.Events
             }
 
             Entity = await Mediator.Send(new GetEventEditQuery { Id = id.Value });
+            StatusesList = new SelectList(Entity.Statuses, "Id", "Title", Entity.EventStatusId);
 
-            if (Entity == null)
-            {
-                return NotFound();
-            }
-
-            ViewData["EventStatusId"] = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title");
             return Page();
         }
 
