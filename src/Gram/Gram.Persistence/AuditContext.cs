@@ -29,7 +29,7 @@ namespace Gram.Persistence.Services
         internal virtual DbSet<AuditDetail> AuditDetails { get; set; }
         internal virtual DbSet<AuditLog> AuditLogs { get; set; }
 
-        private static readonly string[] _excludedProperties = new[] { "Id", "RowModifyDate", "RowModifyUser", "RowVersion", "Password" };
+        private static readonly string[] _excludedProperties = new[] { "Id", "RowVersion" };
         private IUserService _userService { get; }
         private List<EntityEntry<IEntity>> _addedEntries { get; set; }
         private List<EntityEntry<IEntity>> _modifiedEntries { get; set; }

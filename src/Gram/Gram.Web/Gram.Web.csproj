@@ -23,4 +23,9 @@
     <ProjectReference Include="..\Gram.Persistence\Gram.Persistence.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
 </Project>

@@ -2,14 +2,13 @@
 using Gram.Persistence.Configurations;
 using Gram.Persistence.Extensions;
 using Gram.Application.Interfaces;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gram.Persistence
 {
-    public class DataContext : IdentityDbContext, IDataContext
+    public class DataContext : DbContext, IDataContext
     {
         private readonly IAuditContext _auditContext;
 

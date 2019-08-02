@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Gram.Domain.Enums
+﻿namespace Gram.Domain.Enums
 {
     public class GeneralTypeEnum
     {

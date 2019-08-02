@@ -3,6 +3,8 @@ using Gram.Application.Events.Commands.CreateEvent;
 using Gram.Application.Interfaces;
 using Gram.Persistence;
 using Gram.Persistence.Services;
+using Gram.Web.Areas.Identity;
+using Gram.Web.Areas.Identity.Models;
 using Gram.Web.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +40,8 @@ namespace Gram.Web
 
             services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<DataContext>();
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<WebUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
 
             services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
             services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);

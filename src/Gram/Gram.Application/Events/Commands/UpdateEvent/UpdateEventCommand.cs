@@ -13,7 +13,6 @@ namespace Gram.Application.Events.Commands.UpdateEvent
     public class UpdateEventCommand : IRequest
     {
         public int Id { get; set; }
-
         public EventEditModel EventEditModel { get; set; }
 
         public class Handler : BaseHandler, IRequestHandler<UpdateEventCommand, Unit>
@@ -35,7 +34,6 @@ namespace Gram.Application.Events.Commands.UpdateEvent
                 };
 
                 DataContext.Events.Attach(entity).State = EntityState.Modified;
-
                 var exists = await DataContext.Events.FindAsync(request.Id);
 
                 if (exists == null)
