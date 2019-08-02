@@ -11,9 +11,11 @@ namespace Gram.Web.Pages.Events
 {
     public class CreateModel : BasePageModel
     {
+        public SelectList StatusesList { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["EventStatusId"] = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title");
+            StatusesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title");
             return Page();
         }
 

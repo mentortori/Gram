@@ -1,12 +1,14 @@
 ﻿using Gram.Application.Abstraction;
 using Gram.Application.Events.Models;
 using Gram.Application.Exceptions;
+using Gram.Application.GeneralTypes.Queries;
 using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
+using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Application.Events.Queries
 {
@@ -16,8 +18,11 @@ namespace Gram.Application.Events.Queries
 
         public class Handler : BaseHandler, IRequestHandler<GetEventEditQuery, EventEditModel>
         {
-            public Handler(IDataContext dataContext) : base(dataContext)
+            private IMediator _mediator;
+
+            public Handler(IDataContext dataContext, IMediator mediator) : base(dataContext)
             {
+                _mediator = mediator;
             }
 
             public async Task<EventEditModel> Handle(GetEventEditQuery request, CancellationToken cancellationToken)
@@ -30,11 +35,12 @@ namespace Gram.Application.Events.Queries
                 return new EventEditModel
                 {
                     Id = request.Id,
+                    RowVersion = entity.RowVersion,
+                    Statuses = await _mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus)),
                     EventName = entity.EventName,
                     EventStatusId = entity.EventStatusId,
                     EventDescription = entity.EventDescription,
-                    EventDate = entity.EventDate,
-                    RowVersion = entity.RowVersion
+                    EventDate = entity.EventDate
                 };
             }
         }
