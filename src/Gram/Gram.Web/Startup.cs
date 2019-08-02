@@ -1,17 +1,21 @@
+using FluentValidation.AspNetCore;
+using Gram.Application.Events.Commands.CreateEvent;
+using Gram.Application.Interfaces;
+using Gram.Persistence;
+using Gram.Persistence.Services;
+using Gram.Web.Areas.Identity;
+using Gram.Web.Areas.Identity.Models;
+using Gram.Web.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Gram.Infrastructure;
-using Gram.Infrastructure.Interfaces;
-using Gram.Infrastructure.Services;
-using FluentValidation.AspNetCore;
-using System;
+using System.Reflection;
 
 namespace Gram.Web
 {
@@ -34,20 +38,17 @@ namespace Gram.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<AuditService>(options =>
-                 options.UseSqlServer(
-                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<DataContext>();
+            services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<WebUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
 
-            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Core.Validators.EventValidator>());
-
-            services.AddScoped<IAuditService, AuditService>();
+            services.AddScoped<IAuditContext, AuditContext>();
+            services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
+            services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,7 +80,7 @@ namespace Gram.Web
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<AuditService>().Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<AuditContext>().Database.Migrate();
                 scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
             }
         }
