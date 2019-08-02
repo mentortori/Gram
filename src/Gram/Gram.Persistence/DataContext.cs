@@ -1,7 +1,7 @@
-﻿using Gram.Domain.Entities;
+﻿using Gram.Application.Interfaces;
+using Gram.Domain.Entities;
 using Gram.Persistence.Configurations;
 using Gram.Persistence.Extensions;
-using Gram.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;

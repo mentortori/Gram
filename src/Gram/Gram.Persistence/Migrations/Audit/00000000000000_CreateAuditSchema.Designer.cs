@@ -7,21 +7,21 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Gram.Persistence.Migrations.AuditContextMigrations
+namespace Gram.Persistence.Migrations.Audit
 {
     [DbContext(typeof(AuditContext))]
-    [Migration("20190106202212_AddAudit")]
-    partial class AddAudit
+    [Migration("00000000000000_CreateAuditSchema")]
+    partial class CreateAuditSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Gram.Infrastructure.Services.AuditService+AuditDetail", b =>
+            modelBuilder.Entity("Gram.Persistence.Services.AuditContext+AuditDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Gram.Persistence.Migrations.AuditContextMigrations
                     b.ToTable("AuditDetail","Audit");
                 });
 
-            modelBuilder.Entity("Gram.Infrastructure.Services.AuditService+AuditLog", b =>
+            modelBuilder.Entity("Gram.Persistence.Services.AuditContext+AuditLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,12 +74,12 @@ namespace Gram.Persistence.Migrations.AuditContextMigrations
                     b.ToTable("AuditLog","Audit");
                 });
 
-            modelBuilder.Entity("Gram.Infrastructure.Services.AuditService+AuditDetail", b =>
+            modelBuilder.Entity("Gram.Persistence.Services.AuditContext+AuditDetail", b =>
                 {
-                    b.HasOne("Gram.Infrastructure.Services.AuditService+AuditLog", "AuditLog")
+                    b.HasOne("Gram.Persistence.Services.AuditContext+AuditLog", "AuditLog")
                         .WithMany("AuditDetails")
                         .HasForeignKey("AuditLogId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

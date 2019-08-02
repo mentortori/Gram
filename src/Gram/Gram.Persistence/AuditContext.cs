@@ -1,5 +1,6 @@
-﻿using Gram.Domain.Interfaces;
-using Gram.Application.Interfaces;
+﻿using Gram.Application.Interfaces;
+using Gram.Domain.Interfaces;
+using Gram.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -24,6 +25,7 @@ namespace Gram.Persistence.Services
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new AuditDetailConfiguration());
             modelBuilder.ApplyConfiguration(new AuditLogConfiguration());
+            modelBuilder.ChangeOnDeleteConvention();
         }
 
         internal virtual DbSet<AuditDetail> AuditDetails { get; set; }
