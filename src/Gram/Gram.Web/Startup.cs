@@ -61,7 +61,7 @@ namespace Gram.Web
             }
             else
             {
-                InitializeDatabase(app);
+                //InitializeDatabase(app);
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
@@ -76,13 +76,13 @@ namespace Gram.Web
             app.UseMvc();
         }
 
-        private void InitializeDatabase(IApplicationBuilder app)
-        {
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                scope.ServiceProvider.GetRequiredService<AuditContext>().Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
-            }
-        }
+        //private void InitializeDatabase(IApplicationBuilder app)
+        //{
+        //    using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+        //    {
+        //        scope.ServiceProvider.GetRequiredService<AuditContext>().Database.Migrate();
+        //        scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
+        //    }
+        //}
     }
 }
