@@ -82,6 +82,7 @@ namespace Gram.Web
             {
                 scope.ServiceProvider.GetRequiredService<AuditContext>().Database.Migrate();
                 scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<IdentityContext>().Database.Migrate();
             }
         }
     }
