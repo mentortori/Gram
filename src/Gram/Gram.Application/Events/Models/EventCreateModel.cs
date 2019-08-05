@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Gram.Application.GeneralTypes.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Events.Models
@@ -18,5 +20,7 @@ namespace Gram.Application.Events.Models
         [Display(Name = "Event date")]
         [DataType(DataType.Date)]
         public DateTime? EventDate { get; set; }
+
+        public List<GeneralTypeDropDownItemModel> Statuses { get; set; }
     }
 }

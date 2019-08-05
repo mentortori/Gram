@@ -1,20 +1,20 @@
 ﻿using Gram.Application.Abstraction;
-using Gram.Application.Events.Models;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
+using Gram.Application.People.Models;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.Events.Queries
+namespace Gram.Application.People.Queries
 {
-    public class GetEventEditQuery : IRequest<EventEditModel>
+    public class GetPersonEditQuery : IRequest<PersonEditModel>
     {
         public int Id { get; set; }
 
-        public class Handler : BaseHandler, IRequestHandler<GetEventEditQuery, EventEditModel>
+        public class Handler : BaseHandler, IRequestHandler<GetPersonEditQuery, PersonEditModel>
         {
             private IMediator _mediator;
 
@@ -23,21 +23,21 @@ namespace Gram.Application.Events.Queries
                 _mediator = mediator;
             }
 
-            public async Task<EventEditModel> Handle(GetEventEditQuery request, CancellationToken cancellationToken)
+            public async Task<PersonEditModel> Handle(GetPersonEditQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Events.Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.People.Include(m => m.Nationality).FirstOrDefaultAsync(m => m.Id == request.Id);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
 
-                return new EventEditModel
+                return new PersonEditModel
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    EventName = entity.EventName,
-                    EventStatusId = entity.EventStatusId,
-                    EventDescription = entity.EventDescription,
-                    EventDate = entity.EventDate
+                    FirstName = entity.FirstName,
+                    LastName = entity.LastName,
+                    DateOfBirth = entity.DateOfBirth,
+                    NationalityId = entity.NationalityId
                 };
             }
         }
