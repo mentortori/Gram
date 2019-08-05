@@ -39,11 +39,22 @@
             @Html.DisplayFor(model => model.Entity.EventDate)
         </dd>
     </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Entity.Id" />
-        <input type="hidden" asp-for="Entity.RowVersion" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
+
+    @if (Model.Entity.IsDeletable)
+    {
+        <form method="post">
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-page="./Index">Back to List</a>
+        </form>
+    }
+    else
+    {
+        <h6 class="text-danger">Entity cannot be deleted since it is referenced in other entities</h6>
+        <div>
+            <input type="submit" value="Delete" class="btn btn-danger" disabled /> |
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    }
 </div>

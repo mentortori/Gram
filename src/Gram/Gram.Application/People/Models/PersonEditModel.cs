@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.People.Models
 {
-    public class PersonDetailModel
+    public class PersonEditModel
     {
         public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
 
         [Display(Name = "First name")]
         public string FirstName { get; set; }
@@ -13,11 +14,11 @@ namespace Gram.Application.People.Models
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Date of birth")]
+        [Display(Name = "Data of birth")]
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
         [Display(Name = "Nationality")]
-        public string Nationality { get; set; }
+        public int? NationalityId { get; set; }
     }
 }

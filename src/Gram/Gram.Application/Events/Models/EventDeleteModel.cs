@@ -3,9 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Events.Models
 {
-    public class EventDetailModel
+    public class EventDeleteModel
     {
         public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
+        public bool IsDeletable { get; set; }
 
         [Display(Name = "Event name")]
         public string EventName { get; set; }

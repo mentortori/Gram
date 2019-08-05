@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
-using Gram.Application.Events.Commands.CreateEvent;
+using Gram.Application.Events.Commands;
+using Gram.Application.Events.Validators;
 using Gram.Application.Interfaces;
 using Gram.Persistence;
 using Gram.Persistence.Services;
@@ -21,10 +22,7 @@ namespace Gram.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -42,11 +40,9 @@ namespace Gram.Web
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<WebUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
-
             services.AddScoped<IAuditContext, AuditContext>();
             services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IUserService, UserService>();
-
             services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
             services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
         }
@@ -69,9 +65,7 @@ namespace Gram.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
-
             app.UseMvc();
         }
     }

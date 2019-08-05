@@ -11,6 +11,8 @@ namespace Gram.Web.Pages.Customers
 {
     public class CreateModel : BasePageModel
     {
+        [BindProperty]
+        public PersonCreateModel Entity { get; set; }
         public SelectList NationalitiesList { get; set; }
 
         public async Task<IActionResult> OnGet()
@@ -19,13 +21,13 @@ namespace Gram.Web.Pages.Customers
             return Page();
         }
 
-        [BindProperty]
-        public PersonCreateModel Entity { get; set; }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
+            {
+                NationalitiesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title");
                 return Page();
+            }
 
             await Mediator.Send(new CreatePersonCommand { Model = Entity });
             return RedirectToPage("./Index");

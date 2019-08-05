@@ -13,16 +13,9 @@ namespace Gram.Web.Pages.Customers
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             Entity = await Mediator.Send(new GetPersonDetailQuery { Id = id.Value });
-
-            if (Entity == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
     }

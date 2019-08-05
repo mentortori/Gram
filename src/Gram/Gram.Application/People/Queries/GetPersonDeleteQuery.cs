@@ -5,31 +5,37 @@ using Gram.Application.People.Models;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gram.Application.People.Queries
 {
-    public class GetPersonDetailQuery : IRequest<PersonDetailModel>
+    public class GetPersonDeleteQuery : IRequest<PersonDeleteModel>
     {
         public int Id { get; set; }
 
-        public class Handler : BaseHandler, IRequestHandler<GetPersonDetailQuery, PersonDetailModel>
+        public class Handler : BaseHandler, IRequestHandler<GetPersonDeleteQuery, PersonDeleteModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<PersonDetailModel> Handle(GetPersonDetailQuery request, CancellationToken cancellationToken)
+            public async Task<PersonDeleteModel> Handle(GetPersonDeleteQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.People.Include(m => m.Nationality).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.People
+                    .Include(m => m.Employees)
+                    .Include(m => m.Nationality)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Person), request.Id);
 
-                return new PersonDetailModel
+                return new PersonDeleteModel
                 {
                     Id = request.Id,
+                    RowVersion = entity.RowVersion,
+                    IsDeletable = !entity.Employees.Any(),
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,

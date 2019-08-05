@@ -33,8 +33,7 @@ namespace Gram.Application.Events.Queries
                     EventName = entity.EventName,
                     EventStatus = entity.EventStatus.Title,
                     EventDescription = entity.EventDescription,
-                    EventDate = entity.EventDate,
-                    RowVersion = entity.RowVersion
+                    EventDate = entity.EventDate
                 };
             }
         }

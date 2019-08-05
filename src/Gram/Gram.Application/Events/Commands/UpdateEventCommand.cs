@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.Events.Commands.UpdateEvent
+namespace Gram.Application.Events.Commands
 {
     public class UpdateEventCommand : IRequest
     {
         public int Id { get; set; }
-        public EventEditModel EventEditModel { get; set; }
+        public EventEditModel Model { get; set; }
 
         public class Handler : BaseHandler, IRequestHandler<UpdateEventCommand, Unit>
         {
@@ -29,16 +29,23 @@ namespace Gram.Application.Events.Commands.UpdateEvent
                 var entity = new Event
                 {
                     Id = request.Id,
-                    EventName = request.EventEditModel.EventName,
-                    EventStatusId = request.EventEditModel.EventStatusId,
-                    EventDescription = request.EventEditModel.EventDescription,
-                    EventDate = request.EventEditModel.EventDate,
-                    RowVersion = request.EventEditModel.RowVersion
+                    RowVersion = request.Model.RowVersion,
+                    EventName = request.Model.EventName,
+                    EventStatusId = request.Model.EventStatusId,
+                    EventDescription = request.Model.EventDescription,
+                    EventDate = request.Model.EventDate
                 };
 
-                DataContext.Events.Attach(entity).State = EntityState.Modified;
-                await DataContext.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                try
+                {
+                    DataContext.Events.Attach(entity).State = EntityState.Modified;
+                    await DataContext.SaveChangesAsync(cancellationToken);
+                    return Unit.Value;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    throw ex;
+                }
             }
         }
     }

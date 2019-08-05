@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.Events.Commands.DeleteEvent
+namespace Gram.Application.Events.Commands
 {
     public class DeleteEventCommand : IRequest
     {
@@ -31,9 +31,16 @@ namespace Gram.Application.Events.Commands.DeleteEvent
                     RowVersion = request.RowVersion
                 };
 
-                DataContext.Events.Remove(entity);
-                await DataContext.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                try
+                {
+                    DataContext.Events.Remove(entity);
+                    await DataContext.SaveChangesAsync(cancellationToken);
+                    return Unit.Value;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    throw ex;
+                }
             }
         }
     }

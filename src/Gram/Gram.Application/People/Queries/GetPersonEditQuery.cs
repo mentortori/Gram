@@ -10,30 +10,34 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.People.Queries
 {
-    public class GetPersonDetailQuery : IRequest<PersonDetailModel>
+    public class GetPersonEditQuery : IRequest<PersonEditModel>
     {
         public int Id { get; set; }
 
-        public class Handler : BaseHandler, IRequestHandler<GetPersonDetailQuery, PersonDetailModel>
+        public class Handler : BaseHandler, IRequestHandler<GetPersonEditQuery, PersonEditModel>
         {
-            public Handler(IDataContext dataContext) : base(dataContext)
+            private IMediator _mediator;
+
+            public Handler(IDataContext dataContext, IMediator mediator) : base(dataContext)
             {
+                _mediator = mediator;
             }
 
-            public async Task<PersonDetailModel> Handle(GetPersonDetailQuery request, CancellationToken cancellationToken)
+            public async Task<PersonEditModel> Handle(GetPersonEditQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.People.Include(m => m.Nationality).FirstOrDefaultAsync(m => m.Id == request.Id);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Person), request.Id);
+                    throw new EntityNotFoundException(nameof(Event), request.Id);
 
-                return new PersonDetailModel
+                return new PersonEditModel
                 {
                     Id = request.Id,
+                    RowVersion = entity.RowVersion,
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
-                    Nationality = entity.NationalityId.HasValue ? entity.Nationality.Title : ""
+                    NationalityId = entity.NationalityId
                 };
             }
         }

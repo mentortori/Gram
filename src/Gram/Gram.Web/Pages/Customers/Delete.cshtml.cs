@@ -3,7 +3,6 @@ using Gram.Application.People.Models;
 using Gram.Application.People.Queries;
 using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Customers
@@ -11,14 +10,14 @@ namespace Gram.Web.Pages.Customers
     public class DeleteModel : BasePageModel
     {
         [BindProperty]
-        public PersonDetailModel Entity { get; set; }
+        public PersonDeleteModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetPersonDetailQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetPersonDeleteQuery { Id = id.Value });
             return Page();
         }
 
@@ -27,15 +26,8 @@ namespace Gram.Web.Pages.Customers
             if (id == null)
                 return NotFound();
 
-            try
-            {
-                await Mediator.Send(new DeletePersonCommand { Id = id.Value, RowVersion = Entity.RowVersion });
-                return RedirectToPage("./Index");
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw ex;
-            }
+            await Mediator.Send(new DeletePersonCommand { Id = id.Value, RowVersion = Entity.RowVersion });
+            return RedirectToPage("./Index");
         }
     }
 }

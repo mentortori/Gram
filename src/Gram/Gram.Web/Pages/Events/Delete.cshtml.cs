@@ -1,9 +1,8 @@
-﻿using Gram.Application.Events.Commands.DeleteEvent;
+﻿using Gram.Application.Events.Commands;
 using Gram.Application.Events.Models;
 using Gram.Application.Events.Queries;
 using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Events
@@ -11,14 +10,14 @@ namespace Gram.Web.Pages.Events
     public class DeleteModel : BasePageModel
     {
         [BindProperty]
-        public EventDetailModel Entity { get; set; }
+        public EventDeleteModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetEventDetailQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetEventDeleteQuery { Id = id.Value });
             return Page();
         }
 
@@ -27,15 +26,8 @@ namespace Gram.Web.Pages.Events
             if (id == null)
                 return NotFound();
 
-            try
-            {
-                await Mediator.Send(new DeleteEventCommand { Id = id.Value, RowVersion = Entity.RowVersion });
-                return RedirectToPage("./Index");
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw ex;
-            }
+            await Mediator.Send(new DeleteEventCommand { Id = id.Value, RowVersion = Entity.RowVersion });
+            return RedirectToPage("./Index");
         }
     }
 }

@@ -13,27 +13,29 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Person.Id" />
-            <input type="hidden" asp-for="Person.RowVersion" />
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
             <div class="form-group">
-                <label asp-for="Person.FirstName" class="control-label"></label>
-                <input asp-for="Person.FirstName" class="form-control" />
-                <span asp-validation-for="Person.FirstName" class="text-danger"></span>
+                <label asp-for="Entity.FirstName" class="control-label"></label>
+                <input asp-for="Entity.FirstName" class="form-control" />
+                <span asp-validation-for="Entity.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Person.LastName" class="control-label"></label>
-                <input asp-for="Person.LastName" class="form-control" />
-                <span asp-validation-for="Person.LastName" class="text-danger"></span>
+                <label asp-for="Entity.LastName" class="control-label"></label>
+                <input asp-for="Entity.LastName" class="form-control" />
+                <span asp-validation-for="Entity.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Person.DateOfBirth" class="control-label"></label>
-                <input asp-for="Person.DateOfBirth" class="form-control" />
-                <span asp-validation-for="Person.DateOfBirth" class="text-danger"></span>
+                <label asp-for="Entity.DateOfBirth" class="control-label"></label>
+                <input asp-for="Entity.DateOfBirth" class="form-control" />
+                <span asp-validation-for="Entity.DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Person.NationalityId" class="control-label"></label>
-                <select asp-for="Person.NationalityId" class="form-control" asp-items="ViewBag.NationalityId"></select>
-                <span asp-validation-for="Person.NationalityId" class="text-danger"></span>
+                <label asp-for="Entity.NationalityId" class="control-label"></label>
+                <select asp-for="Entity.NationalityId" class="form-control" asp-items="Model.NationalitiesList" asp->
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="Entity.NationalityId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
