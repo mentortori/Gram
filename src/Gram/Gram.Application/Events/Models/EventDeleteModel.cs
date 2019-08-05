@@ -1,21 +1,19 @@
-﻿using Gram.Application.GeneralTypes.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Events.Models
 {
-    public class EventEditModel
+    public class EventDeleteModel
     {
         public int Id { get; set; }
         public byte[] RowVersion { get; set; }
-        public List<GeneralTypeDropDownItemModel> Statuses { get; set; }
+        public bool IsDeletable { get; set; }
 
         [Display(Name = "Event name")]
         public string EventName { get; set; }
 
         [Display(Name = "Status")]
-        public int EventStatusId { get; set; }
+        public string EventStatus { get; set; }
 
         [Display(Name = "Event description")]
         [DataType(DataType.MultilineText)]

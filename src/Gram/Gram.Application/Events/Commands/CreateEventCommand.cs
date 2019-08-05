@@ -6,11 +6,11 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.Events.Commands.CreateEvent
+namespace Gram.Application.Events.Commands
 {
     public class CreateEventCommand : IRequest
     {
-        public EventCreateModel EventCreateModel { get; set; }
+        public EventCreateModel Model { get; set; }
 
         public class Handler : BaseHandler, IRequestHandler<CreateEventCommand, Unit>
         {
@@ -22,10 +22,10 @@ namespace Gram.Application.Events.Commands.CreateEvent
             {
                 var entity = new Event
                 {
-                    EventName = request.EventCreateModel.EventName,
-                    EventStatusId = request.EventCreateModel.EventStatusId,
-                    EventDescription = request.EventCreateModel.EventDescription,
-                    EventDate = request.EventCreateModel.EventDate
+                    EventName = request.Model.EventName,
+                    EventStatusId = request.Model.EventStatusId,
+                    EventDescription = request.Model.EventDescription,
+                    EventDate = request.Model.EventDate
                 };
 
                 DataContext.Events.Add(entity);
