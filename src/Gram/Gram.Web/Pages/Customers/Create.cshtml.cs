@@ -1,44 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Gram.Application.GeneralTypes.Queries;
+using Gram.Application.People.Commands;
+using Gram.Application.People.Models;
+using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Gram.Domain.Entities;
-using Gram.Persistence;
+using System.Threading.Tasks;
+using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Web.Pages.Customers
 {
-    public class CreateModel : PageModel
+    public class CreateModel : BasePageModel
     {
         public SelectList NationalitiesList { get; set; }
-        private readonly Gram.Persistence.DataContext _context;
 
-        public CreateModel(Gram.Persistence.DataContext context)
+        public async Task<IActionResult> OnGet()
         {
-            _context = context;
-        }
-
-        public IActionResult OnGet()
-        {
-            NationalitiesList = new SelectList(_context.GeneralTypes.Where(p => p.Parent.Title == "Nationality"), "Id", "Title");
+            NationalitiesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title");
             return Page();
         }
 
         [BindProperty]
-        public Person Entity { get; set; }
+        public PersonCreateModel Entity { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
 
-            _context.People.Add(Entity);
-            await _context.SaveChangesAsync();
-
+            await Mediator.Send(new CreatePersonCommand { Model = Entity });
             return RedirectToPage("./Index");
         }
     }

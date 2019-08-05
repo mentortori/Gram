@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Gram.Application.People.Models;
+using Gram.Application.People.Queries;
+using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Gram.Domain.Entities;
-using Gram.Persistence;
+using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Customers
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : BasePageModel
     {
-        private readonly Gram.Persistence.DataContext _context;
-
-        public DetailsModel(Gram.Persistence.DataContext context)
-        {
-            _context = context;
-        }
-
-        public Person Person { get; set; }
+        public PersonDetailModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,10 +17,9 @@ namespace Gram.Web.Pages.Customers
                 return NotFound();
             }
 
-            Person = await _context.People
-                .Include(p => p.Nationality).FirstOrDefaultAsync(m => m.Id == id);
+            Entity = await Mediator.Send(new GetPersonDetailQuery { Id = id.Value });
 
-            if (Person == null)
+            if (Entity == null)
             {
                 return NotFound();
             }

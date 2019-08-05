@@ -18,38 +18,30 @@ namespace Gram.Web.Pages.Events
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             Entity = await Mediator.Send(new GetEventEditQuery { Id = id.Value });
             StatusesList = new SelectList(Entity.Statuses, "Id", "Title", Entity.EventStatusId);
-
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
 
             try
             {
                 await Mediator.Send(new UpdateEventCommand { Id = id.Value, EventEditModel = Entity });
+                return RedirectToPage("./Index");
             }
             catch (DbUpdateConcurrencyException ex)
             {
                 throw ex;
             }
-
-            return RedirectToPage("./Index");
         }
     }
 }

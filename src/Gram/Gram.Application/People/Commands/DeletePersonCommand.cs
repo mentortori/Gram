@@ -7,31 +7,31 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.Events.Commands.DeleteEvent
+namespace Gram.Application.People.Commands
 {
-    public class DeleteEventCommand : IRequest
+    public class DeletePersonCommand : IRequest
     {
         public int Id { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public class Handler : BaseHandler, IRequestHandler<DeleteEventCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<DeletePersonCommand, Unit>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeletePersonCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
+                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
+                    throw new EntityNotFoundException(nameof(Person), request.Id);
 
-                var entity = new Event
+                var entity = new Person
                 {
                     Id = request.Id,
                     RowVersion = request.RowVersion
                 };
 
-                DataContext.Events.Remove(entity);
+                DataContext.People.Remove(entity);
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

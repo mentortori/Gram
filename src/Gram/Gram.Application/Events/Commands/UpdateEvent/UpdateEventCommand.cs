@@ -23,6 +23,9 @@ namespace Gram.Application.Events.Commands.UpdateEvent
 
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
+                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
+                    throw new EntityNotFoundException(nameof(Event), request.Id);
+
                 var entity = new Event
                 {
                     Id = request.Id,
@@ -34,11 +37,6 @@ namespace Gram.Application.Events.Commands.UpdateEvent
                 };
 
                 DataContext.Events.Attach(entity).State = EntityState.Modified;
-                var exists = await DataContext.Events.FindAsync(request.Id);
-
-                if (exists == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
-
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Gram.Domain.Entities;
+using Gram.Application.People.Models;
 
-namespace Gram.Application.Validators
+namespace Gram.Application.People.Validators
 {
-    public class PersonValidator : AbstractValidator<Person>
+    public class CreatePersonCommandValidator : AbstractValidator<PersonCreateModel>
     {
-        public PersonValidator()
+        public CreatePersonCommandValidator()
         {
             RuleFor(m => m.FirstName)
                 .NotEmpty().WithMessage("First name is required!")

@@ -1,60 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Gram.Application.People.Commands;
+using Gram.Application.People.Models;
+using Gram.Application.People.Queries;
+using Gram.Web.Pages.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Gram.Domain.Entities;
-using Gram.Persistence;
+using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Customers
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
-        private readonly Gram.Persistence.DataContext _context;
-
-        public DeleteModel(Gram.Persistence.DataContext context)
-        {
-            _context = context;
-        }
-
         [BindProperty]
-        public Person Person { get; set; }
+        public PersonDetailModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            Person = await _context.People
-                .Include(p => p.Nationality).FirstOrDefaultAsync(m => m.Id == id);
-
-            if (Person == null)
-            {
-                return NotFound();
-            }
+            Entity = await Mediator.Send(new GetPersonDetailQuery { Id = id.Value });
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            Person = await _context.People.FindAsync(id);
-
-            if (Person != null)
+            try
             {
-                _context.People.Remove(Person);
-                await _context.SaveChangesAsync();
+                await Mediator.Send(new DeletePersonCommand { Id = id.Value, RowVersion = Entity.RowVersion });
+                return RedirectToPage("./Index");
             }
-
-            return RedirectToPage("./Index");
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

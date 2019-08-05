@@ -6,6 +6,7 @@ namespace Gram.Application.Events.Models
     public class EventDetailModel
     {
         public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
 
         [Display(Name = "Event name")]
         public string EventName { get; set; }
