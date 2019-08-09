@@ -9,7 +9,7 @@ namespace Gram.Domain.Entities
         public Person()
         {
             Employees = new HashSet<Employee>();
-            ParticipatingPeople = new HashSet<Participation>();
+            Attendees = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace Gram.Domain.Entities
 
         public GeneralType Nationality { get; set; }
         public ICollection<Employee> Employees { get; }
-        public ICollection<Participation> ParticipatingPeople { get; }
+        public ICollection<Attendance> Attendees { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace Gram.Domain.Entities
     {
         public Event()
         {
-            EventParticipations = new HashSet<Participation>();
+            Attendees = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace Gram.Domain.Entities
         public byte[] RowVersion { get; set; }
 
         public GeneralType EventStatus { get; set; }
-        public ICollection<Participation> EventParticipations { get; }
+        public ICollection<Attendance> Attendees { get; }
     }
 }

@@ -7,10 +7,10 @@ namespace Gram.Domain.Entities
     {
         public GeneralType()
         {
+            AttendanceStatuses = new HashSet<Attendance>();
             ChildTypes = new HashSet<GeneralType>();
             EventStatuses = new HashSet<Event>();
             PersonNationalities = new HashSet<Person>();
-            ParticipationStatus = new HashSet<Participation>();
         }
 
         public int Id { get; set; }
@@ -21,9 +21,9 @@ namespace Gram.Domain.Entities
         public byte[] RowVersion { get; set; }
 
         public GeneralType Parent { get; set; }
+        public ICollection<Attendance> AttendanceStatuses { get; }
         public ICollection<GeneralType> ChildTypes { get; }
         public ICollection<Event> EventStatuses { get; }
         public ICollection<Person> PersonNationalities { get; }
-        public ICollection<Participation> ParticipationStatus { get; }
     }
 }

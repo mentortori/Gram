@@ -22,7 +22,9 @@ namespace Gram.Application.Events.Queries
 
             public async Task<EventDetailModel> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Events.Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.Events
+                    .Include(m => m.EventStatus)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);

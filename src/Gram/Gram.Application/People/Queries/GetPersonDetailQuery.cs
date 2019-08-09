@@ -22,7 +22,9 @@ namespace Gram.Application.People.Queries
 
             public async Task<PersonDetailModel> Handle(GetPersonDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.People.Include(m => m.Nationality).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.People
+                    .Include(m => m.Nationality)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Person), request.Id);

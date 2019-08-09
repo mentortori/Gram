@@ -28,7 +28,7 @@ namespace Gram.Application.Events.Commands
                     EventDate = request.Model.EventDate
                 };
 
-                DataContext.Events.Add(entity);
+                await DataContext.Events.AddAsync(entity);
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

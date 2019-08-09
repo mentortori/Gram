@@ -9,10 +9,10 @@ namespace Gram.Application.Interfaces
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
+        DbSet<Attendance> Attendees { get; set; }
         DbSet<Employee> Employees { get; set; }
         DbSet<Event> Events { get; set; }
         DbSet<GeneralType> GeneralTypes { get; set; }
-        DbSet<Participation> Participations { get; set; }
         DbSet<Person> People { get; set; }
     }
 }

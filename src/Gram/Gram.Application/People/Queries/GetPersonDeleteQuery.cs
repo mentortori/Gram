@@ -26,7 +26,7 @@ namespace Gram.Application.People.Queries
                 var entity = await DataContext.People
                     .Include(m => m.Employees)
                     .Include(m => m.Nationality)
-                    .FirstOrDefaultAsync(m => m.Id == request.Id);
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Person), request.Id);

@@ -24,7 +24,7 @@ namespace Gram.Application.Events.Queries
             public async Task<EventDeleteModel> Handle(GetEventDeleteQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.Events
-                    .Include(m => m.EventParticipations)
+                    .Include(m => m.Attendees)
                     .Include(m => m.EventStatus)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
@@ -35,7 +35,7 @@ namespace Gram.Application.Events.Queries
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    IsDeletable = !entity.EventParticipations.Any(),
+                    IsDeletable = !entity.Attendees.Any(),
                     EventName = entity.EventName,
                     EventStatus = entity.EventStatus.Title,
                     EventDescription = entity.EventDescription,

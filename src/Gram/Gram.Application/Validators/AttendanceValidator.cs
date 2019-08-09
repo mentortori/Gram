@@ -3,9 +3,9 @@ using Gram.Domain.Entities;
 
 namespace Gram.Application.Validators
 {
-    public class ParticipationValidator : AbstractValidator<Participation>
+    public class AttendanceValidator : AbstractValidator<Attendance>
     {
-        public ParticipationValidator()
+        public AttendanceValidator()
         {
             RuleFor(m => m.EventId)
                 .NotEmpty().WithMessage("Participating event is required!");
@@ -14,10 +14,10 @@ namespace Gram.Application.Validators
                 .NotEmpty().WithMessage("Participating person is required!");
 
             RuleFor(m => m.StatusId)
-                .NotEmpty().WithMessage("Participation status is required!");
+                .NotEmpty().WithMessage("Attendance status is required!");
 
             RuleFor(m => m.StatusDate)
-                .NotEmpty().WithMessage("Participation status date is required!");
+                .NotEmpty().WithMessage("Attendance status date is required!");
 
             RuleFor(m => m.Remarks)
                 .MaximumLength(50).WithMessage("Remarks cannot be longer than 50 characters!");

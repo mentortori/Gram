@@ -28,7 +28,7 @@ namespace Gram.Application.People.Commands
                     NationalityId = request.Model.NationalityId
                 };
 
-                DataContext.People.Add(entity);
+                await DataContext.People.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
