@@ -3,7 +3,6 @@ using Gram.Application.Events.Commands;
 using Gram.Application.Events.Validators;
 using Gram.Application.Interfaces;
 using Gram.Persistence;
-using Gram.Persistence.Services;
 using Gram.Web.Areas.Identity;
 using Gram.Web.Areas.Identity.Models;
 using Gram.Web.Services;

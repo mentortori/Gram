@@ -4,7 +4,7 @@ namespace Gram.Application.Abstraction
 {
     public abstract class BaseHandler
     {
-        public IDataContext DataContext { get; set; }
+        protected IDataContext DataContext { get; }
 
         protected BaseHandler(IDataContext dataContext)
         {

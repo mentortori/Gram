@@ -23,7 +23,7 @@ namespace Gram.Application.Events.Commands
 
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
+                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
 
                 var entity = new Event

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Gram.Domain.Entities
 {
-    public class Event : IEntity
+    public sealed class Event : IEntity
     {
         public Event()
         {
@@ -18,7 +18,7 @@ namespace Gram.Domain.Entities
         public DateTime? EventDate { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual GeneralType EventStatus { get; set; }
-        public virtual ICollection<Participation> EventParticipations { get; set; }
+        public GeneralType EventStatus { get; set; }
+        public ICollection<Participation> EventParticipations { get; }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Gram.Domain.Entities
 {
-    public class Person : IEntity
+    public sealed class Person : IEntity
     {
         public Person()
         {
@@ -19,8 +19,8 @@ namespace Gram.Domain.Entities
         public int? NationalityId { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual GeneralType Nationality { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<Participation> ParticipatingPeople { get; set; }
+        public GeneralType Nationality { get; set; }
+        public ICollection<Employee> Employees { get; }
+        public ICollection<Participation> ParticipatingPeople { get; }
     }
 }

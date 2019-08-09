@@ -23,7 +23,7 @@ namespace Gram.Application.People.Commands
 
             public async Task<Unit> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
+                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
 
                 var entity = new Person

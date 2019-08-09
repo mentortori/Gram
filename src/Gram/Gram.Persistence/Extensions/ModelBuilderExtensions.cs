@@ -28,7 +28,7 @@ namespace Gram.Persistence.Extensions
                 var configurationType = typeof(BaseEntityConfiguration<>).MakeGenericType(entityType);
                 var configuration = Activator.CreateInstance(configurationType);
                 var applyConfigurationMethod = appyConfigurationMethodDefinition.MakeGenericMethod(entityType);
-                applyConfigurationMethod.Invoke(modelBuilder, new object[] { configuration });
+                applyConfigurationMethod.Invoke(modelBuilder, new[] { configuration });
             }
         }
 

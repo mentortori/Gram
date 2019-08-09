@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Persistence
 {
-    public class DataContext : DbContext, IDataContext
+    public sealed class DataContext : DbContext, IDataContext
     {
         private readonly IAuditContext _auditContext;
 
@@ -34,10 +34,10 @@ namespace Gram.Persistence
             return result;
         }
 
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<GeneralType> GeneralTypes { get; set; }
-        public virtual DbSet<Participation> Participations { get; set; }
-        public virtual DbSet<Person> People { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<GeneralType> GeneralTypes { get; set; }
+        public DbSet<Participation> Participations { get; set; }
+        public DbSet<Person> People { get; set; }
     }
 }

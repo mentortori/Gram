@@ -1,7 +1,6 @@
 ﻿using Gram.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Gram.Persistence.Configurations
 {

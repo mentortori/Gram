@@ -26,7 +26,7 @@ namespace Gram.Application.Events.Queries
                 var entity = await DataContext.Events
                     .Include(m => m.EventParticipations)
                     .Include(m => m.EventStatus)
-                    .FirstOrDefaultAsync(m => m.Id == request.Id);
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
