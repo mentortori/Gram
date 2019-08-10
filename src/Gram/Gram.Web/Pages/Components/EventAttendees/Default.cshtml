@@ -3,6 +3,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th class="fit"></th>
             <th>
                 @Html.DisplayNameFor(model => model[0].Attendee)
             </th>
@@ -23,12 +24,14 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td class="fit">
                         <div>
-                            <a asp-page="../Attendees/Edit" asp-route-id="@item.Id" class="far fa-edit nav-link text-dark"></a>
-                            <a asp-page="../Attendees/Delete" asp-route-id="@item.Id" class="far fa-trash-alt nav-link text-dark"></a>
-                            @Html.DisplayFor(modelItem => item.Attendee)
+                            <a asp-page="../Attendees/Edit" asp-route-id="@item.Id" class="dark-nav far fa-edit"></a>
+                            <a asp-page="../Attendees/Delete" asp-route-id="@item.Id" class="dark-nav far fa-trash-alt"></a>
                         </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Attendee)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.AttendanceStatus)

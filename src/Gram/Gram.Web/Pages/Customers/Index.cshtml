@@ -9,6 +9,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th class="fit"></th>
             <th>
                 @Html.DisplayNameFor(model => model.Entity[0].FirstName)
             </th>
@@ -27,13 +28,15 @@
         @foreach (var item in Model.Entity)
         {
             <tr>
-                <td>
+                <td class="fit">
                     <div>
-                        <a asp-page="./Edit" asp-route-id="@item.Id" class="far fa-edit nav-link text-dark"></a>
-                        <a asp-page="./Details" asp-route-id="@item.Id" class="far fa-file-alt nav-link text-dark"></a>
-                        <a asp-page="./Delete" asp-route-id="@item.Id" class="far fa-trash-alt nav-link text-dark"></a>
-                        @Html.DisplayFor(modelItem => item.FirstName)
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="dark-nav far fa-file-alt"></a>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="dark-nav far fa-edit"></a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="dark-nav far fa-trash-alt"></a>
                     </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
