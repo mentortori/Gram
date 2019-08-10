@@ -1,0 +1,52 @@
+﻿@model System.Collections.Generic.List<Gram.Application.Attendees.Models.AttendeeListViewModel>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Attendee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].AttendanceStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].StatusDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Remarks)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div>
+                            <a asp-page="../Attendees/Edit" asp-route-id="@item.Id" class="far fa-edit nav-link text-dark"></a>
+                            <a asp-page="../Attendees/Delete" asp-route-id="@item.Id" class="far fa-trash-alt nav-link text-dark"></a>
+                            @Html.DisplayFor(modelItem => item.Attendee)
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AttendanceStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Remarks)
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No attendance data present</td>
+            </tr>
+        }
+    </tbody>
+</table>

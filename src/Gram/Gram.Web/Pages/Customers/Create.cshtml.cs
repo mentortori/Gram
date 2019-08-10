@@ -29,7 +29,7 @@ namespace Gram.Web.Pages.Customers
                 return Page();
             }
 
-            await Mediator.Send(new CreatePersonCommand { Model = Entity });
+            await Mediator.Send(new CreatePersonCommand(Entity));
             return RedirectToPage("./Index");
         }
     }

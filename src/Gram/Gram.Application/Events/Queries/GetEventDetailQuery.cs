@@ -12,7 +12,12 @@ namespace Gram.Application.Events.Queries
 {
     public class GetEventDetailQuery : IRequest<EventDetailModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetEventDetailQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetEventDetailQuery, EventDetailModel>
         {

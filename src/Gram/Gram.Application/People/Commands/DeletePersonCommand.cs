@@ -11,8 +11,14 @@ namespace Gram.Application.People.Commands
 {
     public class DeletePersonCommand : IRequest
     {
-        public int Id { get; set; }
-        public byte[] RowVersion { get; set; }
+        private int Id { get; }
+        private byte[] RowVersion { get; }
+
+        public DeletePersonCommand(int id, byte[] rowVersion)
+        {
+            Id = id;
+            RowVersion = rowVersion;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<DeletePersonCommand, Unit>
         {

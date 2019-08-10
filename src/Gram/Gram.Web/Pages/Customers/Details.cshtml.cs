@@ -15,7 +15,7 @@ namespace Gram.Web.Pages.Customers
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetPersonDetailQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetPersonDetailQuery(id.Value));
             return Page();
         }
     }

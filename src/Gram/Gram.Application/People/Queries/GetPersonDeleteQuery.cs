@@ -13,8 +13,13 @@ namespace Gram.Application.People.Queries
 {
     public class GetPersonDeleteQuery : IRequest<PersonDeleteModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
 
+        public GetPersonDeleteQuery(int id)
+        {
+            Id = id;
+        }
+        
         public class Handler : BaseHandler, IRequestHandler<GetPersonDeleteQuery, PersonDeleteModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)

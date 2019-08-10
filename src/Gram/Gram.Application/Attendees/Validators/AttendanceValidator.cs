@@ -1,15 +1,12 @@
 ﻿using FluentValidation;
-using Gram.Domain.Entities;
+using Gram.Application.Attendees.Models;
 
-namespace Gram.Application.Validators
+namespace Gram.Application.Attendees.Validators
 {
-    public class AttendanceValidator : AbstractValidator<Attendance>
+    public class CreateAttendanceCommandValidator : AbstractValidator<AttendanceCreateModel>
     {
-        public AttendanceValidator()
+        public CreateAttendanceCommandValidator()
         {
-            RuleFor(m => m.EventId)
-                .NotEmpty().WithMessage("Participating event is required!");
-
             RuleFor(m => m.PersonId)
                 .NotEmpty().WithMessage("Participating person is required!");
 

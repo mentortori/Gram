@@ -29,7 +29,7 @@ namespace Gram.Web.Pages.Events
                 return Page();
             }
 
-            await Mediator.Send(new CreateEventCommand { Model = Entity });
+            await Mediator.Send(new CreateEventCommand(Entity));
             return RedirectToPage("./Index");
         }
     }

@@ -12,7 +12,12 @@ namespace Gram.Application.People.Queries
 {
     public class GetPersonDetailQuery : IRequest<PersonDetailModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetPersonDetailQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetPersonDetailQuery, PersonDetailModel>
         {

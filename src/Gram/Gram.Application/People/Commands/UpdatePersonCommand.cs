@@ -12,8 +12,14 @@ namespace Gram.Application.People.Commands
 {
     public class UpdatePersonCommand : IRequest
     {
-        public int Id { get; set; }
-        public PersonEditModel Model { get; set; }
+        private int Id { get; }
+        private PersonEditModel Model { get; }
+
+        public UpdatePersonCommand(int id, PersonEditModel model)
+        {
+            Id = id;
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<UpdatePersonCommand, Unit>
         {

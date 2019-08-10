@@ -11,8 +11,14 @@ namespace Gram.Application.Events.Commands
 {
     public class DeleteEventCommand : IRequest
     {
-        public int Id { get; set; }
-        public byte[] RowVersion { get; set; }
+        private int Id { get; }
+        private byte[] RowVersion { get; }
+
+        public DeleteEventCommand(int id, byte[] rowVersion)
+        {
+            Id = id;
+            RowVersion = rowVersion;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<DeleteEventCommand, Unit>
         {

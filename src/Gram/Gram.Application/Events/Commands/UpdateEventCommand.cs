@@ -12,8 +12,14 @@ namespace Gram.Application.Events.Commands
 {
     public class UpdateEventCommand : IRequest
     {
-        public int Id { get; set; }
-        public EventEditModel Model { get; set; }
+        private int Id { get; }
+        private EventEditModel Model { get; }
+
+        public UpdateEventCommand(int id, EventEditModel model)
+        {
+            Id = id;
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<UpdateEventCommand, Unit>
         {

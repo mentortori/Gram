@@ -13,7 +13,12 @@ namespace Gram.Application.Events.Queries
 {
     public class GetEventDeleteQuery : IRequest<EventDeleteModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetEventDeleteQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetEventDeleteQuery, EventDeleteModel>
         {

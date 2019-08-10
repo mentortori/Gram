@@ -12,7 +12,7 @@ namespace Gram.Application.GeneralTypes.Queries
 {
     public class GetDropDownListQuery : IRequest<List<GeneralTypeDropDownItemModel>>
     {
-        public int ParentId { get; set; }
+        private int ParentId { get; }
 
         public GetDropDownListQuery(int parentId)
         {

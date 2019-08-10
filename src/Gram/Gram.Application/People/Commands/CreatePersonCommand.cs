@@ -10,7 +10,12 @@ namespace Gram.Application.People.Commands
 {
     public class CreatePersonCommand : IRequest
     {
-        public PersonCreateModel Model { get; set; }
+        private PersonCreateModel Model { get; }
+
+        public CreatePersonCommand(PersonCreateModel model)
+        {
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<CreatePersonCommand, Unit>
         {

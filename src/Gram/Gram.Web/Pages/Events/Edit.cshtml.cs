@@ -21,7 +21,7 @@ namespace Gram.Web.Pages.Events
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetEventEditQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetEventEditQuery(id.Value));
             StatusesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
             return Page();
         }
@@ -37,7 +37,7 @@ namespace Gram.Web.Pages.Events
                 return Page();
             }
 
-            await Mediator.Send(new UpdateEventCommand { Id = id.Value, Model = Entity });
+            await Mediator.Send(new UpdateEventCommand(id.Value, Entity));
             return RedirectToPage("./Index");
         }
     }
