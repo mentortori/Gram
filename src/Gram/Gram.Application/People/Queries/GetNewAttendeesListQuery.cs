@@ -10,32 +10,38 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.People.Queries
 {
-    public class GetPeopleDropDownListQuery : IRequest<List<PersonDropDownItemModel>>
+    public class GetNewAttendeesListQuery : IRequest<List<PersonListItemModel>>
     {
         private int EventId { get; }
 
-        public GetPeopleDropDownListQuery(int parentId)
+        public GetNewAttendeesListQuery(int parentId)
         {
             EventId = parentId;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetPeopleDropDownListQuery, List<PersonDropDownItemModel>>
+        public class Handler : BaseHandler, IRequestHandler<GetNewAttendeesListQuery, List<PersonListItemModel>>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<List<PersonDropDownItemModel>> Handle(GetPeopleDropDownListQuery request, CancellationToken cancellationToken)
-                => await DataContext.People
+            public async Task<List<PersonListItemModel>> Handle(GetNewAttendeesListQuery request, CancellationToken cancellationToken)
+            {
+                var existing = await DataContext.Attendees.Where(m => m.EventId == request.EventId)
+                    .Select(m => m.PersonId)
+                    .ToArrayAsync(cancellationToken);
+
+                return await DataContext.People
                     .Include(m => m.Attendees)
-                    //.Where(m => m.Attendees.Any(p => p.EventId == request.EventId))
-                    .Select(m => new PersonDropDownItemModel
+                    .Where(m => !existing.Contains(m.Id))
+                    .Select(m => new PersonListItemModel
                     {
                         Id = m.Id,
                         Name = m.FirstName + " " + m.LastName
                     })
                     .OrderBy(m => m.Name)
                     .ToListAsync(cancellationToken);
+            }
         }
     }
 }

@@ -5,37 +5,30 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1><a asp-page="../Events/Details" asp-route-id="@Model.Attendance.EventId" class="fas fa-chevron-left nav-link text-dark"></a>Edit attendance</h1>
+<h1><a asp-page="../Events/Details" asp-route-id="@Model.Entity.EventId" class="fas fa-chevron-left nav-link text-dark"></a>Edit attendance for @Model.Entity.Attendee</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Attendance.Id" />
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
+            <input type="hidden" asp-for="Entity.EventId" />
+            <input type="hidden" asp-for="Entity.PersonId" />
             <div class="form-group">
-                <label asp-for="Attendance.EventId" class="control-label"></label>
-                <select asp-for="Attendance.EventId" class="form-control" asp-items="ViewBag.EventId"></select>
-                <span asp-validation-for="Attendance.EventId" class="text-danger"></span>
+                <label asp-for="Entity.StatusId" class="control-label"></label>
+                <select asp-for="Entity.StatusId" class="form-control" asp-items="Model.AttendanceStatusList"></select>
+                <span asp-validation-for="Entity.StatusId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Attendance.PersonId" class="control-label"></label>
-                <select asp-for="Attendance.PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
-                <span asp-validation-for="Attendance.PersonId" class="text-danger"></span>
+                <label asp-for="Entity.StatusDate" class="control-label"></label>
+                <input asp-for="Entity.StatusDate" class="form-control" />
+                <span asp-validation-for="Entity.StatusDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Attendance.StatusId" class="control-label"></label>
-                <select asp-for="Attendance.StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
-                <span asp-validation-for="Attendance.StatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Attendance.StatusDate" class="control-label"></label>
-                <input asp-for="Attendance.StatusDate" class="form-control" />
-                <span asp-validation-for="Attendance.StatusDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Attendance.Remarks" class="control-label"></label>
-                <input asp-for="Attendance.Remarks" class="form-control" />
-                <span asp-validation-for="Attendance.Remarks" class="text-danger"></span>
+                <label asp-for="Entity.Remarks" class="control-label"></label>
+                <input asp-for="Entity.Remarks" class="form-control" />
+                <span asp-validation-for="Entity.Remarks" class="text-danger"></span>
             </div>
             <button type="submit" value="Save" class="btn btn-primary">
                 <span class="far fa-save"></span>
