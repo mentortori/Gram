@@ -5,14 +5,11 @@
     ViewData["Title"] = "Customers";
 }
 
-<h1>Customers</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
+<h1><a asp-page="Create" class="far fa-plus-square nav-link text-dark"></a>Customers</h1>
+<table class="table table-striped">
     <thead>
         <tr>
+            <th class="fit"></th>
             <th>
                 @Html.DisplayNameFor(model => model.Entity[0].FirstName)
             </th>
@@ -25,12 +22,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Entity[0].Nationality)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Entity) {
+        @foreach (var item in Model.Entity)
+        {
             <tr>
+                <td class="fit">
+                    <div>
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="dark-nav far fa-file-alt"></a>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="dark-nav far fa-edit"></a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="dark-nav far fa-trash-alt"></a>
+                    </div>
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
@@ -42,11 +46,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nationality)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

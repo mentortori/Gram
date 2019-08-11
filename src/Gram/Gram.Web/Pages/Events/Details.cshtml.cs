@@ -15,7 +15,7 @@ namespace Gram.Web.Pages.Events
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetEventDetailQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetEventDetailQuery(id.Value));
             return Page();
         }
     }

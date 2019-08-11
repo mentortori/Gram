@@ -12,7 +12,12 @@ namespace Gram.Application.Events.Queries
 {
     public class GetEventDetailQuery : IRequest<EventDetailModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetEventDetailQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetEventDetailQuery, EventDetailModel>
         {
@@ -22,7 +27,9 @@ namespace Gram.Application.Events.Queries
 
             public async Task<EventDetailModel> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Events.Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.Events
+                    .Include(m => m.EventStatus)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);

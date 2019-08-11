@@ -3,7 +3,7 @@ using System;
 
 namespace Gram.Domain.Entities
 {
-    public class Participation : IEntity
+    public sealed class Attendance : IEntity
     {
         public int Id { get; set; }
         public int EventId { get; set; }
@@ -13,8 +13,8 @@ namespace Gram.Domain.Entities
         public string Remarks { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual Event Event { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual GeneralType Status { get; set; }
+        public Event Event { get; set; }
+        public Person Person { get; set; }
+        public GeneralType Status { get; set; }
     }
 }

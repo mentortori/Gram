@@ -12,20 +12,24 @@ namespace Gram.Application.Events.Queries
 {
     public class GetEventEditQuery : IRequest<EventEditModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetEventEditQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetEventEditQuery, EventEditModel>
         {
-            private IMediator _mediator;
-
-            public Handler(IDataContext dataContext, IMediator mediator) : base(dataContext)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _mediator = mediator;
             }
 
             public async Task<EventEditModel> Handle(GetEventEditQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Events.Include(m => m.EventStatus).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.Events
+                    .Include(m => m.EventStatus)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);

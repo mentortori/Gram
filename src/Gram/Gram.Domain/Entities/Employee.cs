@@ -3,7 +3,7 @@ using System;
 
 namespace Gram.Domain.Entities
 {
-    public class Employee : IEntity
+    public sealed class Employee : IEntity
     {
         public int Id { get; set; }
         public int PersonId { get; set; }
@@ -11,6 +11,6 @@ namespace Gram.Domain.Entities
         public DateTime? EmploymentExpiryDate { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual Person Person { get; set; }
+        public Person Person { get; set; }
     }
 }

@@ -20,13 +20,16 @@ namespace Gram.Application.Events.Queries
 
             public async Task<List<EventsListViewModel>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
             {
-                return await DataContext.Events.Select(m => new EventsListViewModel
-                {
-                    Id = m.Id,
-                    EventName = m.EventName,
-                    EventStatus = m.EventStatus.Title,
-                    EventDate = m.EventDate
-                }).ToListAsync(cancellationToken);
+                return await DataContext.Events
+                    .Include(m => m.Attendees)
+                    .Select(m => new EventsListViewModel
+                    {
+                        Id = m.Id,
+                        EventName = m.EventName,
+                        EventStatus = m.EventStatus.Title,
+                        EventDate = m.EventDate,
+                        Attendees = m.Attendees.Count()
+                    }).ToListAsync(cancellationToken);
             }
         }
     }

@@ -11,8 +11,14 @@ namespace Gram.Application.People.Commands
 {
     public class DeletePersonCommand : IRequest
     {
-        public int Id { get; set; }
-        public byte[] RowVersion { get; set; }
+        private int Id { get; }
+        private byte[] RowVersion { get; }
+
+        public DeletePersonCommand(int id, byte[] rowVersion)
+        {
+            Id = id;
+            RowVersion = rowVersion;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<DeletePersonCommand, Unit>
         {
@@ -22,7 +28,7 @@ namespace Gram.Application.People.Commands
 
             public async Task<Unit> Handle(DeletePersonCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
+                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
                     throw new EntityNotFoundException(nameof(Person), request.Id);
 
                 var entity = new Person

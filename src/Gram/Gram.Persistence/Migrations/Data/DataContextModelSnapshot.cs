@@ -19,6 +19,49 @@ namespace Gram.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Gram.Domain.Entities.Attendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId");
+
+                    b.Property<int>("PersonId");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(50);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<DateTime>("StatusDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("date")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId")
+                        .HasName("IX_Attendance_Event");
+
+                    b.HasIndex("PersonId")
+                        .HasName("IX_Attendance_Person");
+
+                    b.HasIndex("StatusId")
+                        .HasName("IX_Attendance_Status");
+
+                    b.HasIndex("EventId", "PersonId")
+                        .IsUnique()
+                        .HasName("UQ_Attendance_Event_Person");
+
+                    b.ToTable("Attendance","Events");
+                });
+
             modelBuilder.Entity("Gram.Domain.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -115,45 +158,6 @@ namespace Gram.Persistence.Migrations
                     b.ToTable("GeneralType","General");
                 });
 
-            modelBuilder.Entity("Gram.Domain.Entities.Participation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventId");
-
-                    b.Property<int>("PersonId");
-
-                    b.Property<string>("Remarks")
-                        .HasMaxLength(50);
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<DateTime>("StatusDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<int>("StatusId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId")
-                        .HasName("IX_Participation_Event");
-
-                    b.HasIndex("PersonId")
-                        .HasName("IX_Participation_Person");
-
-                    b.HasIndex("StatusId")
-                        .HasName("IX_Participation_Status");
-
-                    b.ToTable("Participation","Events");
-                });
-
             modelBuilder.Entity("Gram.Domain.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -186,6 +190,24 @@ namespace Gram.Persistence.Migrations
                     b.ToTable("Person","Subjects");
                 });
 
+            modelBuilder.Entity("Gram.Domain.Entities.Attendance", b =>
+                {
+                    b.HasOne("Gram.Domain.Entities.Event", "Event")
+                        .WithMany("Attendees")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Gram.Domain.Entities.Person", "Person")
+                        .WithMany("Attendees")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Gram.Domain.Entities.GeneralType", "Status")
+                        .WithMany("AttendanceStatuses")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Gram.Domain.Entities.Employee", b =>
                 {
                     b.HasOne("Gram.Domain.Entities.Person", "Person")
@@ -207,24 +229,6 @@ namespace Gram.Persistence.Migrations
                     b.HasOne("Gram.Domain.Entities.GeneralType", "Parent")
                         .WithMany("ChildTypes")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Gram.Domain.Entities.Participation", b =>
-                {
-                    b.HasOne("Gram.Domain.Entities.Event", "Event")
-                        .WithMany("EventParticipations")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Gram.Domain.Entities.Person", "Person")
-                        .WithMany("ParticipatingPeople")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Gram.Domain.Entities.GeneralType", "Status")
-                        .WithMany("ParticipationStatus")
-                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

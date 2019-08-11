@@ -15,14 +15,16 @@ DECLARE
     ,@EmployeeConcurrencyStamp      NVARCHAR(max)   = 'a238c8cd-f79d-4372-ae60-40e315352ccc'
     ,@NationalityId                 INT             = 1
     ,@EventStatusId                 INT             = 2
-    ,@ParticipationStatusId         INT             = 3
+    ,@AttendanceStatusId            INT             = 3
 
 DELETE dbo.AspNetUserRoles
 DELETE dbo.AspNetUsers
 DELETE dbo.AspNetRoles
+DELETE Subjects.Employee
+DELETE Events.Attendance
 DELETE Subjects.Person
-DELETE General.GeneralType
 DELETE Events.Event
+DELETE General.GeneralType
 
 -- Create person
 SET IDENTITY_INSERT Subjects.Person ON
@@ -47,7 +49,7 @@ INSERT General.GeneralType (Id, Title, IsListed, IsFixed)
 VALUES
      (@NationalityId, 'Nationality', 0, 1)
     ,(@EventStatusId, 'EventStatus', 0, 1)
-    ,(@ParticipationStatusId, 'ParticipationStatus', 0, 1)
+    ,(@AttendanceStatusId, 'ParticipationStatus', 0, 1)
 
 INSERT General.GeneralType (Id, Title, ParentId)
 VALUES
@@ -255,10 +257,10 @@ VALUES
     ,(301, 'Completed', @EventStatusId)
     ,(302, 'Canceled', @EventStatusId)
     -- ParticipationStatus
-    ,(303, 'Booked', @ParticipationStatusId)
-    ,(304, 'Canceled', @ParticipationStatusId)
-    ,(305, 'Paid', @ParticipationStatusId)
-    ,(306, 'Paid partially', @ParticipationStatusId)
+    ,(303, 'Booked', @AttendanceStatusId)
+    ,(304, 'Canceled', @AttendanceStatusId)
+    ,(305, 'Paid', @AttendanceStatusId)
+    ,(306, 'Paid partially', @AttendanceStatusId)
 
 
 SET IDENTITY_INSERT General.GeneralType OFF

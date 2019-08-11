@@ -11,8 +11,14 @@ namespace Gram.Application.Events.Commands
 {
     public class DeleteEventCommand : IRequest
     {
-        public int Id { get; set; }
-        public byte[] RowVersion { get; set; }
+        private int Id { get; }
+        private byte[] RowVersion { get; }
+
+        public DeleteEventCommand(int id, byte[] rowVersion)
+        {
+            Id = id;
+            RowVersion = rowVersion;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<DeleteEventCommand, Unit>
         {
@@ -22,7 +28,7 @@ namespace Gram.Application.Events.Commands
 
             public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
+                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
 
                 var entity = new Event

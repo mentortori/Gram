@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Gram.Domain.Entities
 {
-    public class Event : IEntity
+    public sealed class Event : IEntity
     {
         public Event()
         {
-            EventParticipations = new HashSet<Participation>();
+            Attendees = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
@@ -18,7 +18,7 @@ namespace Gram.Domain.Entities
         public DateTime? EventDate { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual GeneralType EventStatus { get; set; }
-        public virtual ICollection<Participation> EventParticipations { get; set; }
+        public GeneralType EventStatus { get; set; }
+        public ICollection<Attendance> Attendees { get; }
     }
 }

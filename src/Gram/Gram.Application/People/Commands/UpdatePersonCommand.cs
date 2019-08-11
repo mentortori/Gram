@@ -12,8 +12,12 @@ namespace Gram.Application.People.Commands
 {
     public class UpdatePersonCommand : IRequest
     {
-        public int Id { get; set; }
-        public PersonEditModel Model { get; set; }
+        private PersonEditModel Model { get; }
+
+        public UpdatePersonCommand(PersonEditModel model)
+        {
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<UpdatePersonCommand, Unit>
         {
@@ -23,12 +27,12 @@ namespace Gram.Application.People.Commands
 
             public async Task<Unit> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
+                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
+                    throw new EntityNotFoundException(nameof(Person), request.Model.Id);
 
                 var entity = new Person
                 {
-                    Id = request.Id,
+                    Id = request.Model.Id,
                     RowVersion = request.Model.RowVersion,
                     FirstName = request.Model.FirstName,
                     LastName = request.Model.LastName,

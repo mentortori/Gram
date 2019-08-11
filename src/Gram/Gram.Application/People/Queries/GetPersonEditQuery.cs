@@ -12,23 +12,27 @@ namespace Gram.Application.People.Queries
 {
     public class GetPersonEditQuery : IRequest<PersonEditModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
 
+        public GetPersonEditQuery(int id)
+        {
+            Id = id;
+        }
+        
         public class Handler : BaseHandler, IRequestHandler<GetPersonEditQuery, PersonEditModel>
         {
-            private IMediator _mediator;
-
-            public Handler(IDataContext dataContext, IMediator mediator) : base(dataContext)
+            public Handler(IDataContext dataContext) : base(dataContext)
             {
-                _mediator = mediator;
             }
 
             public async Task<PersonEditModel> Handle(GetPersonEditQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.People.Include(m => m.Nationality).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.People
+                    .Include(m => m.Nationality)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
+                    throw new EntityNotFoundException(nameof(Person), request.Id);
 
                 return new PersonEditModel
                 {

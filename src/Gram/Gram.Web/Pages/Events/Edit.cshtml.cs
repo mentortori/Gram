@@ -21,8 +21,8 @@ namespace Gram.Web.Pages.Events
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetEventEditQuery { Id = id.Value });
-            StatusesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
+            Entity = await Mediator.Send(new GetEventEditQuery(id.Value));
+            StatusesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
             return Page();
         }
 
@@ -33,11 +33,11 @@ namespace Gram.Web.Pages.Events
 
             if (!ModelState.IsValid)
             {
-                StatusesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
+                StatusesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
                 return Page();
             }
 
-            await Mediator.Send(new UpdateEventCommand { Id = id.Value, Model = Entity });
+            await Mediator.Send(new UpdateEventCommand(Entity));
             return RedirectToPage("./Index");
         }
     }

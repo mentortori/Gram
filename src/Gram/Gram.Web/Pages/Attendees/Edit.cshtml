@@ -1,0 +1,42 @@
+﻿@page
+@model Gram.Web.Pages.Attendees.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1><a asp-page="../Events/Details" asp-route-id="@Model.Entity.EventId" class="fas fa-chevron-left nav-link text-dark"></a>Edit attendance for @Model.Entity.Attendee</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
+            <input type="hidden" asp-for="Entity.EventId" />
+            <input type="hidden" asp-for="Entity.PersonId" />
+            <div class="form-group">
+                <label asp-for="Entity.StatusId" class="control-label"></label>
+                <select asp-for="Entity.StatusId" class="form-control" asp-items="Model.AttendanceStatusList"></select>
+                <span asp-validation-for="Entity.StatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.StatusDate" class="control-label"></label>
+                <input asp-for="Entity.StatusDate" class="form-control" />
+                <span asp-validation-for="Entity.StatusDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.Remarks" class="control-label"></label>
+                <input asp-for="Entity.Remarks" class="form-control" />
+                <span asp-validation-for="Entity.Remarks" class="text-danger"></span>
+            </div>
+            <button type="submit" value="Save" class="btn btn-primary">
+                <span class="far fa-save"></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

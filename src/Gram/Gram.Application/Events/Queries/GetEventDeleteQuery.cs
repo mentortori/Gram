@@ -13,7 +13,12 @@ namespace Gram.Application.Events.Queries
 {
     public class GetEventDeleteQuery : IRequest<EventDeleteModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetEventDeleteQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetEventDeleteQuery, EventDeleteModel>
         {
@@ -24,9 +29,9 @@ namespace Gram.Application.Events.Queries
             public async Task<EventDeleteModel> Handle(GetEventDeleteQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.Events
-                    .Include(m => m.EventParticipations)
+                    .Include(m => m.Attendees)
                     .Include(m => m.EventStatus)
-                    .FirstOrDefaultAsync(m => m.Id == request.Id);
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Event), request.Id);
@@ -35,7 +40,7 @@ namespace Gram.Application.Events.Queries
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    IsDeletable = !entity.EventParticipations.Any(),
+                    IsDeletable = !entity.Attendees.Any(),
                     EventName = entity.EventName,
                     EventStatus = entity.EventStatus.Title,
                     EventDescription = entity.EventDescription,

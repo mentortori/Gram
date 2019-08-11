@@ -9,15 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gram.Persistence.Services
+namespace Gram.Persistence
 {
-    public class AuditContext : DbContext, IAuditContext
+    public sealed class AuditContext : DbContext, IAuditContext
     {
         public AuditContext(DbContextOptions<AuditContext> options, IUserService userService)
             : base(options)
         {
-            _auditLogs = new List<AuditLog>();
-            _userService = userService;
+            NewAuditLogs = new List<AuditLog>();
+            UserService = userService;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,29 +28,28 @@ namespace Gram.Persistence.Services
             modelBuilder.ChangeOnDeleteConvention();
         }
 
-        internal virtual DbSet<AuditDetail> AuditDetails { get; set; }
-        internal virtual DbSet<AuditLog> AuditLogs { get; set; }
+        internal DbSet<AuditDetail> AuditDetails { get; set; }
+        private DbSet<AuditLog> AuditLogs { get; set; }
 
-        private static readonly string[] _excludedProperties = new[] { "Id", "RowVersion" };
-        private IUserService _userService { get; }
-        private List<EntityEntry<IEntity>> _addedEntries { get; set; }
-        private List<EntityEntry<IEntity>> _modifiedEntries { get; set; }
-        private List<EntityEntry<IEntity>> _deletedEntries { get; set; }
-        private List<AuditDetail> _auditDetails { get; set; }
-        private List<AuditLog> _auditLogs { get; set; }
+        private static readonly string[] ExcludedProperties = { "Id", "RowVersion" };
+        private IUserService UserService { get; }
+        private List<EntityEntry<IEntity>> AddedEntries { get; set; }
+        private List<EntityEntry<IEntity>> ModifiedEntries { get; set; }
+        private List<EntityEntry<IEntity>> DeletedEntries { get; set; }
+        private List<AuditLog> NewAuditLogs { get; }
 
         public async Task DetectChangesAsync(ChangeTracker changeTracker)
         {
-            _addedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Added).ToList();
-            _modifiedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Modified).ToList();
-            _deletedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Deleted).ToList();
+            AddedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Added).ToList();
+            ModifiedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Modified).ToList();
+            DeletedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Deleted).ToList();
             await AuditUpdatesAsync();
             await AuditDeletesAsync();
         }
 
         public async Task AuditAsync()
         {
-            foreach (var entry in _addedEntries)
+            foreach (var entry in AddedEntries)
             {
                 var newEntityValues = entry.CurrentValues;
 
@@ -59,12 +58,12 @@ namespace Gram.Persistence.Services
                     EntityState = "A",
                     Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
                     EntityId = entry.Entity.Id,
-                    RowModifyUser = _userService.GetCurrentUser(),
+                    RowModifyUser = UserService.GetCurrentUser(),
                     RowModifyDate = DateTime.UtcNow,
                     AuditDetails = new List<AuditDetail>()
                 };
 
-                foreach (var property in newEntityValues.Properties.Where(p => !_excludedProperties.Contains(p.Name)))
+                foreach (var property in newEntityValues.Properties.Where(p => !ExcludedProperties.Contains(p.Name)))
                 {
                     var newValue = newEntityValues[property];
 
@@ -82,19 +81,19 @@ namespace Gram.Persistence.Services
                 }
 
                 if (log.AuditDetails.Any())
-                    _auditLogs.Add(log);
+                    NewAuditLogs.Add(log);
             }
 
-            if (_auditLogs.Any())
+            if (NewAuditLogs.Any())
             {
-                await AuditLogs.AddRangeAsync(_auditLogs);
+                await AuditLogs.AddRangeAsync(NewAuditLogs);
                 await SaveChangesAsync();
             }
         }
 
         private async Task AuditUpdatesAsync()
         {
-            foreach (var entry in _modifiedEntries)
+            foreach (var entry in ModifiedEntries)
             {
                 var oldEntityValues = await entry.GetDatabaseValuesAsync();
                 var newEntityValues = entry.CurrentValues;
@@ -104,12 +103,12 @@ namespace Gram.Persistence.Services
                     EntityState = "M",
                     Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
                     EntityId = entry.Entity.Id,
-                    RowModifyUser = _userService.GetCurrentUser(),
+                    RowModifyUser = UserService.GetCurrentUser(),
                     RowModifyDate = DateTime.UtcNow,
                     AuditDetails = new List<AuditDetail>()
                 };
 
-                foreach (var property in newEntityValues.Properties.Where(p => !_excludedProperties.Contains(p.Name)))
+                foreach (var property in newEntityValues.Properties.Where(p => !ExcludedProperties.Contains(p.Name)))
                 {
                     var oldValue = oldEntityValues[property.Name];
                     var newValue = newEntityValues[property.Name];
@@ -131,13 +130,13 @@ namespace Gram.Persistence.Services
                 }
 
                 if (log.AuditDetails.Any())
-                    _auditLogs.Add(log);
+                    NewAuditLogs.Add(log);
             }
         }
 
         private async Task AuditDeletesAsync()
         {
-            foreach (var entry in _deletedEntries)
+            foreach (var entry in DeletedEntries)
             {
                 var oldEntityValues = await entry.GetDatabaseValuesAsync();
 
@@ -146,12 +145,12 @@ namespace Gram.Persistence.Services
                     EntityState = "D",
                     Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
                     EntityId = entry.Entity.Id,
-                    RowModifyUser = _userService.GetCurrentUser(),
+                    RowModifyUser = UserService.GetCurrentUser(),
                     RowModifyDate = DateTime.UtcNow,
                     AuditDetails = new List<AuditDetail>()
                 };
 
-                foreach (var property in oldEntityValues.Properties.Where(p => !_excludedProperties.Contains(p.Name)))
+                foreach (var property in oldEntityValues.Properties.Where(p => !ExcludedProperties.Contains(p.Name)))
                 {
                     var oldValue = oldEntityValues[property.Name];
 
@@ -161,7 +160,7 @@ namespace Gram.Persistence.Services
                     var detail = new AuditDetail
                     {
                         Property = property.Name,
-                        OldValue = oldValue?.ToString() ?? "",
+                        OldValue = oldValue.ToString(),
                         NewValue = ""
                     };
 
@@ -169,11 +168,11 @@ namespace Gram.Persistence.Services
                 }
 
                 if (log.AuditDetails.Any())
-                    _auditLogs.Add(log);
+                    NewAuditLogs.Add(log);
             }
         }
 
-        internal class AuditDetail
+        internal sealed class AuditDetail
         {
             public int Id { get; set; }
             public int AuditLogId { get; set; }
@@ -181,11 +180,16 @@ namespace Gram.Persistence.Services
             public string OldValue { get; set; }
             public string NewValue { get; set; }
 
-            public virtual AuditLog AuditLog { get; set; }
+            public AuditLog AuditLog { get; set; }
         }
 
-        internal class AuditLog
+        internal sealed class AuditLog
         {
+            public AuditLog()
+            {
+                AuditDetails = new HashSet<AuditDetail>();
+            }
+
             public int Id { get; set; }
             public string EntityState { get; set; }
             public string Entity { get; set; }
@@ -193,10 +197,10 @@ namespace Gram.Persistence.Services
             public string RowModifyUser { get; set; }
             public DateTime RowModifyDate { get; set; }
 
-            public virtual ICollection<AuditDetail> AuditDetails { get; set; }
+            public ICollection<AuditDetail> AuditDetails { get; set; }
         }
 
-        internal class AuditDetailConfiguration : IEntityTypeConfiguration<AuditDetail>
+        private class AuditDetailConfiguration : IEntityTypeConfiguration<AuditDetail>
         {
             public void Configure(EntityTypeBuilder<AuditDetail> builder)
             {
@@ -217,7 +221,7 @@ namespace Gram.Persistence.Services
             }
         }
 
-        internal class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
+        private class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
         {
             public void Configure(EntityTypeBuilder<AuditLog> builder)
             {

@@ -12,8 +12,12 @@ namespace Gram.Application.Events.Commands
 {
     public class UpdateEventCommand : IRequest
     {
-        public int Id { get; set; }
-        public EventEditModel Model { get; set; }
+        private EventEditModel Model { get; }
+
+        public UpdateEventCommand(EventEditModel model)
+        {
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<UpdateEventCommand, Unit>
         {
@@ -23,12 +27,12 @@ namespace Gram.Application.Events.Commands
 
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id)) == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
+                if ((await DataContext.Events.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
+                    throw new EntityNotFoundException(nameof(Event), request.Model.Id);
 
                 var entity = new Event
                 {
-                    Id = request.Id,
+                    Id = request.Model.Id,
                     RowVersion = request.Model.RowVersion,
                     EventName = request.Model.EventName,
                     EventStatusId = request.Model.EventStatusId,
