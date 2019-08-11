@@ -40,7 +40,7 @@ namespace Gram.Application.People.Queries
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
-                    Nationality = entity.NationalityId.HasValue ? entity.Nationality.Title : ""
+                    Nationality = entity.Nationality?.Title
                 };
             }
         }

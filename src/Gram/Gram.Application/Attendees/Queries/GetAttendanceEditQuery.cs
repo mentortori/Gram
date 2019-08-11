@@ -32,7 +32,7 @@ namespace Gram.Application.Attendees.Queries
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
+                    throw new EntityNotFoundException(nameof(Attendance), request.Id);
 
                 return new AttendanceEditModel
                 {

@@ -37,7 +37,7 @@ namespace Gram.Web.Pages.Events
                 return Page();
             }
 
-            await Mediator.Send(new UpdateEventCommand(id.Value, Entity));
+            await Mediator.Send(new UpdateEventCommand(Entity));
             return RedirectToPage("./Index");
         }
     }
