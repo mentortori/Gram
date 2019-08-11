@@ -12,8 +12,13 @@ namespace Gram.Application.People.Queries
 {
     public class GetPersonEditQuery : IRequest<PersonEditModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
 
+        public GetPersonEditQuery(int id)
+        {
+            Id = id;
+        }
+        
         public class Handler : BaseHandler, IRequestHandler<GetPersonEditQuery, PersonEditModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
@@ -27,7 +32,7 @@ namespace Gram.Application.People.Queries
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Event), request.Id);
+                    throw new EntityNotFoundException(nameof(Person), request.Id);
 
                 return new PersonEditModel
                 {

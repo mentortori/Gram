@@ -34,10 +34,10 @@ namespace Gram.Persistence
             return result;
         }
 
+        public DbSet<Attendance> Attendees { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<GeneralType> GeneralTypes { get; set; }
-        public DbSet<Participation> Participations { get; set; }
         public DbSet<Person> People { get; set; }
     }
 }

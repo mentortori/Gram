@@ -21,8 +21,8 @@ namespace Gram.Web.Pages.Customers
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetPersonEditQuery { Id = id.Value });
-            NationalitiesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
+            Entity = await Mediator.Send(new GetPersonEditQuery(id.Value));
+            NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
             return Page();
         }
 
@@ -33,11 +33,11 @@ namespace Gram.Web.Pages.Customers
 
             if (!ModelState.IsValid)
             {
-                NationalitiesList = new SelectList((await Mediator.Send(new GetDropDownListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
+                NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
                 return Page();
             }
 
-            await Mediator.Send(new UpdatePersonCommand { Id = id.Value, Model = Entity });
+            await Mediator.Send(new UpdatePersonCommand(Entity));
             return RedirectToPage("./Index");
         }
     }

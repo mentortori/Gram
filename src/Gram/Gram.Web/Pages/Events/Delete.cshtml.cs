@@ -17,7 +17,7 @@ namespace Gram.Web.Pages.Events
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetEventDeleteQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetEventDeleteQuery(id.Value));
             return Page();
         }
 
@@ -26,7 +26,7 @@ namespace Gram.Web.Pages.Events
             if (id == null)
                 return NotFound();
 
-            await Mediator.Send(new DeleteEventCommand { Id = id.Value, RowVersion = Entity.RowVersion });
+            await Mediator.Send(new DeleteEventCommand(id.Value, Entity.RowVersion));
             return RedirectToPage("./Index");
         }
     }

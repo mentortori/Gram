@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.GeneralTypes.Queries
 {
-    public class GetDropDownListQuery : IRequest<List<GeneralTypeDropDownItemModel>>
+    public class GetGeneralTypesListQuery : IRequest<List<GeneralTypeListItemModel>>
     {
-        public int ParentId { get; set; }
+        private int ParentId { get; }
 
-        public GetDropDownListQuery(int parentId)
+        public GetGeneralTypesListQuery(int parentId)
         {
             ParentId = parentId;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetDropDownListQuery, List<GeneralTypeDropDownItemModel>>
+        public class Handler : BaseHandler, IRequestHandler<GetGeneralTypesListQuery, List<GeneralTypeListItemModel>>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<List<GeneralTypeDropDownItemModel>> Handle(GetDropDownListQuery request, CancellationToken cancellationToken)
+            public async Task<List<GeneralTypeListItemModel>> Handle(GetGeneralTypesListQuery request, CancellationToken cancellationToken)
                 => await DataContext.GeneralTypes
-                    .Where(m => m.ParentId == request.ParentId).Select(m => new GeneralTypeDropDownItemModel
+                    .Where(m => m.ParentId == request.ParentId).Select(m => new GeneralTypeListItemModel
                     {
                         Id = m.Id,
                         Title = m.Title

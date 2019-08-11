@@ -17,7 +17,7 @@ namespace Gram.Web.Pages.Customers
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetPersonDeleteQuery { Id = id.Value });
+            Entity = await Mediator.Send(new GetPersonDeleteQuery(id.Value));
             return Page();
         }
 
@@ -26,7 +26,7 @@ namespace Gram.Web.Pages.Customers
             if (id == null)
                 return NotFound();
 
-            await Mediator.Send(new DeletePersonCommand { Id = id.Value, RowVersion = Entity.RowVersion });
+            await Mediator.Send(new DeletePersonCommand(id.Value, Entity.RowVersion));
             return RedirectToPage("./Index");
         }
     }

@@ -52,3 +52,13 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+a.dark-nav {
+    color: #343a40 !important;
+    padding: 0 0.1rem;
+}
+
+th.fit, td.fit {
+    white-space: nowrap;
+    width: 1%;
+}

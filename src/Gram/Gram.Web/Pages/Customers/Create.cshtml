@@ -5,9 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Customer</h4>
+<h1><a asp-page="./Index" class="fas fa-chevron-left nav-link text-dark"></a>Create customer</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,15 +32,11 @@
                     <option value=""></option>
                 </select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+            <button type="submit" value="Create" class="btn btn-primary">
+                <span class="far fa-save"></span>
+            </button>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {

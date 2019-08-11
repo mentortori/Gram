@@ -10,7 +10,12 @@ namespace Gram.Application.Events.Commands
 {
     public class CreateEventCommand : IRequest
     {
-        public EventCreateModel Model { get; set; }
+        private EventCreateModel Model { get; }
+
+        public CreateEventCommand(EventCreateModel model)
+        {
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<CreateEventCommand, Unit>
         {
@@ -28,7 +33,7 @@ namespace Gram.Application.Events.Commands
                     EventDate = request.Model.EventDate
                 };
 
-                DataContext.Events.Add(entity);
+                await DataContext.Events.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }

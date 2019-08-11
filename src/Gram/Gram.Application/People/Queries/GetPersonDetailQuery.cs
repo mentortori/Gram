@@ -12,7 +12,12 @@ namespace Gram.Application.People.Queries
 {
     public class GetPersonDetailQuery : IRequest<PersonDetailModel>
     {
-        public int Id { get; set; }
+        private int Id { get; }
+
+        public GetPersonDetailQuery(int id)
+        {
+            Id = id;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<GetPersonDetailQuery, PersonDetailModel>
         {
@@ -22,7 +27,9 @@ namespace Gram.Application.People.Queries
 
             public async Task<PersonDetailModel> Handle(GetPersonDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.People.Include(m => m.Nationality).FirstOrDefaultAsync(m => m.Id == request.Id);
+                var entity = await DataContext.People
+                    .Include(m => m.Nationality)
+                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Person), request.Id);
@@ -33,7 +40,7 @@ namespace Gram.Application.People.Queries
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
-                    Nationality = entity.NationalityId.HasValue ? entity.Nationality.Title : ""
+                    Nationality = entity.Nationality?.Title
                 };
             }
         }

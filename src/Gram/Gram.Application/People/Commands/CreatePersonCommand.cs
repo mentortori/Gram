@@ -10,7 +10,12 @@ namespace Gram.Application.People.Commands
 {
     public class CreatePersonCommand : IRequest
     {
-        public PersonCreateModel Model { get; set; }
+        private PersonCreateModel Model { get; }
+
+        public CreatePersonCommand(PersonCreateModel model)
+        {
+            Model = model;
+        }
 
         public class Handler : BaseHandler, IRequestHandler<CreatePersonCommand, Unit>
         {
@@ -28,7 +33,7 @@ namespace Gram.Application.People.Commands
                     NationalityId = request.Model.NationalityId
                 };
 
-                DataContext.People.Add(entity);
+                await DataContext.People.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
