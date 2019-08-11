@@ -6,7 +6,7 @@
         {
             Nationality = 1,
             EventStatus = 2,
-            ParticipationStatus = 3
+            AttendanceStatus = 3
         }
     }
 }
