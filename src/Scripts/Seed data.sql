@@ -49,7 +49,7 @@ INSERT General.GeneralType (Id, Title, IsListed, IsFixed)
 VALUES
      (@NationalityId, 'Nationality', 0, 1)
     ,(@EventStatusId, 'EventStatus', 0, 1)
-    ,(@AttendanceStatusId, 'ParticipationStatus', 0, 1)
+    ,(@AttendanceStatusId, 'AttendanceStatus', 0, 1)
 
 INSERT General.GeneralType (Id, Title, ParentId)
 VALUES
