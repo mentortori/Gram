@@ -43,14 +43,18 @@
         <form method="post">
             <input type="hidden" asp-for="Entity.Id" />
             <input type="hidden" asp-for="Entity.RowVersion" />
-            <input type="submit" value="Delete" class="btn btn-danger" />
+            <button type="submit" value="Delete" class="btn btn-danger">
+                <span class="far fa-trash-alt"></span>
+            </button>
         </form>
     }
     else
     {
         <h6 class="text-danger">Entity cannot be deleted since it is referenced in other entities</h6>
         <div>
-            <input type="submit" value="Delete" class="btn btn-danger" disabled />
+            <button type="submit" value="Delete" class="btn btn-danger" disabled>
+                <span class="far fa-trash-alt"></span>
+            </button>
         </div>
     }
 </div>

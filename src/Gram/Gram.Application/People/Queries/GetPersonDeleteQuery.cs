@@ -29,6 +29,7 @@ namespace Gram.Application.People.Queries
             public async Task<PersonDeleteModel> Handle(GetPersonDeleteQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.People
+                    .Include(m => m.Attendees)
                     .Include(m => m.Employees)
                     .Include(m => m.Nationality)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
@@ -40,7 +41,7 @@ namespace Gram.Application.People.Queries
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    IsDeletable = !entity.Employees.Any(),
+                    IsDeletable = !entity.Attendees.Any() && !entity.Employees.Any(),
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,

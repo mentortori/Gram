@@ -27,7 +27,7 @@ namespace Gram.Application.Attendees.Commands
 
             public async Task<Unit> Handle(UpdateAttendanceCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
+                if ((await DataContext.Attendees.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
                     throw new EntityNotFoundException(nameof(Attendance), request.Model.Id);
 
                 var entity = new Attendance()
