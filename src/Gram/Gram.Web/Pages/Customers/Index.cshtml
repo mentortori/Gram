@@ -5,7 +5,7 @@
     ViewData["Title"] = "Customers";
 }
 
-<h1><a asp-page="Create" class="far fa-plus-square nav-link text-dark"></a>Customers</h1>
+<h1><a asp-page="Create" title="Create" class="far fa-plus-square nav-link text-dark"></a>Customers</h1>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -30,9 +30,9 @@
             <tr>
                 <td class="fit">
                     <div>
-                        <a asp-page="./Details" asp-route-id="@item.Id" class="dark-nav far fa-file-alt"></a>
-                        <a asp-page="./Edit" asp-route-id="@item.Id" class="dark-nav far fa-edit"></a>
-                        <a asp-page="./Delete" asp-route-id="@item.Id" class="dark-nav far fa-trash-alt"></a>
+                        <a asp-page="./Details" asp-route-id="@item.Id" title="Details" class="ga far fa-file-alt"></a>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" title="Edit" class="ga far fa-edit"></a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" title="Delete" class="ga far fa-trash-alt"></a>
                     </div>
                 </td>
                 <td>
