@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9"><h1>Manage platform details</h1></div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link @ManageNavPages.EmployeesNavClass(ViewContext)" asp-page="./Employees">Employees</a></li>
+                <li class="nav-item"><a class="nav-link @ManageNavPages.GuidesNavClass(ViewContext)" asp-page="./Guides">Guides</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", false)
+}

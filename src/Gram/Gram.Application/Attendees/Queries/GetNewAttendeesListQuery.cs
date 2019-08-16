@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.People.Queries
+namespace Gram.Application.Attendees.Queries
 {
     public class GetNewAttendeesListQuery : IRequest<List<PersonListItemModel>>
     {
@@ -32,7 +32,6 @@ namespace Gram.Application.People.Queries
                     .ToArrayAsync(cancellationToken);
 
                 return await DataContext.People
-                    .Include(m => m.Attendees)
                     .Where(m => !existing.Contains(m.Id))
                     .Select(m => new PersonListItemModel
                     {

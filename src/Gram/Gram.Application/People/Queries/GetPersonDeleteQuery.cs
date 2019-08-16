@@ -31,6 +31,7 @@ namespace Gram.Application.People.Queries
                 var entity = await DataContext.People
                     .Include(m => m.Attendees)
                     .Include(m => m.Employees)
+                    .Include(m => m.Guides)
                     .Include(m => m.Nationality)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
@@ -41,7 +42,7 @@ namespace Gram.Application.People.Queries
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    IsDeletable = !entity.Attendees.Any() && !entity.Employees.Any(),
+                    IsDeletable = !entity.Attendees.Any() && !entity.Employees.Any() && !entity.Guides.Any(),
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,

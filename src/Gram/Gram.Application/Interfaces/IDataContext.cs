@@ -12,7 +12,9 @@ namespace Gram.Application.Interfaces
         DbSet<Attendance> Attendees { get; set; }
         DbSet<Employee> Employees { get; set; }
         DbSet<Event> Events { get; set; }
+        DbSet<EventGuide> EventGuides { get; set; }
         DbSet<GeneralType> GeneralTypes { get; set; }
+        DbSet<Guide> Guides { get; set; }
         DbSet<Person> People { get; set; }
     }
 }
