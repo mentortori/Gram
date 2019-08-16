@@ -3,7 +3,7 @@ using Gram.Application.Attendees.Models;
 using Gram.Application.Attendees.Queries;
 using Gram.Application.GeneralTypes.Queries;
 using Gram.Domain.Enums;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;

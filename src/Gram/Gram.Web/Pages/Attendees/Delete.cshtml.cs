@@ -1,9 +1,9 @@
-﻿using Gram.Application.Attendees.Models;
+﻿using Gram.Application.Attendees.Commands;
+using Gram.Application.Attendees.Models;
 using Gram.Application.Attendees.Queries;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Gram.Application.Attendees.Commands;
 
 namespace Gram.Web.Pages.Attendees
 {
