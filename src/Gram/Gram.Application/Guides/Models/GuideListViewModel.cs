@@ -22,5 +22,8 @@ namespace Gram.Application.Guides.Models
 
         [Display(Name = "Events guided")]
         public int EventsCount { get; set; }
+
+        [Display(Name = "Is guide active?")]
+        public bool IsActive { get; set; }
     }
 }

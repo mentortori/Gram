@@ -12,7 +12,7 @@
         @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-page="./Administration/Employees" title="Administration">Administration</a>
+                <a class="nav-link text-dark" asp-page="/Administration/Employees" title="Administration">Administration</a>
             </li>
         }
         <li class="nav-item">

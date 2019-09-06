@@ -31,7 +31,8 @@ namespace Gram.Application.Guides.Queries
                         LastName = m.Person.LastName,
                         DateOfBirth = m.Person.DateOfBirth,
                         Nationality = m.Person.Nationality.Title,
-                        EventsCount = m.EventGuides.Count()
+                        EventsCount = m.EventGuides.Count(),
+                        IsActive = m.IsActive
                     }).ToListAsync(cancellationToken);
             }
         }

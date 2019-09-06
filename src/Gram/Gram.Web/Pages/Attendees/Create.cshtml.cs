@@ -42,7 +42,7 @@ namespace Gram.Web.Pages.Attendees
             }
 
             await Mediator.Send(new CreateAttendanceCommand(EventId, Entity));
-            return RedirectToPage("../Events/Details", new { id = EventId });
+            return RedirectToPage("/Events/Details", new { id = EventId });
         }
     }
 }

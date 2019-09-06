@@ -27,7 +27,7 @@ namespace Gram.Web.Pages.Attendees
                 return NotFound();
 
             await Mediator.Send(new DeleteAttendanceCommand(id.Value, Entity.RowVersion));
-            return RedirectToPage("../Events/Details", new { id = Entity.EventId });
+            return RedirectToPage("/Events/Details", new { id = Entity.EventId });
         }
     }
 }
