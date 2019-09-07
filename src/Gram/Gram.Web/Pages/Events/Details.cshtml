@@ -27,6 +27,7 @@
             @Html.DisplayNameFor(model => model.Entity.Guides)
         </dt>
         <dd class="col-sm-10">
+            <a asp-page="/EventGuides/Create" asp-route-EventId="@Model.Entity.Id" title="Create" class="ga far fa-plus-square">&nbsp;Add guide</a>
             @foreach (var item in Model.Entity.Guides)
             {
                 <form asp-page="/EventGuides/Delete" method="post">
