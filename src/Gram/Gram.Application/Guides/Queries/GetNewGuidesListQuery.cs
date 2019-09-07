@@ -12,13 +12,6 @@ namespace Gram.Application.Guides.Queries
 {
     public class GetNewGuidesListQuery : IRequest<List<PersonListItemModel>>
     {
-        private int EventId { get; }
-
-        public GetNewGuidesListQuery(int parentId)
-        {
-            EventId = parentId;
-        }
-
         public class Handler : BaseHandler, IRequestHandler<GetNewGuidesListQuery, List<PersonListItemModel>>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
@@ -27,17 +20,14 @@ namespace Gram.Application.Guides.Queries
 
             public async Task<List<PersonListItemModel>> Handle(GetNewGuidesListQuery request, CancellationToken cancellationToken)
             {
-                var existing = await DataContext.EventGuides.Where(m => m.EventId == request.EventId)
-                    .Select(m => m.GuideId)
-                    .ToArrayAsync(cancellationToken);
+                var existing = await DataContext.Guides.Select(m => m.PersonId).ToArrayAsync(cancellationToken);
 
-                return await DataContext.Guides
-                    .Include(m => m.Person)
+                return await DataContext.People
                     .Where(m => !existing.Contains(m.Id))
                     .Select(m => new PersonListItemModel
                     {
                         Id = m.Id,
-                        Name = m.Person.FirstName + " " + m.Person.LastName
+                        Name = m.FirstName + " " + m.LastName
                     })
                     .OrderBy(m => m.Name)
                     .ToListAsync(cancellationToken);

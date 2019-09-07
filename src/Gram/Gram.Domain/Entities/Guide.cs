@@ -1,5 +1,4 @@
 ﻿using Gram.Domain.Interfaces;
-using System;
 using System.Collections.Generic;
 
 namespace Gram.Domain.Entities

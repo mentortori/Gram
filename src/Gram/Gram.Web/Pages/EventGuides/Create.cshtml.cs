@@ -18,7 +18,7 @@ namespace Gram.Web.Pages.EventGuides
 
         public async Task<IActionResult> OnGet()
         {
-            GuidesList = new SelectList((await Mediator.Send(new GetNewGuidesListQuery(EventId))), "Id", "Name");
+            GuidesList = new SelectList((await Mediator.Send(new GetNewEventGuidesListQuery(EventId))), "Id", "Name");
             return Page();
         }
 
@@ -26,7 +26,7 @@ namespace Gram.Web.Pages.EventGuides
         {
             if (!ModelState.IsValid)
             {
-                GuidesList = new SelectList((await Mediator.Send(new GetNewGuidesListQuery(EventId))), "Id", "Name");
+                GuidesList = new SelectList((await Mediator.Send(new GetNewEventGuidesListQuery(EventId))), "Id", "Name");
                 return Page();
             }
 
