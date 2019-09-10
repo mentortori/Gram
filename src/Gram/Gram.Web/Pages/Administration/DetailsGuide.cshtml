@@ -6,7 +6,7 @@
     ViewData["ActivePage"] = ManageNavPages.Guides;
 }
 
-    <h1><a asp-page="./Guides" title="Back" class="fas fa-chevron-left nav-link text-dark"></a>@Model.Entity.Name</h1>
+    <h1><a asp-page="./Guides" title="Back" class="fas fa-chevron-left nav-link text-dark"></a><a asp-page="./EditGuide" asp-route-id="@Model.Entity.Id" title="Edit" class="far fa-edit nav-link text-dark"></a>@Model.Entity.Name</h1>
 
 <div>
     <hr />

@@ -27,7 +27,7 @@ namespace Gram.Application.Guides.Commands
 
             public async Task<Unit> Handle(UpdateGuideCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.People.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
+                if ((await DataContext.Guides.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
                     throw new EntityNotFoundException(nameof(Guide), request.Model.Id);
 
                 var entity = new Guide

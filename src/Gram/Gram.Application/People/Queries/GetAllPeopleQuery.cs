@@ -22,13 +22,15 @@ namespace Gram.Application.People.Queries
             {
                 return await DataContext.People
                     .Include(m => m.Nationality)
+                    .Include(m => m.Attendees)
                     .Select(m => new PersonListViewModel
                     {
                         Id = m.Id,
                         FirstName = m.FirstName,
                         LastName = m.LastName,
                         DateOfBirth = m.DateOfBirth,
-                        Nationality = m.Nationality.Title
+                        Nationality = m.Nationality.Title,
+                        AttendanceCount = m.Attendees.Count()
                     }).ToListAsync(cancellationToken);
             }
         }

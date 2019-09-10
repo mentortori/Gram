@@ -19,5 +19,8 @@ namespace Gram.Application.People.Models
 
         [Display(Name = "Nationality")]
         public string Nationality { get; set; }
+
+        [Display(Name = "Events attended")]
+        public int AttendanceCount { get; set; }
     }
 }
