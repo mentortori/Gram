@@ -67,3 +67,17 @@ th.fit, td.fit {
     white-space: nowrap;
     width: 1%;
 }
+
+.link-button {
+    color: #606a74 !important;
+    padding: 0 0.1rem;
+    background: none;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.link-button:focus, .link-button:hover {
+    outline: none;
+    color: #121416 !important;
+}

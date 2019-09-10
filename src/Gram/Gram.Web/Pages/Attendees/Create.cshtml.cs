@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Gram.Application.Attendees.Commands;
 using Gram.Application.Attendees.Models;
+using Gram.Application.Attendees.Queries;
 using Gram.Application.GeneralTypes.Queries;
-using Gram.Application.People.Queries;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Threading.Tasks;
-using Gram.Application.Attendees.Commands;
 using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Web.Pages.Attendees
@@ -42,7 +42,7 @@ namespace Gram.Web.Pages.Attendees
             }
 
             await Mediator.Send(new CreateAttendanceCommand(EventId, Entity));
-            return RedirectToPage("../Events/Details", new { id = EventId });
+            return RedirectToPage("/Events/Details", new { id = EventId });
         }
     }
 }

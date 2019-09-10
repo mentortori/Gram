@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Gram.Application.EventGuides.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Events.Models
@@ -20,5 +22,8 @@ namespace Gram.Application.Events.Models
         [Display(Name = "Event date")]
         [DataType(DataType.Date)]
         public DateTime? EventDate { get; set; }
+
+        [Display(Name = "Guides")]
+        public IEnumerable<EventGuideModel> Guides { get; set; }
     }
 }

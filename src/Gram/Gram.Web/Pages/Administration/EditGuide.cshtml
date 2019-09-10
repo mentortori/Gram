@@ -1,0 +1,44 @@
+﻿@page
+@model Gram.Web.Pages.Administration.EditGuideModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["ActivePage"] = ManageNavPages.Guides;
+}
+
+<h1><a asp-page="./Guides" title="Back" class="fas fa-chevron-left nav-link text-dark"></a>Edit guide</h1>
+<hr />
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.Name)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
+            <input type="hidden" asp-for="Entity.PersonId" />
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Entity.IsActive" />
+                    @Html.DisplayNameFor(model => model.Entity.IsActive)
+                </label>
+            </div>
+            <button type="submit" title="Save" class="btn btn-primary">
+                <span class="far fa-save"></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

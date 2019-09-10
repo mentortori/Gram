@@ -1,9 +1,9 @@
-﻿using Gram.Application.Attendees.Models;
+﻿using Gram.Application.Attendees.Commands;
+using Gram.Application.Attendees.Models;
 using Gram.Application.Attendees.Queries;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Gram.Application.Attendees.Commands;
 
 namespace Gram.Web.Pages.Attendees
 {
@@ -27,7 +27,7 @@ namespace Gram.Web.Pages.Attendees
                 return NotFound();
 
             await Mediator.Send(new DeleteAttendanceCommand(id.Value, Entity.RowVersion));
-            return RedirectToPage("../Events/Details", new { id = Entity.EventId });
+            return RedirectToPage("/Events/Details", new { id = Entity.EventId });
         }
     }
 }

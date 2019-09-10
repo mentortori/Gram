@@ -38,7 +38,7 @@ namespace Gram.Web
             services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<WebUser>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
+            services.AddDefaultIdentity<WebUser>().AddRoles<IdentityRole>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
             services.AddScoped<IAuditContext, AuditContext>();
             services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IUserService, UserService>();

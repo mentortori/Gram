@@ -28,7 +28,6 @@ namespace Gram.Application.Events.Queries
             public async Task<EventEditModel> Handle(GetEventEditQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.Events
-                    .Include(m => m.EventStatus)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
