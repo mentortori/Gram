@@ -5,6 +5,7 @@ using Gram.Application.People.Models;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +30,10 @@ namespace Gram.Application.People.Queries
             {
                 var entity = await DataContext.People
                     .Include(m => m.Nationality)
+                    .Include(m => m.Attendees)
+                        .ThenInclude(m => m.Event)
+                    .Include(m => m.Attendees)
+                        .ThenInclude(m => m.Status)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
@@ -40,7 +45,15 @@ namespace Gram.Application.People.Queries
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
-                    Nationality = entity.Nationality?.Title
+                    Nationality = entity.Nationality?.Title,
+                    AttendedEvents = entity.Attendees.Select(m => new PersonDetailModel.PersonAttendanceModel
+                    {
+                        EventId = m.EventId,
+                        EventName = m.Event.EventName,
+                        AttendanceStatus = m.Status.Title,
+                        StatusDate = m.StatusDate,
+                        Remarks = m.Remarks
+                    })
                 };
             }
         }
