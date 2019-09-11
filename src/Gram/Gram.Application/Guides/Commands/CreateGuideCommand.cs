@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.Guides.Commands
 {
-    public class CreateGuideCommand : IRequest
+    public class CreateGuideCommand : IRequest<int>
     {
         private GuideCreateModel Model { get; }
 
@@ -17,13 +17,13 @@ namespace Gram.Application.Guides.Commands
             Model = model;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<CreateGuideCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<CreateGuideCommand, int>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<Unit> Handle(CreateGuideCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(CreateGuideCommand request, CancellationToken cancellationToken)
             {
                 var entity = new Guide
                 {
@@ -33,7 +33,7 @@ namespace Gram.Application.Guides.Commands
 
                 await DataContext.Guides.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                return entity.Id;
             }
         }
     }

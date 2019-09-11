@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.Events.Commands
 {
-    public class CreateEventCommand : IRequest
+    public class CreateEventCommand : IRequest<int>
     {
         private EventCreateModel Model { get; }
 
@@ -17,13 +17,13 @@ namespace Gram.Application.Events.Commands
             Model = model;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<CreateEventCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<CreateEventCommand, int>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(CreateEventCommand request, CancellationToken cancellationToken)
             {
                 var entity = new Event
                 {
@@ -35,7 +35,7 @@ namespace Gram.Application.Events.Commands
 
                 await DataContext.Events.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                return entity.Id;
             }
         }
     }

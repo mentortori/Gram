@@ -6,8 +6,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h1><a asp-page="./Index" title="Back" class="fas fa-chevron-left nav-link text-dark"></a><a asp-page="./Edit" asp-route-id="@Model.Entity.Id" title="Edit" class="far fa-edit nav-link text-dark"></a>@Model.Entity.EventName</h1>
-
+<h1>
+    <a asp-page="./Index" title="Back" class="ga fas fa-chevron-left"></a>
+    <a asp-page="./Edit" asp-route-id="@Model.Entity.Id" title="Edit" class="ga far fa-edit"></a>
+    <a asp-page="./Delete" asp-route-id="@Model.Entity.Id" title="Delete" class="ga far fa-trash-alt"></a>
+    @Html.DisplayNameFor(model => model.Entity.EventName): @Model.Entity.EventName
+</h1>
 <div>
     <hr />
     <dl class="row">
@@ -36,7 +40,7 @@
                     <input type="hidden" asp-for="@item.RowVersion" name="RowVersion" />
                     <input type="hidden" asp-for="@Model.Entity.Id" name="EventId" />
                     <button type="submit" title="Delete" class="link-button">
-                        <span class="far fa-trash-alt"></span>
+                        <span class="ga far fa-trash-alt"></span>
                     </button>
                     @item.Name
                 </form>
@@ -54,6 +58,9 @@
 </div>
 <hr />
 <fieldset>
-    <legend><a asp-page="/Attendees/Create" asp-route-EventId="@Model.Entity.Id" class="far fa-plus-square nav-link text-dark"></a>Attendance</legend>
+    <legend>
+        <a asp-page="/Attendees/Create" asp-route-EventId="@Model.Entity.Id" class="ga far fa-plus-square"></a>
+        Attendance
+    </legend>
     <vc:event-attendees id="@Model.Entity.Id"></vc:event-attendees>
 </fieldset>

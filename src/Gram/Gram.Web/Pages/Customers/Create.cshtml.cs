@@ -29,8 +29,8 @@ namespace Gram.Web.Pages.Customers
                 return Page();
             }
 
-            await Mediator.Send(new CreatePersonCommand(Entity));
-            return RedirectToPage("./Index");
+            var id = await Mediator.Send(new CreatePersonCommand(Entity));
+            return RedirectToPage("./Details", new { id = id });
         }
     }
 }

@@ -29,8 +29,8 @@ namespace Gram.Web.Pages.Events
                 return Page();
             }
 
-            await Mediator.Send(new CreateEventCommand(Entity));
-            return RedirectToPage("./Index");
+            var id = await Mediator.Send(new CreateEventCommand(Entity));
+            return RedirectToPage("./Details", new { id = id });
         }
     }
 }

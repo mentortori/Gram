@@ -33,8 +33,8 @@ namespace Gram.Web.Pages.Administration
                 return Page();
             }
 
-            await Mediator.Send(new CreateGuideCommand(Entity));
-            return RedirectToPage("./Guides");
+            var id = await Mediator.Send(new CreateGuideCommand(Entity));
+            return RedirectToPage("./DetailsGuide", new { id = id });
         }
     }
 }

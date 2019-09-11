@@ -6,7 +6,12 @@
     ViewData["ActivePage"] = ManageNavPages.Guides;
 }
 
-<h1><a asp-page="./Guides" title="Back" class="fas fa-chevron-left nav-link text-dark"></a>Delete guide</h1>
+<h1>
+    <a asp-page="./Guides" title="Back" class="ga fas fa-chevron-left"></a>
+    <a asp-page="./DetailsGuide" asp-route-id="@Model.Entity.Id" title="Details" class="ga far fa-file-alt"></a>
+    <a asp-page="./EditGuide" asp-route-id="@Model.Entity.Id" title="Edit" class="ga far fa-edit"></a>
+    Delete guide
+</h1>
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <hr />
