@@ -22,12 +22,18 @@ namespace Gram.Application.Events.Queries
             {
                 return await DataContext.Events
                     .Include(m => m.Attendees)
+                    .Include(m => m.EventGuides)
+                        .ThenInclude(m => m.Guide)
+                            .ThenInclude(m => m.Person)
                     .Select(m => new EventsListViewModel
                     {
                         Id = m.Id,
                         EventName = m.EventName,
                         EventStatus = m.EventStatus.Title,
                         EventDate = m.EventDate,
+                        Guides = string.Join(", ", m.EventGuides.Select(n => new { Name = n.Guide.Person.FirstName + " " + n.Guide.Person.LastName })
+                                    .OrderBy(p => p.Name)
+                                    .Select(q => q.Name)),
                         Attendees = m.Attendees.Count()
                     }).ToListAsync(cancellationToken);
             }

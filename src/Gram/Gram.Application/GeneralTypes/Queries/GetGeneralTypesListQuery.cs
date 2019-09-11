@@ -27,7 +27,8 @@ namespace Gram.Application.GeneralTypes.Queries
 
             public async Task<List<GeneralTypeListItemModel>> Handle(GetGeneralTypesListQuery request, CancellationToken cancellationToken)
                 => await DataContext.GeneralTypes
-                    .Where(m => m.ParentId == request.ParentId).Select(m => new GeneralTypeListItemModel
+                    .Where(m => m.ParentId == request.ParentId)
+                    .Select(m => new GeneralTypeListItemModel
                     {
                         Id = m.Id,
                         Title = m.Title

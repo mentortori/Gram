@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.People.Models
@@ -19,5 +20,26 @@ namespace Gram.Application.People.Models
 
         [Display(Name = "Nationality")]
         public string Nationality { get; set; }
+
+        [Display(Name = "Events attended")]
+        public IEnumerable<PersonAttendanceModel> AttendedEvents { get; set; }
+
+        public class PersonAttendanceModel
+        {
+            public int EventId { get; set; }
+
+            [Display(Name = "Event name")]
+            public string EventName { get; set; }
+
+            [Display(Name = "Attendance status")]
+            public string AttendanceStatus { get; set; }
+
+            [Display(Name = "Status date")]
+            [DataType(DataType.Date)]
+            public DateTime StatusDate { get; set; }
+
+            [Display(Name = "Remarks")]
+            public string Remarks { get; set; }
+        }
     }
 }

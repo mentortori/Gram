@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Gram.Web.Pages.Abstraction
+namespace Gram.Web.Abstraction
 {
     [Authorize]
     public abstract class BasePageModel : PageModel

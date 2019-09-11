@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.People.Commands
 {
-    public class CreatePersonCommand : IRequest
+    public class CreatePersonCommand : IRequest<int>
     {
         private PersonCreateModel Model { get; }
 
@@ -17,13 +17,13 @@ namespace Gram.Application.People.Commands
             Model = model;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<CreatePersonCommand, Unit>
+        public class Handler : BaseHandler, IRequestHandler<CreatePersonCommand, int>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<Unit> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
             {
                 var entity = new Person
                 {
@@ -35,7 +35,7 @@ namespace Gram.Application.People.Commands
 
                 await DataContext.People.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                return entity.Id;
             }
         }
     }

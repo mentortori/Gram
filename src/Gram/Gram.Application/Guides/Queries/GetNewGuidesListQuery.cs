@@ -8,31 +8,21 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.People.Queries
+namespace Gram.Application.Guides.Queries
 {
-    public class GetNewAttendeesListQuery : IRequest<List<PersonListItemModel>>
+    public class GetNewGuidesListQuery : IRequest<List<PersonListItemModel>>
     {
-        private int EventId { get; }
-
-        public GetNewAttendeesListQuery(int parentId)
-        {
-            EventId = parentId;
-        }
-
-        public class Handler : BaseHandler, IRequestHandler<GetNewAttendeesListQuery, List<PersonListItemModel>>
+        public class Handler : BaseHandler, IRequestHandler<GetNewGuidesListQuery, List<PersonListItemModel>>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<List<PersonListItemModel>> Handle(GetNewAttendeesListQuery request, CancellationToken cancellationToken)
+            public async Task<List<PersonListItemModel>> Handle(GetNewGuidesListQuery request, CancellationToken cancellationToken)
             {
-                var existing = await DataContext.Attendees.Where(m => m.EventId == request.EventId)
-                    .Select(m => m.PersonId)
-                    .ToArrayAsync(cancellationToken);
+                var existing = await DataContext.Guides.Select(m => m.PersonId).ToArrayAsync(cancellationToken);
 
                 return await DataContext.People
-                    .Include(m => m.Attendees)
                     .Where(m => !existing.Contains(m.Id))
                     .Select(m => new PersonListItemModel
                     {

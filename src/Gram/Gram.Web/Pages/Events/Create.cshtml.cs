@@ -1,7 +1,7 @@
 ﻿using Gram.Application.Events.Commands;
 using Gram.Application.Events.Models;
 using Gram.Application.GeneralTypes.Queries;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
@@ -29,8 +29,8 @@ namespace Gram.Web.Pages.Events
                 return Page();
             }
 
-            await Mediator.Send(new CreateEventCommand(Entity));
-            return RedirectToPage("./Index");
+            var id = await Mediator.Send(new CreateEventCommand(Entity));
+            return RedirectToPage("./Details", new { id = id });
         }
     }
 }

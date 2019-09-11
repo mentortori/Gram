@@ -1,6 +1,6 @@
 ﻿using Gram.Application.Events.Models;
 using Gram.Application.Events.Queries;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

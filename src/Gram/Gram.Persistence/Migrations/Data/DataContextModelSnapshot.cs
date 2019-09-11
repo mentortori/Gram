@@ -121,6 +121,36 @@ namespace Gram.Persistence.Migrations
                     b.ToTable("Event","Events");
                 });
 
+            modelBuilder.Entity("Gram.Domain.Entities.EventGuide", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId");
+
+                    b.Property<int>("GuideId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId")
+                        .HasName("IX_EventGuide_Event");
+
+                    b.HasIndex("GuideId")
+                        .HasName("IX_EventGuide_Guide");
+
+                    b.HasIndex("EventId", "GuideId")
+                        .IsUnique()
+                        .HasName("UQ_EventGuide_Event_Guide");
+
+                    b.ToTable("EventGuide","Events");
+                });
+
             modelBuilder.Entity("Gram.Domain.Entities.GeneralType", b =>
                 {
                     b.Property<int>("Id")
@@ -156,6 +186,30 @@ namespace Gram.Persistence.Migrations
                         .HasName("UQ_GeneralType_Title_Parent");
 
                     b.ToTable("GeneralType","General");
+                });
+
+            modelBuilder.Entity("Gram.Domain.Entities.Guide", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<int>("PersonId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId")
+                        .IsUnique()
+                        .HasName("UQ_Guide_Person");
+
+                    b.ToTable("Guide","Subjects");
                 });
 
             modelBuilder.Entity("Gram.Domain.Entities.Person", b =>
@@ -224,11 +278,32 @@ namespace Gram.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Gram.Domain.Entities.EventGuide", b =>
+                {
+                    b.HasOne("Gram.Domain.Entities.Event", "Event")
+                        .WithMany("EventGuides")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Gram.Domain.Entities.Guide", "Guide")
+                        .WithMany("EventGuides")
+                        .HasForeignKey("GuideId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Gram.Domain.Entities.GeneralType", b =>
                 {
                     b.HasOne("Gram.Domain.Entities.GeneralType", "Parent")
                         .WithMany("ChildTypes")
                         .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Gram.Domain.Entities.Guide", b =>
+                {
+                    b.HasOne("Gram.Domain.Entities.Person", "Person")
+                        .WithMany("Guides")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

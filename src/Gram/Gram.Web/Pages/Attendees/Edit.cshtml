@@ -5,7 +5,11 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1><a asp-page="../Events/Details" asp-route-id="@Model.Entity.EventId" title="Back" class="fas fa-chevron-left nav-link text-dark"></a>Edit attendance for @Model.Entity.Attendee</h1>
+<h1>
+    <a asp-page="/Events/Details" asp-route-id="@Model.Entity.EventId" title="Back" class="ga fas fa-chevron-left"></a>
+    <a asp-page="./Delete" asp-route-id="@Model.Entity.Id" title="Delete" class="ga far fa-trash-alt"></a>
+    Edit attendance for @Model.Entity.Attendee
+</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">

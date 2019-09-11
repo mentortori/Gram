@@ -3,7 +3,7 @@ using Gram.Application.Attendees.Models;
 using Gram.Application.Attendees.Queries;
 using Gram.Application.GeneralTypes.Queries;
 using Gram.Domain.Enums;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace Gram.Web.Pages.Attendees
             }
 
             await Mediator.Send(new UpdateAttendanceCommand(Entity));
-            return RedirectToPage("../Events/Details", new { id = Entity.EventId });
+            return RedirectToPage("/Events/Details", new { id = Entity.EventId });
         }
     }
 }

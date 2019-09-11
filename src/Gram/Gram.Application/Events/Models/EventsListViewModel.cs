@@ -17,6 +17,9 @@ namespace Gram.Application.Events.Models
         [DataType(DataType.Date)]
         public DateTime? EventDate { get; set; }
 
+        [Display(Name = "Guide/s")]
+        public string Guides { get; set; }
+
         [Display(Name = "Attendees")]
         public int Attendees { get; set; }
     }

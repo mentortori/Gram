@@ -1,7 +1,7 @@
 ﻿using Gram.Application.GeneralTypes.Queries;
 using Gram.Application.People.Commands;
 using Gram.Application.People.Models;
-using Gram.Web.Pages.Abstraction;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
@@ -29,8 +29,8 @@ namespace Gram.Web.Pages.Customers
                 return Page();
             }
 
-            await Mediator.Send(new CreatePersonCommand(Entity));
-            return RedirectToPage("./Index");
+            var id = await Mediator.Send(new CreatePersonCommand(Entity));
+            return RedirectToPage("./Details", new { id = id });
         }
     }
 }

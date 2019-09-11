@@ -8,8 +8,9 @@ namespace Gram.Domain.Entities
     {
         public Person()
         {
-            Employees = new HashSet<Employee>();
             Attendees = new HashSet<Attendance>();
+            Employees = new HashSet<Employee>();
+            Guides = new HashSet<Guide>();
         }
 
         public int Id { get; set; }
@@ -20,7 +21,8 @@ namespace Gram.Domain.Entities
         public byte[] RowVersion { get; set; }
 
         public GeneralType Nationality { get; set; }
-        public ICollection<Employee> Employees { get; }
         public ICollection<Attendance> Attendees { get; }
+        public ICollection<Employee> Employees { get; }
+        public ICollection<Guide> Guides { get; }
     }
 }
