@@ -1,0 +1,41 @@
+﻿@page
+@model Gram.Web.Pages.Administration.CreateEmployeeModel
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["ActivePage"] = ManageNavPages.Employees;
+}
+
+<h1>
+    <a asp-page="./Employees" title="Back" class="ga fas fa-chevron-left"></a>
+    Create employee
+</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Entity.PersonId" class="control-label"></label>
+                <select asp-for="Entity.PersonId" class="form-control" asp-items="Model.PeopleList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.DateOfEmployment" class="control-label"></label>
+                <input asp-for="Entity.DateOfEmployment" class="form-control" />
+                <span asp-validation-for="Entity.DateOfEmployment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.EmploymentExpiryDate" class="control-label"></label>
+                <input asp-for="Entity.EmploymentExpiryDate" class="form-control" />
+                <span asp-validation-for="Entity.EmploymentExpiryDate" class="text-danger"></span>
+            </div>
+            <button type="submit" title="Create" class="btn btn-primary">
+                <span class="far fa-save"></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
