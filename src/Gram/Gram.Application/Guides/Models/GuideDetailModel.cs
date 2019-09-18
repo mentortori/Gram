@@ -7,8 +7,6 @@ namespace Gram.Application.Guides.Models
     public class GuideDetailModel
     {
         public int Id { get; set; }
-        public byte[] RowVersion { get; set; }
-        public bool IsDeletable { get; set; }
 
         [Display(Name = "Name")]
         public string Name { get; set; }

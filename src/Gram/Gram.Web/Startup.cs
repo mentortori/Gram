@@ -41,6 +41,7 @@ namespace Gram.Web
             services.AddDefaultIdentity<WebUser>().AddRoles<IdentityRole>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
             services.AddScoped<IAuditContext, AuditContext>();
             services.AddScoped<IDataContext, DataContext>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IUserService, UserService>();
             services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
             services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);

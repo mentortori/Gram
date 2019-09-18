@@ -1,0 +1,43 @@
+﻿@page
+@model Gram.Web.Pages.Administration.DetailsEmployee
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["ActivePage"] = ManageNavPages.Employees;
+}
+
+<h1>
+    <a asp-page="./Employees" title="Back" class="ga fas fa-chevron-left"></a>
+    <a asp-page="./EditEmployee" asp-route-id="@Model.Entity.Id" title="Edit" class="ga far fa-edit"></a>
+    <a asp-page="./DeleteEmployee" asp-route-id="@Model.Entity.Id" title="Delete" class="ga far fa-trash-alt"></a>
+    @Model.Entity.Name
+</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Entity.DateOfBirth)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Entity.DateOfBirth)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Entity.Nationality)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Entity.Nationality)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Entity.DateOfEmployment)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Entity.DateOfEmployment)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Entity.EmploymentExpiryDate)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Entity.EmploymentExpiryDate)
+        </dd>
+    </dl>
+</div>

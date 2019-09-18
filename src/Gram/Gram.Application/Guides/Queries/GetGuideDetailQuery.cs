@@ -41,8 +41,6 @@ namespace Gram.Application.Guides.Queries
                 return new GuideDetailModel
                 {
                     Id = request.Id,
-                    RowVersion = entity.RowVersion,
-                    IsDeletable = !entity.EventGuides.Any(),
                     Name = entity.Person.FirstName + " " + entity.Person.LastName,
                     DateOfBirth = entity.Person.DateOfBirth,
                     Nationality = entity.Person.Nationality?.Title,
