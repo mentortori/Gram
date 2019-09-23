@@ -1,0 +1,76 @@
+﻿@page
+@model Gram.Web.Pages.Administration.Guides.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    ViewData["ActivePage"] = ManageNavPages.Guides;
+}
+
+<h1>
+    <a asp-page="./Index" title="Back" class="ga fas fa-chevron-left"></a>
+    <a asp-page="./Details" asp-route-id="@Model.Entity.Id" title="Details" class="ga far fa-file-alt"></a>
+    <a asp-page="./Edit" asp-route-id="@Model.Entity.Id" title="Edit" class="ga far fa-edit"></a>
+    Delete guide
+</h1>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.DateOfBirth)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.DateOfBirth)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.Nationality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.Nationality)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.EventsCount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.EventsCount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.IsActive)
+        </dd>
+    </dl>
+
+    @if (Model.Entity.IsDeletable)
+    {
+        <form method="post">
+            <input type="hidden" asp-for="Entity.Id" />
+            <input type="hidden" asp-for="Entity.RowVersion" />
+            <button type="submit" title="Delete" class="btn btn-danger">
+                <span class="far fa-trash-alt"></span>
+            </button>
+        </form>
+    }
+    else
+    {
+        <h6 class="text-danger">Entity cannot be deleted since it is referenced in other entities</h6>
+        <div>
+            <button type="submit" title="Delete" class="btn btn-danger" disabled>
+                <span class="far fa-trash-alt"></span>
+            </button>
+        </div>
+    }
+</div>

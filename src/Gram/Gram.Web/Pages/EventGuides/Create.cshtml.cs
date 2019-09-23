@@ -1,6 +1,6 @@
 ﻿using Gram.Application.EventGuides.Commands;
 using Gram.Application.EventGuides.Models;
-using Gram.Application.Guides.Queries;
+using Gram.Application.EventGuides.Queries;
 using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

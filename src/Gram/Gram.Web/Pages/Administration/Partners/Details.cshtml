@@ -1,0 +1,46 @@
+﻿@page
+@model Gram.Web.Pages.Administration.Partners.Details
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["ActivePage"] = ManageNavPages.Partners;
+}
+
+<h1>
+    <a asp-page="./Index" title="Back" class="ga fas fa-chevron-left"></a>
+    <a asp-page="./Edit" asp-route-id="@Model.Entity.Id" title="Edit" class="ga far fa-edit"></a>
+    <a asp-page="./Delete" asp-route-id="@Model.Entity.Id" title="Delete" class="ga far fa-trash-alt"></a>
+    @Model.Entity.Name
+</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.DateOfBirth)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.DateOfBirth)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.Nationality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.Nationality)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.Events)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.Entity.Events)
+            {
+                <div><a asp-page="/Events/Details" asp-route-id="@item.Id" title="Details" class="ga far fa-file-alt">&nbsp;@item.Name</a></div>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entity.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entity.IsActive)
+        </dd>
+    </dl>
+</div>
