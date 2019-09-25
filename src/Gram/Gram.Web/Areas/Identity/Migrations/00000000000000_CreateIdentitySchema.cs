@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gram.Web.Migrations
+namespace Gram.Web.Areas.Identity.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

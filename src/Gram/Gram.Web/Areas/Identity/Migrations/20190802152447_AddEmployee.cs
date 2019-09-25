@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gram.Web.Migrations
+namespace Gram.Web.Areas.Identity.Migrations
 {
     public partial class AddEmployee : Migration
     {
