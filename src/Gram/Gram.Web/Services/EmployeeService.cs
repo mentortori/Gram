@@ -6,16 +6,13 @@ namespace Gram.Web.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        public IdentityContext IdentityContext { get; private set; }
+        private readonly IdentityContext _identityContext;
 
         public EmployeeService(IdentityContext identityContext)
         {
-            IdentityContext = identityContext;
+            _identityContext = identityContext;
         }
 
-        public bool EmployeeHasUser(int id)
-        {
-            return IdentityContext.Users.Any(m => m.EmployeeId == id);
-        }
+        public bool EmployeeHasUser(int id) => _identityContext.Users.Any(m => m.EmployeeId == id);
     }
 }
