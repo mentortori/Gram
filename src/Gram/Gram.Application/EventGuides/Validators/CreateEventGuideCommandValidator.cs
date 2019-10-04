@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Gram.Application.EventGuides.Models;
 
-namespace Gram.Application.Attendees.Validators
+namespace Gram.Application.EventGuides.Validators
 {
     public class CreateEventGuideCommandValidator : AbstractValidator<EventGuideCreateModel>
     {

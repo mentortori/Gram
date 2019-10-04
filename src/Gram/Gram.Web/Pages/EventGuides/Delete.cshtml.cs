@@ -1,5 +1,5 @@
 ﻿using Gram.Application.EventGuides.Commands;
-using Gram.Application.EventGuides.Models;
+using Gram.Application.SharedModels;
 using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace Gram.Web.Pages.EventGuides
     public class DeleteModel : BasePageModel
     {
         [BindProperty]
-        public EventGuideModel Entity { get; set; }
+        public ListItemWithRowVersionModel Entity { get; set; }
 
         public async Task<IActionResult> OnPostAsync(int id, byte[] rowVersion, int eventId)
         {

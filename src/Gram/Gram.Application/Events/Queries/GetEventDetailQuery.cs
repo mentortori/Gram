@@ -1,12 +1,10 @@
 ﻿using Gram.Application.Abstraction;
-using Gram.Application.EventGuides.Models;
 using Gram.Application.Events.Models;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,13 +43,7 @@ namespace Gram.Application.Events.Queries
                     EventName = entity.EventName,
                     EventStatus = entity.EventStatus.Title,
                     EventDescription = entity.EventDescription,
-                    EventDate = entity.EventDate,
-                    Guides = entity.EventGuides.Select(m => new EventGuideModel
-                                {
-                                    Id = m.Id,
-                                    RowVersion = m.RowVersion,
-                                    Name = m.Guide.Person.FirstName + " " + m.Guide.Person.LastName
-                                }).OrderBy(m => m.Name)
+                    EventDate = entity.EventDate
                 };
             }
         }

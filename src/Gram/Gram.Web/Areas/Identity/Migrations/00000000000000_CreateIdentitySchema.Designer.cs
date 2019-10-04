@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Gram.Web.Migrations
+namespace Gram.Web.Areas.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
     [Migration("00000000000000_CreateIdentitySchema")]

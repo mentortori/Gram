@@ -10,6 +10,7 @@ namespace Gram.Domain.Entities
         {
             Attendees = new HashSet<Attendance>();
             EventGuides = new HashSet<EventGuide>();
+            EventPartners = new HashSet<EventPartner>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace Gram.Domain.Entities
         public GeneralType EventStatus { get; set; }
         public ICollection<Attendance> Attendees { get; }
         public ICollection<EventGuide> EventGuides { get; }
+        public ICollection<EventPartner> EventPartners { get; }
     }
 }
