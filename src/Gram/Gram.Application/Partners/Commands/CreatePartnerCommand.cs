@@ -25,13 +25,13 @@ namespace Gram.Application.Partners.Commands
 
             public async Task<int> Handle(CreatePartnerCommand request, CancellationToken cancellationToken)
             {
-                var entity = new Guide
+                var entity = new Partner
                 {
-                    PersonId = request.Model.PersonId,
+                    Name = request.Model.Name,
                     IsActive = request.Model.IsActive
                 };
 
-                await DataContext.Guides.AddAsync(entity, cancellationToken);
+                await DataContext.Partners.AddAsync(entity, cancellationToken);
                 await DataContext.SaveChangesAsync(cancellationToken);
                 return entity.Id;
             }

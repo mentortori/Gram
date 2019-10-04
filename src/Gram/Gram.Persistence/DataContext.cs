@@ -38,8 +38,10 @@ namespace Gram.Persistence
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<EventGuide> EventGuides { get; set; }
+        public DbSet<EventPartner> EventPartners { get; set; }
         public DbSet<GeneralType> GeneralTypes { get; set; }
         public DbSet<Guide> Guides { get; set; }
+        public DbSet<Partner> Partners { get; set; }
         public DbSet<Person> People { get; set; }
     }
 }

@@ -11,17 +11,10 @@ namespace Gram.Application.Partners.Models
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Date of birth")]
-        [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
-
-        [Display(Name = "Nationality")]
-        public string Nationality { get; set; }
-
-        [Display(Name = "Events guided")]
+        [Display(Name = "Events partnered")]
         public IEnumerable<PartnerEventModel> Events { get; set; }
 
-        [Display(Name = "Is guide active?")]
+        [Display(Name = "Is partner active?")]
         public bool IsActive { get; set; }
 
         public class PartnerEventModel

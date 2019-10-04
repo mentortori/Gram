@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Partners.Models
@@ -9,23 +9,13 @@ namespace Gram.Application.Partners.Models
         public byte[] RowVersion { get; set; }
         public bool IsDeletable { get; set; }
 
-        [Display(Name = "First name")]
-        public string FirstName { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
-        [Display(Name = "Last name")]
-        public string LastName { get; set; }
-
-        [Display(Name = "Date of birth")]
-        [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
-
-        [Display(Name = "Nationality")]
-        public string Nationality { get; set; }
-
-        [Display(Name = "Events guided")]
+        [Display(Name = "Events partnered")]
         public int EventsCount { get; set; }
 
-        [Display(Name = "Is guide active?")]
+        [Display(Name = "Is partner active?")]
         public bool IsActive { get; set; }
     }
 }

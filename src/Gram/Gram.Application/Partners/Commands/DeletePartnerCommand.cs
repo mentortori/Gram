@@ -28,10 +28,10 @@ namespace Gram.Application.Partners.Commands
 
             public async Task<Unit> Handle(DeletePartnerCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Guides.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
-                    throw new EntityNotFoundException(nameof(Guide), request.Id);
+                if ((await DataContext.Partners.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
+                    throw new EntityNotFoundException(nameof(Partner), request.Id);
 
-                var entity = new Guide
+                var entity = new Partner
                 {
                     Id = request.Id,
                     RowVersion = request.RowVersion
@@ -39,7 +39,7 @@ namespace Gram.Application.Partners.Commands
 
                 try
                 {
-                    DataContext.Guides.Remove(entity);
+                    DataContext.Partners.Remove(entity);
                     await DataContext.SaveChangesAsync(cancellationToken);
                     return Unit.Value;
                 }

@@ -27,19 +27,17 @@ namespace Gram.Application.Partners.Queries
 
             public async Task<PartnerEditModel> Handle(GetPartnerEditQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Guides
-                    .Include(m => m.Person)
+                var entity = await DataContext.Partners
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Guide), request.Id);
+                    throw new EntityNotFoundException(nameof(Partner), request.Id);
 
                 return new PartnerEditModel
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    PersonId = entity.PersonId,
-                    Name = entity.Person.FirstName + " " + entity.Person.LastName,
+                    Name = entity.Name,
                     IsActive = entity.IsActive
                 };
             }

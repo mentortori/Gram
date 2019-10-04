@@ -11,7 +11,7 @@ namespace Gram.Persistence.Configurations
             builder.ToTable("Guide", "Subjects");
             builder.HasIndex(m => m.PersonId)
                 .HasName("IX_Guide_Person");
-            builder.HasIndex(m => m.PersonId )
+            builder.HasIndex(m => m.PersonId)
                 .HasName("UQ_Guide_Person")
                 .IsUnique();
             builder.HasOne(m => m.Person)

@@ -28,26 +28,21 @@ namespace Gram.Application.Partners.Queries
 
             public async Task<PartnerDeleteModel> Handle(GetPartnerDeleteQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Guides
-                    .Include(m => m.Person)
-                        .ThenInclude(m => m.Nationality)
-                    .Include(m => m.EventGuides)
+                var entity = await DataContext.Partners
+                    .Include(m => m.EventPartners)
                         .ThenInclude(m => m.Event)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Guide), request.Id);
+                    throw new EntityNotFoundException(nameof(Partner), request.Id);
 
                 return new PartnerDeleteModel
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,
-                    IsDeletable = !entity.EventGuides.Any(),
-                    FirstName = entity.Person.FirstName,
-                    LastName = entity.Person.LastName,
-                    DateOfBirth = entity.Person.DateOfBirth,
-                    Nationality = entity.Person.Nationality?.Title,
-                    EventsCount = entity.EventGuides.Count(),
+                    IsDeletable = !entity.EventPartners.Any(),
+                    Name = entity.Name,
+                    EventsCount = entity.EventPartners.Count(),
                     IsActive = entity.IsActive
                 };
             }

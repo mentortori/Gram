@@ -20,18 +20,13 @@ namespace Gram.Application.Partners.Queries
 
             public async Task<List<PartnerListViewModel>> Handle(GetPartnersQuery request, CancellationToken cancellationToken)
             {
-                return await DataContext.Guides
-                    .Include(m => m.EventGuides)
-                    .Include(m => m.Person)
-                        .ThenInclude(m => m.Nationality)
+                return await DataContext.Partners
+                    .Include(m => m.EventPartners)
                     .Select(m => new PartnerListViewModel
                     {
                         Id = m.Id,
-                        FirstName = m.Person.FirstName,
-                        LastName = m.Person.LastName,
-                        DateOfBirth = m.Person.DateOfBirth,
-                        Nationality = m.Person.Nationality.Title,
-                        EventsCount = m.EventGuides.Count(),
+                        Name = m.Name,
+                        EventsCount = m.EventPartners.Count(),
                         IsActive = m.IsActive
                     }).ToListAsync(cancellationToken);
             }

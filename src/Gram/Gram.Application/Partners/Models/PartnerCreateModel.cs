@@ -4,10 +4,10 @@ namespace Gram.Application.Partners.Models
 {
     public class PartnerCreateModel
     {
-        [Display(Name = "Person")]
-        public int PersonId { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
-        [Display(Name = "Is guide active?")]
+        [Display(Name = "Is partner active?")]
         public bool IsActive { get; set; }
     }
 }

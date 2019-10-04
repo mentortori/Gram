@@ -28,23 +28,19 @@ namespace Gram.Application.Partners.Queries
 
             public async Task<PartnerDetailModel> Handle(GetPartnerDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await DataContext.Guides
-                    .Include(m => m.Person)
-                        .ThenInclude(m => m.Nationality)
-                    .Include(m => m.EventGuides)
+                var entity = await DataContext.Partners
+                    .Include(m => m.EventPartners)
                         .ThenInclude(m => m.Event)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
-                    throw new EntityNotFoundException(nameof(Guide), request.Id);
+                    throw new EntityNotFoundException(nameof(Partner), request.Id);
 
                 return new PartnerDetailModel
                 {
                     Id = request.Id,
-                    Name = entity.Person.FirstName + " " + entity.Person.LastName,
-                    DateOfBirth = entity.Person.DateOfBirth,
-                    Nationality = entity.Person.Nationality?.Title,
-                    Events = entity.EventGuides.Select(m => new PartnerDetailModel.PartnerEventModel
+                    Name = entity.Name,
+                    Events = entity.EventPartners.Select(m => new PartnerDetailModel.PartnerEventModel
                     {
                         Id = m.EventId,
                         Name = m.Event.EventName

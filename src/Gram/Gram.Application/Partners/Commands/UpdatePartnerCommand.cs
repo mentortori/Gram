@@ -27,20 +27,20 @@ namespace Gram.Application.Partners.Commands
 
             public async Task<Unit> Handle(UpdatePartnerCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Guides.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
-                    throw new EntityNotFoundException(nameof(Guide), request.Model.Id);
+                if ((await DataContext.Partners.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Model.Id, cancellationToken)) == null)
+                    throw new EntityNotFoundException(nameof(Partner), request.Model.Id);
 
-                var entity = new Guide
+                var entity = new Partner
                 {
                     Id = request.Model.Id,
                     RowVersion = request.Model.RowVersion,
-                    PersonId = request.Model.PersonId,
+                    Name = request.Model.Name,
                     IsActive = request.Model.IsActive
                 };
 
                 try
                 {
-                    DataContext.Guides.Attach(entity).State = EntityState.Modified;
+                    DataContext.Partners.Attach(entity).State = EntityState.Modified;
                     await DataContext.SaveChangesAsync(cancellationToken);
                     return Unit.Value;
                 }

@@ -7,11 +7,11 @@ namespace Gram.Application.Partners.Validators
     {
         public CreatePartnerCommandValidator()
         {
-            RuleFor(m => m.PersonId)
-                .NotEmpty().WithMessage("Person is required!");
+            RuleFor(m => m.Name)
+                .NotEmpty().WithMessage("Name is required!");
 
             RuleFor(m => m.IsActive)
-                .NotEmpty().WithMessage("Is guide active is required!");
+                .NotEmpty().WithMessage("Is partner active is required!");
         }
     }
 }
