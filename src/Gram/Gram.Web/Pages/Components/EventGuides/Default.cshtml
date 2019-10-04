@@ -1,0 +1,21 @@
+﻿@model Gram.Application.EventGuides.Models.EventGuidesViewModel
+
+<dt class="col-sm-2">
+    @Html.DisplayNameFor(model => model.Guides)
+</dt>
+<dd class="col-sm-10">
+    <a asp-page="/EventGuides/Create" asp-route-EventId="@Model.EventId" title="Create" class="ga far fa-plus-square">&nbsp;Add guide</a>
+    @foreach (var item in Model.Guides)
+    {
+        <form asp-page="/EventGuides/Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="@item.Id" name="Id" />
+            <input type="hidden" asp-for="@Model.EventId" name="EventId" />
+            <input type="hidden" asp-for="@item.RowVersion" name="RowVersion" />
+            <button type="submit" title="Delete" class="link-button">
+                <span class="ga far fa-trash-alt"></span>
+            </button>
+            @item.Name
+        </form>
+    }
+</dd>

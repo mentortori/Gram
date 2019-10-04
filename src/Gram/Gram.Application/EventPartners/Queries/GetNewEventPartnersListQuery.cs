@@ -8,35 +8,36 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gram.Application.Attendees.Queries
+namespace Gram.Application.EventGuides.Queries
 {
-    public class GetNewAttendeesListQuery : IRequest<List<ListItemModel>>
+    public class GetNewEventPartnersListQuery : IRequest<List<ListItemModel>>
     {
         private int EventId { get; }
 
-        public GetNewAttendeesListQuery(int parentId)
+        public GetNewEventPartnersListQuery(int eventId)
         {
-            EventId = parentId;
+            EventId = eventId;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetNewAttendeesListQuery, List<ListItemModel>>
+        public class Handler : BaseHandler, IRequestHandler<GetNewEventPartnersListQuery, List<ListItemModel>>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<List<ListItemModel>> Handle(GetNewAttendeesListQuery request, CancellationToken cancellationToken)
+            public async Task<List<ListItemModel>> Handle(GetNewEventPartnersListQuery request, CancellationToken cancellationToken)
             {
-                var existing = await DataContext.Attendees.Where(m => m.EventId == request.EventId)
-                    .Select(m => m.PersonId)
+                var existing = await DataContext.EventPartners.Where(m => m.EventId == request.EventId)
+                    .Select(m => m.PartnerId)
                     .ToArrayAsync(cancellationToken);
 
-                return await DataContext.People
+                return await DataContext.Partners
+                    .Where(m => m.IsActive)
                     .Where(m => !existing.Contains(m.Id))
                     .Select(m => new ListItemModel
                     {
                         Id = m.Id,
-                        Name = m.FirstName + " " + m.LastName
+                        Name = m.Name
                     })
                     .OrderBy(m => m.Name)
                     .ToListAsync(cancellationToken);

@@ -1,6 +1,6 @@
-﻿namespace Gram.Application.People.Models
+﻿namespace Gram.Application.SharedModels
 {
-    public class PersonListItemModel
+    public class ListItemModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

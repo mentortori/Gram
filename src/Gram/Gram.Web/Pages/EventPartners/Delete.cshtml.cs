@@ -1,10 +1,10 @@
-﻿using Gram.Application.EventGuides.Commands;
+﻿using Gram.Application.EventPartners.Commands;
 using Gram.Application.SharedModels;
 using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Gram.Web.Pages.EventGuides
+namespace Gram.Web.Pages.EventPartners
 {
     [ValidateAntiForgeryToken]
     public class DeleteModel : BasePageModel
@@ -17,7 +17,7 @@ namespace Gram.Web.Pages.EventGuides
             if (id == 0)
                 return NotFound();
 
-            await Mediator.Send(new DeleteEventGuideCommand(id, rowVersion));
+            await Mediator.Send(new DeleteEventPartnerCommand(id, rowVersion));
             return RedirectToPage("../Events/Details/", new { id = eventId });
         }
     }
