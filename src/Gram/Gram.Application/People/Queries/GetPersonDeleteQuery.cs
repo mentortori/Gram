@@ -1,4 +1,5 @@
 ﻿using Gram.Application.Abstraction;
+using Gram.Application.ContactDetails.Queries;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Application.People.Models;
@@ -14,12 +15,14 @@ namespace Gram.Application.People.Queries
     public class GetPersonDeleteQuery : IRequest<PersonDeleteModel>
     {
         private int Id { get; }
+        private IMediator _mediator;
 
-        public GetPersonDeleteQuery(int id)
+        public GetPersonDeleteQuery(int id, IMediator mediator)
         {
             Id = id;
+            _mediator = mediator;
         }
-        
+
         public class Handler : BaseHandler, IRequestHandler<GetPersonDeleteQuery, PersonDeleteModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
@@ -46,7 +49,8 @@ namespace Gram.Application.People.Queries
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
-                    Nationality = entity.Nationality?.Title
+                    Nationality = entity.Nationality?.Title,
+                    ContactDetails = await request._mediator.Send(new GetPersonContactInfo(request.Id)),
                 };
             }
         }

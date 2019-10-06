@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gram.Application.ContactDetails.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,6 +7,11 @@ namespace Gram.Application.People.Models
 {
     public class PersonDetailModel
     {
+        public PersonDetailModel()
+        {
+            AttendedEvents = new HashSet<PersonAttendanceModel>();
+        }
+
         public int Id { get; set; }
 
         [Display(Name = "First name")]
@@ -20,6 +26,8 @@ namespace Gram.Application.People.Models
 
         [Display(Name = "Nationality")]
         public string Nationality { get; set; }
+
+        public ContactDetailsViewModel ContactDetails { get; set; }
 
         [Display(Name = "Events attended")]
         public IEnumerable<PersonAttendanceModel> AttendedEvents { get; set; }

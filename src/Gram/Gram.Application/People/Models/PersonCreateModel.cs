@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gram.Application.ContactDetails.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.People.Models
@@ -17,5 +18,7 @@ namespace Gram.Application.People.Models
 
         [Display(Name = "Nationality")]
         public int? NationalityId { get; set; }
+
+        public ContactDetailsCreateModel ContactDetails { get; set; }
     }
 }

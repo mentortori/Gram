@@ -16,6 +16,7 @@ DECLARE
     ,@NationalityId                 INT             = 1
     ,@EventStatusId                 INT             = 2
     ,@AttendanceStatusId            INT             = 3
+    ,@ContactTypeId                 INT             = 4
 
 DELETE dbo.AspNetUserRoles
 DELETE dbo.AspNetUsers
@@ -50,6 +51,7 @@ VALUES
      (@NationalityId, 'Nationality', 0, 1)
     ,(@EventStatusId, 'EventStatus', 0, 1)
     ,(@AttendanceStatusId, 'AttendanceStatus', 0, 1)
+    ,(@ContactTypeId, 'ContactType', 0, 1)
 
 INSERT General.GeneralType (Id, Title, ParentId)
 VALUES
@@ -261,6 +263,13 @@ VALUES
     ,(304, 'Canceled', @AttendanceStatusId)
     ,(305, 'Paid', @AttendanceStatusId)
     ,(306, 'Paid partially', @AttendanceStatusId)
+    -- ContactType
+    ,(307, 'Mobile', @ContactTypeId)
+    ,(308, 'Email', @ContactTypeId)
+    ,(309, 'Facebook', @ContactTypeId)
+    ,(310, 'Instagram', @ContactTypeId)
+    ,(311, 'Twitter', @ContactTypeId)
+    ,(312, 'Web', @ContactTypeId)
 
 
 SET IDENTITY_INSERT General.GeneralType OFF

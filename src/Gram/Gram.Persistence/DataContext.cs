@@ -43,5 +43,6 @@ namespace Gram.Persistence
         public DbSet<Guide> Guides { get; set; }
         public DbSet<Partner> Partners { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<PersonContactInfo> PersonContactInfos { get; set; }
     }
 }

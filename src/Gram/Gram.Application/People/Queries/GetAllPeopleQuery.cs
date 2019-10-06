@@ -21,8 +21,9 @@ namespace Gram.Application.People.Queries
             public async Task<List<PersonListViewModel>> Handle(GetAllPeopleQuery request, CancellationToken cancellationToken)
             {
                 return await DataContext.People
-                    .Include(m => m.Nationality)
                     .Include(m => m.Attendees)
+                    .Include(m => m.Nationality)
+                    .Include(m => m.PersonContactInfos)
                     .Select(m => new PersonListViewModel
                     {
                         Id = m.Id,
@@ -30,6 +31,8 @@ namespace Gram.Application.People.Queries
                         LastName = m.LastName,
                         DateOfBirth = m.DateOfBirth,
                         Nationality = m.Nationality.Title,
+                        Mobile = m.PersonContactInfos.SingleOrDefault(n => n.ContactType.Title == "Mobile").Content,
+                        Email = m.PersonContactInfos.SingleOrDefault(n => n.ContactType.Title == "Email").Content,
                         AttendanceCount = m.Attendees.Count()
                     }).ToListAsync(cancellationToken);
             }
