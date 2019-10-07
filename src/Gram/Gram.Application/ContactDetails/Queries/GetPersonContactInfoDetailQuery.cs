@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.ContactDetails.Queries
 {
-    public class GetPersonContactInfo : IRequest<ContactDetailsViewModel>
+    public class GetPersonContactInfoDetailQuery : IRequest<ContactDetailsViewModel>
     {
         private int PersonId { get; }
 
-        public GetPersonContactInfo(int id)
+        public GetPersonContactInfoDetailQuery(int id)
         {
             PersonId = id;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetPersonContactInfo, ContactDetailsViewModel>
+        public class Handler : BaseHandler, IRequestHandler<GetPersonContactInfoDetailQuery, ContactDetailsViewModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<ContactDetailsViewModel> Handle(GetPersonContactInfo request, CancellationToken cancellationToken)
+            public async Task<ContactDetailsViewModel> Handle(GetPersonContactInfoDetailQuery request, CancellationToken cancellationToken)
             {
                 var entity = DataContext.PersonContactInfos
                     .Where(m => m.PersonId == request.PersonId);

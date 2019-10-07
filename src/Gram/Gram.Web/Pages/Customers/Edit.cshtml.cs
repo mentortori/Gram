@@ -21,7 +21,7 @@ namespace Gram.Web.Pages.Customers
             if (id == null)
                 return NotFound();
 
-            Entity = await Mediator.Send(new GetPersonEditQuery(id.Value));
+            Entity = await Mediator.Send(new GetPersonEditQuery(id.Value, Mediator));
             NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
             return Page();
         }
@@ -37,7 +37,7 @@ namespace Gram.Web.Pages.Customers
                 return Page();
             }
 
-            await Mediator.Send(new UpdatePersonCommand(Entity));
+            await Mediator.Send(new UpdatePersonCommand(Entity, Mediator));
             return RedirectToPage("./Index");
         }
     }

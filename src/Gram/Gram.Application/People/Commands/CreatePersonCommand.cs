@@ -4,7 +4,6 @@ using Gram.Application.Interfaces;
 using Gram.Application.People.Models;
 using Gram.Domain.Entities;
 using MediatR;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +38,7 @@ namespace Gram.Application.People.Commands
                     NationalityId = request.Model.NationalityId
                 };
 
-                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.ContactType));
+                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.ContactType), cancellationToken);
 
                 if (!string.IsNullOrWhiteSpace(request.Model.ContactDetails.Mobile))
                     entity.PersonContactInfos.Add(new PersonContactInfo

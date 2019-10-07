@@ -50,7 +50,7 @@ namespace Gram.Application.People.Queries
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
                     Nationality = entity.Nationality?.Title,
-                    ContactDetails = await request._mediator.Send(new GetPersonContactInfo(request.Id)),
+                    ContactDetails = await request._mediator.Send(new GetPersonContactInfoDetailQuery(request.Id), cancellationToken),
                 };
             }
         }
