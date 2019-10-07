@@ -3,9 +3,9 @@ using Gram.Application.Partners.Models;
 
 namespace Gram.Application.Partners.Validators
 {
-    public class UpdatePartnerCommandValidator : AbstractValidator<PartnerEditModel>
+    public class PartnerCreateModelValidator : AbstractValidator<PartnerCreateModel>
     {
-        public UpdatePartnerCommandValidator()
+        public PartnerCreateModelValidator()
         {
             RuleFor(m => m.Name)
                 .NotEmpty().WithMessage("Name is required!");

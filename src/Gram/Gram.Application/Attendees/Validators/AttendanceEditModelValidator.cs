@@ -3,9 +3,9 @@ using Gram.Application.Attendees.Models;
 
 namespace Gram.Application.Attendees.Validators
 {
-    public class UpdateAttendanceCommandValidator : AbstractValidator<AttendanceEditModel>
+    public class AttendanceEditModelValidator : AbstractValidator<AttendanceEditModel>
     {
-        public UpdateAttendanceCommandValidator()
+        public AttendanceEditModelValidator()
         {
             RuleFor(m => m.StatusId)
                 .NotEmpty().WithMessage("Attendance status is required!");
