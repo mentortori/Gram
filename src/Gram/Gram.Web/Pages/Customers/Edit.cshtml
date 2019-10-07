@@ -40,6 +40,48 @@
                 </select>
                 <span asp-validation-for="Entity.NationalityId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Entity.ContactDetails.MobileId" />
+                <input type="hidden" asp-for="Entity.ContactDetails.MobileRowVersion" />
+                <label asp-for="Entity.ContactDetails.Mobile" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Mobile" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Entity.ContactDetails.EmailId" />
+                <input type="hidden" asp-for="Entity.ContactDetails.EmailRowVersion" />
+                <label asp-for="Entity.ContactDetails.Email" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Email" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Entity.ContactDetails.FacebookId" />
+                <input type="hidden" asp-for="Entity.ContactDetails.FacebookRowVersion" />
+                <label asp-for="Entity.ContactDetails.Facebook" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Facebook" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Facebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Entity.ContactDetails.InstagramId" />
+                <input type="hidden" asp-for="Entity.ContactDetails.InstagramRowVersion" />
+                <label asp-for="Entity.ContactDetails.Instagram" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Instagram" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Instagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Entity.ContactDetails.TwitterId" />
+                <input type="hidden" asp-for="Entity.ContactDetails.TwitterRowVersion" />
+                <label asp-for="Entity.ContactDetails.Twitter" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Twitter" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Twitter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Entity.ContactDetails.WebId" />
+                <input type="hidden" asp-for="Entity.ContactDetails.WebRowVersion" />
+                <label asp-for="Entity.ContactDetails.Web" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Web" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Web" class="text-danger"></span>
+            </div>
             <button type="submit" title="Save" class="btn btn-primary">
                 <span class="far fa-save"></span>
             </button>

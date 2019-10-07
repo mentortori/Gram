@@ -20,6 +20,14 @@ namespace Gram.Application.People.Models
         [Display(Name = "Nationality")]
         public string Nationality { get; set; }
 
+        [Display(Name = "Mobile")]
+        [DataType(DataType.PhoneNumber)]
+        public string Mobile { get; set; }
+
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
         [Display(Name = "Events attended")]
         public int AttendanceCount { get; set; }
     }

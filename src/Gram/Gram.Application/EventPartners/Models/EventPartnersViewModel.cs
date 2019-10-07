@@ -6,6 +6,11 @@ namespace Gram.Application.EventPartners.Models
 {
     public class EventPartnersViewModel
     {
+        public EventPartnersViewModel()
+        {
+            Partners = new HashSet<ListItemWithRowVersionModel>();
+        }
+
         public int EventId { get; set; }
 
         [Display(Name = "Partners")]

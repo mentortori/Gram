@@ -1,4 +1,5 @@
 ﻿using Gram.Application.Abstraction;
+using Gram.Application.ContactDetails.Queries;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Application.People.Models;
@@ -13,12 +14,14 @@ namespace Gram.Application.People.Queries
     public class GetPersonEditQuery : IRequest<PersonEditModel>
     {
         private int Id { get; }
+        private IMediator _mediator;
 
-        public GetPersonEditQuery(int id)
+        public GetPersonEditQuery(int id, IMediator mediator)
         {
             Id = id;
+            _mediator = mediator;
         }
-        
+
         public class Handler : BaseHandler, IRequestHandler<GetPersonEditQuery, PersonEditModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
@@ -29,6 +32,7 @@ namespace Gram.Application.People.Queries
             {
                 var entity = await DataContext.People
                     .Include(m => m.Nationality)
+                    .Include(m => m.PersonContactInfos)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
@@ -41,7 +45,8 @@ namespace Gram.Application.People.Queries
                     FirstName = entity.FirstName,
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
-                    NationalityId = entity.NationalityId
+                    NationalityId = entity.NationalityId,
+                    ContactDetails = await request._mediator.Send(new GetPersonContactInfoEditQuery(request.Id, request._mediator), cancellationToken)
                 };
             }
         }

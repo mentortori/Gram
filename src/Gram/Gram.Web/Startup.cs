@@ -1,6 +1,6 @@
 using FluentValidation.AspNetCore;
+using Gram.Application.Attendees.Validators;
 using Gram.Application.Events.Commands;
-using Gram.Application.Events.Validators;
 using Gram.Application.Interfaces;
 using Gram.Persistence;
 using Gram.Web.Areas.Identity;
@@ -43,7 +43,7 @@ namespace Gram.Web
             services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateEventCommandValidator>());
+            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<AttendanceCreateModelValidator>());
             services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
         }
 

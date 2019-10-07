@@ -1,4 +1,5 @@
 ﻿using Gram.Application.Abstraction;
+using Gram.Application.ContactDetails.Queries;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Application.People.Models;
@@ -14,10 +15,12 @@ namespace Gram.Application.People.Queries
     public class GetPersonDetailQuery : IRequest<PersonDetailModel>
     {
         private int Id { get; }
+        private IMediator _mediator;
 
-        public GetPersonDetailQuery(int id)
+        public GetPersonDetailQuery(int id, IMediator mediator)
         {
             Id = id;
+            _mediator = mediator;
         }
 
         public class Handler : BaseHandler, IRequestHandler<GetPersonDetailQuery, PersonDetailModel>
@@ -29,11 +32,12 @@ namespace Gram.Application.People.Queries
             public async Task<PersonDetailModel> Handle(GetPersonDetailQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.People
-                    .Include(m => m.Nationality)
                     .Include(m => m.Attendees)
                         .ThenInclude(m => m.Event)
                     .Include(m => m.Attendees)
                         .ThenInclude(m => m.Status)
+                    .Include(m => m.Nationality)
+                    .Include(m => m.PersonContactInfos)
                     .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
                 if (entity == null)
@@ -46,6 +50,7 @@ namespace Gram.Application.People.Queries
                     LastName = entity.LastName,
                     DateOfBirth = entity.DateOfBirth,
                     Nationality = entity.Nationality?.Title,
+                    ContactDetails = await request._mediator.Send(new GetPersonContactInfoDetailQuery(request.Id), cancellationToken),
                     AttendedEvents = entity.Attendees.Select(m => new PersonDetailModel.PersonAttendanceModel
                     {
                         EventId = m.EventId,
