@@ -3,9 +3,9 @@ using Gram.Application.Events.Models;
 
 namespace Gram.Application.Events.Validators
 {
-    public class CreateEventCommandValidator : AbstractValidator<EventCreateModel>
+    public class EventCreateModelValidator : AbstractValidator<EventCreateModel>
     {
-        public CreateEventCommandValidator()
+        public EventCreateModelValidator()
         {
             RuleFor(m => m.EventName)
                 .NotEmpty().WithMessage("Event name is required!")

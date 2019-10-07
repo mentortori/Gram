@@ -3,9 +3,9 @@ using Gram.Application.Employees.Models;
 
 namespace Gram.Application.Employees.Validators
 {
-    public class UpdateEmployeeCommandValidator : AbstractValidator<EmployeeEditModel>
+    public class EmployeeCreateModelValidator : AbstractValidator<EmployeeCreateModel>
     {
-        public UpdateEmployeeCommandValidator()
+        public EmployeeCreateModelValidator()
         {
             RuleFor(m => m.PersonId)
                 .NotEmpty().WithMessage("Person is required!");

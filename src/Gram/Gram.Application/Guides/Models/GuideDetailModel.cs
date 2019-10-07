@@ -6,6 +6,11 @@ namespace Gram.Application.Guides.Models
 {
     public class GuideDetailModel
     {
+        public GuideDetailModel()
+        {
+            Events = new HashSet<GuideEventModel>();
+        }
+
         public int Id { get; set; }
 
         [Display(Name = "Name")]

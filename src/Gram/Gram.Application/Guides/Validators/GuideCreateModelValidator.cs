@@ -3,9 +3,9 @@ using Gram.Application.Guides.Models;
 
 namespace Gram.Application.Guides.Validators
 {
-    public class CreateGuideCommandValidator : AbstractValidator<GuideCreateModel>
+    public class GuideCreateModelValidator : AbstractValidator<GuideCreateModel>
     {
-        public CreateGuideCommandValidator()
+        public GuideCreateModelValidator()
         {
             RuleFor(m => m.PersonId)
                 .NotEmpty().WithMessage("Person is required!");

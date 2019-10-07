@@ -6,6 +6,11 @@ namespace Gram.Application.EventGuides.Models
 {
     public class EventGuidesViewModel
     {
+        public EventGuidesViewModel()
+        {
+            Guides = new HashSet<ListItemWithRowVersionModel>();
+        }
+
         public int EventId { get; set; }
 
         [Display(Name = "Guides")]

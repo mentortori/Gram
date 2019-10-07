@@ -3,9 +3,9 @@ using Gram.Application.Attendees.Models;
 
 namespace Gram.Application.Attendees.Validators
 {
-    public class CreateAttendanceCommandValidator : AbstractValidator<AttendanceCreateModel>
+    public class AttendanceCreateModelValidator : AbstractValidator<AttendanceCreateModel>
     {
-        public CreateAttendanceCommandValidator()
+        public AttendanceCreateModelValidator()
         {
             RuleFor(m => m.PersonId)
                 .NotEmpty().WithMessage("Participating person is required!");

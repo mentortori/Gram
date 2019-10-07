@@ -3,9 +3,9 @@ using Gram.Application.EventGuides.Models;
 
 namespace Gram.Application.EventGuides.Validators
 {
-    public class CreateEventGuideCommandValidator : AbstractValidator<EventGuideCreateModel>
+    public class EventGuideCreateModelValidator : AbstractValidator<EventGuideCreateModel>
     {
-        public CreateEventGuideCommandValidator()
+        public EventGuideCreateModelValidator()
         {
             RuleFor(m => m.GuideId)
                 .NotEmpty().WithMessage("Guide is required!");

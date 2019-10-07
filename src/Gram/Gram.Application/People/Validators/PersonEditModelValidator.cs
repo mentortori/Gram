@@ -3,9 +3,9 @@ using Gram.Application.People.Models;
 
 namespace Gram.Application.People.Validators
 {
-    public class UpdatePersonCommandValidator : AbstractValidator<PersonEditModel>
+    public class PersonEditModelValidator : AbstractValidator<PersonEditModel>
     {
-        public UpdatePersonCommandValidator()
+        public PersonEditModelValidator()
         {
             RuleFor(m => m.FirstName)
                 .NotEmpty().WithMessage("First name is required!")

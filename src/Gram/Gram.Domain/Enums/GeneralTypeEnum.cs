@@ -6,7 +6,8 @@
         {
             Nationality = 1,
             EventStatus = 2,
-            AttendanceStatus = 3
+            AttendanceStatus = 3,
+            ContactType = 4
         }
     }
 }

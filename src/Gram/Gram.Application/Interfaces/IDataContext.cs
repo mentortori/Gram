@@ -18,5 +18,6 @@ namespace Gram.Application.Interfaces
         DbSet<Guide> Guides { get; set; }
         DbSet<Partner> Partners { get; set; }
         DbSet<Person> People { get; set; }
+        DbSet<PersonContactInfo> PersonContactInfos { get; set; }
     }
 }
