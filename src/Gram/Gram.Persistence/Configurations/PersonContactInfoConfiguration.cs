@@ -23,7 +23,7 @@ namespace Gram.Persistence.Configurations
                 .WithMany(m => m.PersonContactInfos)
                 .HasForeignKey(m => m.PersonId);
             builder.HasOne(m => m.ContactType)
-                .WithMany(m => m.ContactTypes)
+                .WithMany(m => m.PersonContactTypes)
                 .HasForeignKey(m => m.ContactTypeId);
         }
     }
