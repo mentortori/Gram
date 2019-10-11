@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Gram.Application.ContactDetails.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Partners.Models
 {
@@ -9,5 +10,7 @@ namespace Gram.Application.Partners.Models
 
         [Display(Name = "Is partner active?")]
         public bool IsActive { get; set; }
+
+        public ContactDetailsCreateModel ContactDetails { get; set; }
     }
 }

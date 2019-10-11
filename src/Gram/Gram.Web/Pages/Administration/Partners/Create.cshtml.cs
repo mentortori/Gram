@@ -33,7 +33,7 @@ namespace Gram.Web.Pages.Administration.Partners
                 return Page();
             }
 
-            var id = await Mediator.Send(new CreatePartnerCommand(Entity));
+            var id = await Mediator.Send(new CreatePartnerCommand(Entity, Mediator));
             return RedirectToPage("./Details", new { id = id });
         }
     }

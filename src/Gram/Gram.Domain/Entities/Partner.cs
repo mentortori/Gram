@@ -8,6 +8,7 @@ namespace Gram.Domain.Entities
         public Partner()
         {
             EventPartners = new HashSet<EventPartner>();
+            PartnerContactInfos = new HashSet<PartnerContactInfo>();
         }
 
         public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace Gram.Domain.Entities
         public byte[] RowVersion { get; set; }
 
         public ICollection<EventPartner> EventPartners { get; }
+        public ICollection<PartnerContactInfo> PartnerContactInfos { get; }
     }
 }

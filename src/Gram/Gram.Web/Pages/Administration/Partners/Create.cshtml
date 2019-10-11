@@ -26,6 +26,36 @@
                     @Html.DisplayNameFor(model => model.Entity.IsActive)
                 </label>
             </div>
+            <div class="form-group">
+                <label asp-for="Entity.ContactDetails.Mobile" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Mobile" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.ContactDetails.Email" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Email" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.ContactDetails.Facebook" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Facebook" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Facebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.ContactDetails.Instagram" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Instagram" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Instagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.ContactDetails.Twitter" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Twitter" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Twitter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.ContactDetails.Web" class="control-label"></label>
+                <input asp-for="Entity.ContactDetails.Web" class="form-control" />
+                <span asp-validation-for="Entity.ContactDetails.Web" class="text-danger"></span>
+            </div>
             <button type="submit" title="Create" class="btn btn-primary">
                 <span class="far fa-save"></span>
             </button>

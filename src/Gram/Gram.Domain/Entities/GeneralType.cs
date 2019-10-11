@@ -9,8 +9,9 @@ namespace Gram.Domain.Entities
         {
             AttendanceStatuses = new HashSet<Attendance>();
             ChildTypes = new HashSet<GeneralType>();
-            ContactTypes = new HashSet<PersonContactInfo>();
             EventStatuses = new HashSet<Event>();
+            PartnerContactTypes = new HashSet<PartnerContactInfo>();
+            PersonContactTypes = new HashSet<PersonContactInfo>();
             PersonNationalities = new HashSet<Person>();
         }
 
@@ -24,8 +25,9 @@ namespace Gram.Domain.Entities
         public GeneralType Parent { get; set; }
         public ICollection<Attendance> AttendanceStatuses { get; }
         public ICollection<GeneralType> ChildTypes { get; }
-        public ICollection<PersonContactInfo> ContactTypes { get; }
         public ICollection<Event> EventStatuses { get; }
+        public ICollection<PartnerContactInfo> PartnerContactTypes { get; }
+        public ICollection<PersonContactInfo> PersonContactTypes { get; }
         public ICollection<Person> PersonNationalities { get; }
     }
 }

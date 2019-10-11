@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Gram.Application.SharedModels;
 
 namespace Gram.Application.ContactDetails.Models
 {

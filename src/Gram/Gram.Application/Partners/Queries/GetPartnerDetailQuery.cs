@@ -1,7 +1,9 @@
 ﻿using Gram.Application.Abstraction;
+using Gram.Application.ContactDetails.Queries;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Application.Partners.Models;
+using Gram.Application.SharedModels;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,12 @@ namespace Gram.Application.Partners.Queries
     public class GetPartnerDetailQuery : IRequest<PartnerDetailModel>
     {
         private int Id { get; }
+        private IMediator _mediator;
 
-        public GetPartnerDetailQuery(int id)
+        public GetPartnerDetailQuery(int id, IMediator mediator)
         {
             Id = id;
+            _mediator = mediator;
         }
 
         public class Handler : BaseHandler, IRequestHandler<GetPartnerDetailQuery, PartnerDetailModel>
@@ -40,7 +44,8 @@ namespace Gram.Application.Partners.Queries
                 {
                     Id = request.Id,
                     Name = entity.Name,
-                    Events = entity.EventPartners.Select(m => new PartnerDetailModel.PartnerEventModel
+                    ContactDetails = await request._mediator.Send(new GetPartnerContactInfoDetailQuery(request.Id), cancellationToken),
+                    Events = entity.EventPartners.Select(m => new ListItemModel
                     {
                         Id = m.EventId,
                         Name = m.Event.EventName
