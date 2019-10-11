@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Gram.Application.ContactDetails.Models;
+using Gram.Application.SharedModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Gram.Application.ContactDetails.Models;
 
 namespace Gram.Application.Partners.Models
 {
@@ -9,7 +9,7 @@ namespace Gram.Application.Partners.Models
     {
         public PartnerDetailModel()
         {
-            Events = new HashSet<PartnerEventModel>();
+            Events = new HashSet<ListItemModel>();
         }
 
         public int Id { get; set; }
@@ -20,15 +20,9 @@ namespace Gram.Application.Partners.Models
         public ContactDetailsViewModel ContactDetails { get; set; }
 
         [Display(Name = "Events partnered")]
-        public IEnumerable<PartnerEventModel> Events { get; set; }
+        public IEnumerable<ListItemModel> Events { get; set; }
 
         [Display(Name = "Is partner active?")]
         public bool IsActive { get; set; }
-
-        public class PartnerEventModel
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
     }
 }

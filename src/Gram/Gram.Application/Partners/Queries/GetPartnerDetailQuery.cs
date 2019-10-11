@@ -1,14 +1,15 @@
 ﻿using Gram.Application.Abstraction;
+using Gram.Application.ContactDetails.Queries;
 using Gram.Application.Exceptions;
 using Gram.Application.Interfaces;
 using Gram.Application.Partners.Models;
+using Gram.Application.SharedModels;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Gram.Application.ContactDetails.Queries;
 
 namespace Gram.Application.Partners.Queries
 {
@@ -44,7 +45,7 @@ namespace Gram.Application.Partners.Queries
                     Id = request.Id,
                     Name = entity.Name,
                     ContactDetails = await request._mediator.Send(new GetPartnerContactInfoDetailQuery(request.Id), cancellationToken),
-                    Events = entity.EventPartners.Select(m => new PartnerDetailModel.PartnerEventModel
+                    Events = entity.EventPartners.Select(m => new ListItemModel
                     {
                         Id = m.EventId,
                         Name = m.Event.EventName

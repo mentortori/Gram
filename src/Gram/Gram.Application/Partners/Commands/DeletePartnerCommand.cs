@@ -4,6 +4,7 @@ using Gram.Application.Interfaces;
 using Gram.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,6 +40,7 @@ namespace Gram.Application.Partners.Commands
 
                 try
                 {
+                    DataContext.PartnerContactInfos.RemoveRange(DataContext.PartnerContactInfos.Where(m => m.PartnerId == request.Id));
                     DataContext.Partners.Remove(entity);
                     await DataContext.SaveChangesAsync(cancellationToken);
                     return Unit.Value;
