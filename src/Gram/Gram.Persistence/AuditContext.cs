@@ -58,7 +58,7 @@ namespace Gram.Persistence
                     EntityState = "A",
                     Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
                     EntityId = entry.Entity.Id,
-                    RowModifyUser = UserService.GetCurrentUser(),
+                    RowModifyUser = UserService.UserName,
                     RowModifyDate = DateTime.UtcNow,
                     AuditDetails = new List<AuditDetail>()
                 };
@@ -103,7 +103,7 @@ namespace Gram.Persistence
                     EntityState = "M",
                     Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
                     EntityId = entry.Entity.Id,
-                    RowModifyUser = UserService.GetCurrentUser(),
+                    RowModifyUser = UserService.UserName,
                     RowModifyDate = DateTime.UtcNow,
                     AuditDetails = new List<AuditDetail>()
                 };
@@ -145,7 +145,7 @@ namespace Gram.Persistence
                     EntityState = "D",
                     Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
                     EntityId = entry.Entity.Id,
-                    RowModifyUser = UserService.GetCurrentUser(),
+                    RowModifyUser = UserService.UserName,
                     RowModifyDate = DateTime.UtcNow,
                     AuditDetails = new List<AuditDetail>()
                 };

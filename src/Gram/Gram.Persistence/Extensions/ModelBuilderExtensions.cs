@@ -11,7 +11,7 @@ namespace Gram.Persistence.Extensions
     {
         internal static void ApplyBaseEntityConfigurations(this ModelBuilder modelBuilder)
         {
-            var appyConfigurationMethodDefinition = typeof(ModelBuilder).GetTypeInfo().DeclaredMethods.Single(p =>
+            var applyConfigurationMethodDefinition = typeof(ModelBuilder).GetTypeInfo().DeclaredMethods.Single(p =>
                 p.Name == "ApplyConfiguration"
                 && p.IsGenericMethodDefinition
                 && p.GetParameters().Length == 1
@@ -27,7 +27,7 @@ namespace Gram.Persistence.Extensions
             {
                 var configurationType = typeof(BaseEntityConfiguration<>).MakeGenericType(entityType);
                 var configuration = Activator.CreateInstance(configurationType);
-                var applyConfigurationMethod = appyConfigurationMethodDefinition.MakeGenericMethod(entityType);
+                var applyConfigurationMethod = applyConfigurationMethodDefinition.MakeGenericMethod(entityType);
                 applyConfigurationMethod.Invoke(modelBuilder, new[] { configuration });
             }
         }
