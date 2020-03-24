@@ -1,22 +1,20 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.ComponentModel.DataAnnotations;
-//using System.Linq;
-//using System.Threading.Tasks;
+﻿//using Gram.Web.Areas.Identity.Models;
 //using Microsoft.AspNetCore.Identity;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.RazorPages;
+//using System.ComponentModel.DataAnnotations;
+//using System.Threading.Tasks;
 
 //namespace Gram.Web.Areas.Identity.Pages.Account.Manage
 //{
 //    public class SetPasswordModel : PageModel
 //    {
-//        private readonly UserManager<IdentityUser> _userManager;
-//        private readonly SignInManager<IdentityUser> _signInManager;
+//        private readonly UserManager<WebUser> _userManager;
+//        private readonly SignInManager<WebUser> _signInManager;
 
 //        public SetPasswordModel(
-//            UserManager<IdentityUser> userManager,
-//            SignInManager<IdentityUser> signInManager)
+//            UserManager<WebUser> userManager,
+//            SignInManager<WebUser> signInManager)
 //        {
 //            _userManager = userManager;
 //            _signInManager = signInManager;

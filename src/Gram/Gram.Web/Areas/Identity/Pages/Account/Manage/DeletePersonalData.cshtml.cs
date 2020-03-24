@@ -1,22 +1,23 @@
-﻿//using System;
-//using System.ComponentModel.DataAnnotations;
-//using System.Threading.Tasks;
+﻿//using Gram.Web.Areas.Identity.Models;
 //using Microsoft.AspNetCore.Identity;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.RazorPages;
 //using Microsoft.Extensions.Logging;
+//using System;
+//using System.ComponentModel.DataAnnotations;
+//using System.Threading.Tasks;
 
 //namespace Gram.Web.Areas.Identity.Pages.Account.Manage
 //{
 //    public class DeletePersonalDataModel : PageModel
 //    {
-//        private readonly UserManager<IdentityUser> _userManager;
-//        private readonly SignInManager<IdentityUser> _signInManager;
+//        private readonly UserManager<WebUser> _userManager;
+//        private readonly SignInManager<WebUser> _signInManager;
 //        private readonly ILogger<DeletePersonalDataModel> _logger;
 
 //        public DeletePersonalDataModel(
-//            UserManager<IdentityUser> userManager,
-//            SignInManager<IdentityUser> signInManager,
+//            UserManager<WebUser> userManager,
+//            SignInManager<WebUser> signInManager,
 //            ILogger<DeletePersonalDataModel> logger)
 //        {
 //            _userManager = userManager;
@@ -61,7 +62,7 @@
 //            {
 //                if (!await _userManager.CheckPasswordAsync(user, Input.Password))
 //                {
-//                    ModelState.AddModelError(string.Empty, "Password not correct.");
+//                    ModelState.AddModelError(string.Empty, "Incorrect password.");
 //                    return Page();
 //                }
 //            }
@@ -70,7 +71,7 @@
 //            var userId = await _userManager.GetUserIdAsync(user);
 //            if (!result.Succeeded)
 //            {
-//                throw new InvalidOperationException($"Unexpected error occurred deleteing user with ID '{userId}'.");
+//                throw new InvalidOperationException($"Unexpected error occurred deleting user with ID '{userId}'.");
 //            }
 
 //            await _signInManager.SignOutAsync();

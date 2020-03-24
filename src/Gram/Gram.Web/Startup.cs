@@ -1,6 +1,6 @@
 using FluentValidation.AspNetCore;
+using Gram.Application.Attendees.Commands;
 using Gram.Application.Attendees.Validators;
-using Gram.Application.Events.Commands;
 using Gram.Application.Interfaces;
 using Gram.Persistence;
 using Gram.Web.Areas.Identity;
@@ -9,13 +9,11 @@ using Gram.Web.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using Microsoft.Extensions.Hosting;
 
 namespace Gram.Web
 {
@@ -28,27 +26,20 @@ namespace Gram.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
             services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<WebUser>().AddRoles<IdentityRole>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores<IdentityContext>();
+            services.AddDefaultIdentity<WebUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
             services.AddScoped<IAuditContext, AuditContext>();
             services.AddScoped<IDataContext, DataContext>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddMvc().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<AttendanceCreateModelValidator>());
-            services.AddMediatR(typeof(CreateEventCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CreateAttendanceCommand));
+            services.AddRazorPages().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<AttendanceCreateModelValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -64,9 +55,16 @@ namespace Gram.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+
+            app.UseRouting();
+
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
         }
     }
 }

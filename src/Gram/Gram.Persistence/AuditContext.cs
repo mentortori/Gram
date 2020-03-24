@@ -56,7 +56,7 @@ namespace Gram.Persistence
                 var log = new AuditLog
                 {
                     EntityState = "A",
-                    Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
+                    Entity = $"{ entry.Metadata.GetSchema() }.{ entry.Metadata.GetTableName() }",
                     EntityId = entry.Entity.Id,
                     RowModifyUser = UserService.UserName,
                     RowModifyDate = DateTime.UtcNow,
@@ -101,7 +101,7 @@ namespace Gram.Persistence
                 var log = new AuditLog
                 {
                     EntityState = "M",
-                    Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
+                    Entity = $"{ entry.Metadata.GetSchema() }.{ entry.Metadata.GetTableName() }",
                     EntityId = entry.Entity.Id,
                     RowModifyUser = UserService.UserName,
                     RowModifyDate = DateTime.UtcNow,
@@ -143,7 +143,7 @@ namespace Gram.Persistence
                 var log = new AuditLog
                 {
                     EntityState = "D",
-                    Entity = $"{ entry.Metadata.Relational().Schema }.{ entry.Metadata.Relational().TableName }",
+                    Entity = $"{ entry.Metadata.GetSchema() }.{ entry.Metadata.GetTableName() }",
                     EntityId = entry.Entity.Id,
                     RowModifyUser = UserService.UserName,
                     RowModifyDate = DateTime.UtcNow,
