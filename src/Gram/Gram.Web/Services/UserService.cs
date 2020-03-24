@@ -7,7 +7,7 @@ namespace Gram.Web.Services
     {
         public UserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserName = httpContextAccessor.HttpContext.User?.Identity?.Name ?? "Unauthenticated";
+            UserName = httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "Unauthenticated";
         }
 
         public string UserName { get; }
