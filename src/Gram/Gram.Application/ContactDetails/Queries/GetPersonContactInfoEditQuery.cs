@@ -31,19 +31,20 @@ namespace Gram.Application.ContactDetails.Queries
             public async Task<ContactDetailsUpdateModel> Handle(GetPersonContactInfoEditQuery request, CancellationToken cancellationToken)
             {
                 var entity = DataContext.PersonContactInfos
+                    .Include(m => m.ContactType)
                     .Where(m => m.PersonId == request.PersonId);
 
                 if (!entity.Any())
                     return new ContactDetailsUpdateModel();
 
                 var result = new ContactDetailsUpdateModel();
-                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeEnum.GeneralTypeParents.ContactType), cancellationToken);
-                var mobile = await entity.FirstOrDefaultAsync(m => m.ContactTypeId == contactTypes.SingleOrDefault(n => n.Title == "Mobile").Id, cancellationToken);
-                var email = await entity.FirstOrDefaultAsync(m => m.ContactTypeId == contactTypes.SingleOrDefault(n => n.Title == "Email").Id, cancellationToken);
-                var facebook = await entity.FirstOrDefaultAsync(m => m.ContactTypeId == contactTypes.SingleOrDefault(n => n.Title == "Facebook").Id, cancellationToken);
-                var instagram = await entity.FirstOrDefaultAsync(m => m.ContactTypeId == contactTypes.SingleOrDefault(n => n.Title == "Instagram").Id, cancellationToken);
-                var twitter = await entity.FirstOrDefaultAsync(m => m.ContactTypeId == contactTypes.SingleOrDefault(n => n.Title == "Twitter").Id, cancellationToken);
-                var web = await entity.FirstOrDefaultAsync(m => m.ContactTypeId == contactTypes.SingleOrDefault(n => n.Title == "Web").Id, cancellationToken);
+                var mobile = await entity.FirstOrDefaultAsync(m => m.ContactType.Title == "Mobile", cancellationToken);
+                var email = await entity.FirstOrDefaultAsync(m => m.ContactType.Title == "Email", cancellationToken);
+                var facebook = await entity.FirstOrDefaultAsync(m => m.ContactType.Title == "Facebook", cancellationToken);
+                var instagram = await entity.FirstOrDefaultAsync(m => m.ContactType.Title == "Instagram", cancellationToken);
+                var twitter = await entity.FirstOrDefaultAsync(m => m.ContactType.Title == "Twitter", cancellationToken);
+                var web = await entity.FirstOrDefaultAsync(m => m.ContactType.Title == "Web", cancellationToken);
+
 
                 if (mobile != null)
                 {
