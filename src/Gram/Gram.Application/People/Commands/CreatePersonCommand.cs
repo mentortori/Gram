@@ -3,11 +3,11 @@ using Gram.Application.GeneralTypes.Queries;
 using Gram.Application.Interfaces;
 using Gram.Application.People.Models;
 using Gram.Domain.Entities;
+using Gram.Domain.Enums;
 using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Application.People.Commands
 {

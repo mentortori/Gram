@@ -33,7 +33,7 @@ namespace Gram.Application.ContactDetails.Commands
 
             public async Task<Unit> Handle(UpdatePersonContactInfoWithoutSavingCommand request, CancellationToken cancellationToken)
             {
-                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeEnum.GeneralTypeParents.ContactType), cancellationToken);
+                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.ContactType), cancellationToken);
 
                 foreach (var item in contactTypes)
                 {

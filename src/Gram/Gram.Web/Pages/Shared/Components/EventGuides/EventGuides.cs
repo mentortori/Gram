@@ -1,15 +1,15 @@
-﻿using Gram.Application.EventGuides.Queries;
+﻿using System.Threading.Tasks;
+using Gram.Application.EventGuides.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace Gram.Web.Pages.Components.EventGuides
+namespace Gram.Web.Pages.Shared.Components.EventGuides
 {
-    public class EventGuidesViewComponent : ViewComponent
+    public class EventGuides : ViewComponent
     {
         private readonly IMediator _mediator;
 
-        public EventGuidesViewComponent(IMediator mediator)
+        public EventGuides(IMediator mediator)
         {
             _mediator = mediator;
         }

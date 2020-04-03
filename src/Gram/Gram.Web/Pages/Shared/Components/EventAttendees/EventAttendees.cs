@@ -3,13 +3,13 @@ using Gram.Application.Attendees.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Gram.Web.Pages.Components.EventAttendees
+namespace Gram.Web.Pages.Shared.Components.EventAttendees
 {
-    public class EventAttendeesViewComponent : ViewComponent
+    public class EventAttendees : ViewComponent
     {
         private readonly IMediator _mediator;
 
-        public EventAttendeesViewComponent(IMediator mediator)
+        public EventAttendees(IMediator mediator)
         {
             _mediator = mediator;
         }

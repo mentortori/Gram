@@ -22,7 +22,7 @@ namespace Gram.Web.Pages.Attendees
                 return NotFound();
 
             Entity = await Mediator.Send(new GetAttendanceEditQuery(id.Value));
-            AttendanceStatusList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeEnum.GeneralTypeParents.AttendanceStatus))), "Id", "Title");
+            AttendanceStatusList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.AttendanceStatus))), "Id", "Title");
             return Page();
         }
 
@@ -33,7 +33,7 @@ namespace Gram.Web.Pages.Attendees
 
             if (!ModelState.IsValid)
             {
-                AttendanceStatusList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeEnum.GeneralTypeParents.AttendanceStatus))), "Id", "Title");
+                AttendanceStatusList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.AttendanceStatus))), "Id", "Title");
                 return Page();
             }
 

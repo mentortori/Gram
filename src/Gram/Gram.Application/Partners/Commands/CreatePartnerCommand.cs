@@ -36,7 +36,7 @@ namespace Gram.Application.Partners.Commands
                     IsActive = request.Model.IsActive
                 };
 
-                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeEnum.GeneralTypeParents.ContactType), cancellationToken);
+                var contactTypes = await request._mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.ContactType), cancellationToken);
 
                 if (!string.IsNullOrWhiteSpace(request.Model.ContactDetails.Mobile))
                     entity.PartnerContactInfos.Add(new PartnerContactInfo

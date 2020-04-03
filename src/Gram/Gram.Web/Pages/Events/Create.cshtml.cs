@@ -1,11 +1,11 @@
 ﻿using Gram.Application.Events.Commands;
 using Gram.Application.Events.Models;
 using Gram.Application.GeneralTypes.Queries;
+using Gram.Domain.Enums;
 using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
-using static Gram.Domain.Enums.GeneralTypeEnum;
 
 namespace Gram.Web.Pages.Events
 {
