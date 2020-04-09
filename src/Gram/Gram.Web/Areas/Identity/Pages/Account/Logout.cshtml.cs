@@ -1,4 +1,4 @@
-﻿using Gram.Web.Areas.Identity.Models;
+﻿using Gram.Persistence.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

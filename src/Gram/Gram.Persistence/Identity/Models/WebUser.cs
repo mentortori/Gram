@@ -1,7 +1,7 @@
 ﻿using Gram.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace Gram.Web.Areas.Identity.Models
+namespace Gram.Persistence.Identity.Models
 {
     public class WebUser : IdentityUser
     {

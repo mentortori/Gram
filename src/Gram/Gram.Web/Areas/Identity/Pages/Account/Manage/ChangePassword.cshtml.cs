@@ -1,10 +1,11 @@
-﻿using Gram.Web.Areas.Identity.Models;
+﻿using Gram.Persistence.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+
 namespace Gram.Web.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel

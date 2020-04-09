@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gram.Web.Areas.Identity.Migrations
+namespace Gram.Persistence.Identity.Migrations
 {
     public partial class AddEmployeeForeignKey : Migration
     {

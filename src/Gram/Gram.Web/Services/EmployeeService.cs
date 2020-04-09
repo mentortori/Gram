@@ -1,5 +1,5 @@
 ﻿using Gram.Application.Interfaces;
-using Gram.Web.Areas.Identity;
+using Gram.Persistence.Identity;
 using System.Linq;
 
 namespace Gram.Web.Services
