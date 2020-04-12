@@ -27,18 +27,25 @@ namespace Gram.Application.EventGuides.Queries
 
             public async Task<List<ListItemModel>> Handle(GetNewEventGuidesListQuery request, CancellationToken cancellationToken)
             {
-                var existing = await DataContext.EventGuides.Where(m => m.EventId == request.EventId)
+                var existingGuides = await DataContext.EventGuides
+                    .Where(m => m.EventId == request.EventId)
                     .Select(m => m.GuideId)
                     .ToArrayAsync(cancellationToken);
 
-                return await DataContext.Guides
-                    .Where(m => m.IsActive)
-                    .Where(m => !existing.Contains(m.Id))
-                    .Include(m => m.Person)
+                var existingAttendees = await DataContext.Attendees
+                    .Where(m => m.EventId == request.EventId)
+                    .Select(m => m.PersonId)
+                    .ToArrayAsync(cancellationToken);
+
+                return await DataContext.People
+                    .Where(m => m.Guides.Any(m => m.IsActive))
+                    .Where(m => !existingGuides.Contains(m.Id))
+                    .Where(m => !existingAttendees.Contains(m.Id))
+                    //.Include(m => m.Person)
                     .Select(m => new ListItemModel
                     {
                         Id = m.Id,
-                        Name = m.Person.FirstName + " " + m.Person.LastName
+                        Name = m.FirstName + " " + m.LastName
                     })
                     .OrderBy(m => m.Name)
                     .ToListAsync(cancellationToken);

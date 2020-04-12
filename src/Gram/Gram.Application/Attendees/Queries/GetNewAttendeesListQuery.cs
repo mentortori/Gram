@@ -27,12 +27,19 @@ namespace Gram.Application.Attendees.Queries
 
             public async Task<List<ListItemModel>> Handle(GetNewAttendeesListQuery request, CancellationToken cancellationToken)
             {
-                var existing = await DataContext.Attendees.Where(m => m.EventId == request.EventId)
+                var existingAttendees = await DataContext.Attendees
+                    .Where(m => m.EventId == request.EventId)
                     .Select(m => m.PersonId)
                     .ToArrayAsync(cancellationToken);
 
+                var existingGuides = await DataContext.EventGuides
+                    .Where(m => m.EventId == request.EventId)
+                    .Select(m => m.Guide.PersonId)
+                    .ToArrayAsync(cancellationToken);
+
                 return await DataContext.People
-                    .Where(m => !existing.Contains(m.Id))
+                    .Where(m => !existingAttendees.Contains(m.Id))
+                    .Where(m => !existingGuides.Contains(m.Id))
                     .Select(m => new ListItemModel
                     {
                         Id = m.Id,
