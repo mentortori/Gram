@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Shared.Components.EventAttendees
 {
-    public class EventAttendees : BaseComponentModel
+    public class EventAttendees : BaseViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(int id) => View(await Mediator.Send(new GetEventAttendeesQuery(id)));
     }

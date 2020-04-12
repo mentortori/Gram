@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Shared.Components.EventGuides
 {
-    public class EventGuides : BaseComponentModel
+    public class EventGuides : BaseViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(int id) => View(await Mediator.Send(new GetEventGuidesQuery(id)));
     }

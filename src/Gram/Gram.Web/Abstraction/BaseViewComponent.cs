@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Gram.Web.Abstraction
 {
     [Authorize]
-    public abstract class BaseComponentModel : ViewComponent
+    public abstract class BaseViewComponent : ViewComponent
     {
         private IMediator _mediator;
 
