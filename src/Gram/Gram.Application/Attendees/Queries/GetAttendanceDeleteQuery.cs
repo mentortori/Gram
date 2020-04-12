@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.Attendees.Queries
 {
-    public class GetAttendanceDeleteQuery : IRequest<AttendanceDeleteModel>
+    public class GetAttendanceDeleteQuery : IRequest<DeleteViewModel>
     {
         private int Id { get; }
 
@@ -19,13 +19,13 @@ namespace Gram.Application.Attendees.Queries
             Id = id;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetAttendanceDeleteQuery, AttendanceDeleteModel>
+        public class Handler : BaseHandler, IRequestHandler<GetAttendanceDeleteQuery, DeleteViewModel>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<AttendanceDeleteModel> Handle(GetAttendanceDeleteQuery request, CancellationToken cancellationToken)
+            public async Task<DeleteViewModel> Handle(GetAttendanceDeleteQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.Attendees
                     .Include(m => m.Person)
@@ -35,7 +35,7 @@ namespace Gram.Application.Attendees.Queries
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Attendance), request.Id);
 
-                return new AttendanceDeleteModel
+                return new DeleteViewModel
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,

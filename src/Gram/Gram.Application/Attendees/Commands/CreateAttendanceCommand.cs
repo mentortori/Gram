@@ -11,9 +11,9 @@ namespace Gram.Application.Attendees.Commands
     public class CreateAttendanceCommand : IRequest
     {
         private int EventId { get; }
-        private AttendanceCreateModel Model { get; }
+        private CreateDto Model { get; }
 
-        public CreateAttendanceCommand(int eventId, AttendanceCreateModel model)
+        public CreateAttendanceCommand(int eventId, CreateDto model)
         {
             EventId = eventId;
             Model = model;

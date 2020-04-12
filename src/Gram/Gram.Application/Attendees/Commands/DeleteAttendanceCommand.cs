@@ -28,7 +28,7 @@ namespace Gram.Application.Attendees.Commands
 
             public async Task<Unit> Handle(DeleteAttendanceCommand request, CancellationToken cancellationToken)
             {
-                if ((await DataContext.Attendees.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)) == null)
+                if (await DataContext.Attendees.AsNoTracking().FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken) == null)
                     throw new EntityNotFoundException(nameof(Attendance), request.Id);
 
                 var entity = new Attendance

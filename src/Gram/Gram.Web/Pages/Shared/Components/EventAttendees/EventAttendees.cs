@@ -1,22 +1,12 @@
-﻿using System.Threading.Tasks;
-using Gram.Application.Attendees.Queries;
-using MediatR;
+﻿using Gram.Application.Attendees.Queries;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Shared.Components.EventAttendees
 {
-    public class EventAttendees : ViewComponent
+    public class EventAttendees : BaseComponentModel
     {
-        private readonly IMediator _mediator;
-
-        public EventAttendees(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        public async Task<IViewComponentResult> InvokeAsync(int id)
-        {
-            return View(await _mediator.Send(new GetEventAttendeesQuery(id)));
-        }
+        public async Task<IViewComponentResult> InvokeAsync(int id) => View(await Mediator.Send(new GetEventAttendeesQuery(id)));
     }
 }

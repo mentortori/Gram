@@ -12,12 +12,9 @@ namespace Gram.Application.Attendees.Commands
 {
     public class UpdateAttendanceCommand : IRequest
     {
-        private AttendanceEditModel Model { get; }
+        private UpdateDto Model { get; }
 
-        public UpdateAttendanceCommand(AttendanceEditModel model)
-        {
-            Model = model;
-        }
+        public UpdateAttendanceCommand(UpdateDto model) => Model = model;
 
         public class Handler : BaseHandler, IRequestHandler<UpdateAttendanceCommand, Unit>
         {

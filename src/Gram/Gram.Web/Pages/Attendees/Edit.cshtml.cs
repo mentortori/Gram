@@ -13,7 +13,7 @@ namespace Gram.Web.Pages.Attendees
     public class EditModel : BasePageModel
     {
         [BindProperty]
-        public AttendanceEditModel Entity { get; set; }
+        public UpdateDto Entity { get; set; }
         public SelectList AttendanceStatusList { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)

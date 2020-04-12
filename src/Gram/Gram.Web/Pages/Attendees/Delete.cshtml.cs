@@ -10,7 +10,7 @@ namespace Gram.Web.Pages.Attendees
     public class DeleteModel : BasePageModel
     {
         [BindProperty]
-        public AttendanceDeleteModel Entity { get; set; }
+        public DeleteViewModel Entity { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

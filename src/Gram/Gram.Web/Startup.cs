@@ -29,7 +29,7 @@ namespace Gram.Web
             services.AddPersistenceServices(Configuration.GetConnectionString("DefaultConnection"));
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddRazorPages().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<AttendanceCreateModelValidator>());
+            services.AddRazorPages().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<CreateDtoValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

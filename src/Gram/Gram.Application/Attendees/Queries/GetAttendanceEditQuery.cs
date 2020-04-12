@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.Attendees.Queries
 {
-    public class GetAttendanceEditQuery : IRequest<AttendanceEditModel>
+    public class GetAttendanceEditQuery : IRequest<UpdateDto>
     {
         private int Id { get; }
 
@@ -19,13 +19,13 @@ namespace Gram.Application.Attendees.Queries
             Id = id;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetAttendanceEditQuery, AttendanceEditModel>
+        public class Handler : BaseHandler, IRequestHandler<GetAttendanceEditQuery, UpdateDto>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<AttendanceEditModel> Handle(GetAttendanceEditQuery request, CancellationToken cancellationToken)
+            public async Task<UpdateDto> Handle(GetAttendanceEditQuery request, CancellationToken cancellationToken)
             {
                 var entity = await DataContext.Attendees
                     .Include(m => m.Person)
@@ -34,7 +34,7 @@ namespace Gram.Application.Attendees.Queries
                 if (entity == null)
                     throw new EntityNotFoundException(nameof(Attendance), request.Id);
 
-                return new AttendanceEditModel
+                return new UpdateDto
                 {
                     Id = request.Id,
                     RowVersion = entity.RowVersion,

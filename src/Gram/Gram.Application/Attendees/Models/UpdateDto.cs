@@ -3,10 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gram.Application.Attendees.Models
 {
-    public class AttendanceCreateModel
+    public class UpdateDto
     {
-        [Display(Name = "Attendee")]
+        public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
+        public int EventId { get; set; }
         public int PersonId { get; set; }
+
+        [Display(Name = "Attendee")]
+        public string Attendee { get; set; }
 
         [Display(Name = "Attendance status")]
         public int StatusId { get; set; }

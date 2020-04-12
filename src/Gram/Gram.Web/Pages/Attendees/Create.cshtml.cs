@@ -16,13 +16,13 @@ namespace Gram.Web.Pages.Attendees
         [BindProperty(SupportsGet = true)]
         public int EventId { get; set; }
         [BindProperty]
-        public AttendanceCreateModel Entity { get; set; }
+        public CreateDto Entity { get; set; }
         public SelectList CustomersList { get; private set; }
         public SelectList AttendanceStatusList { get; private set; }
 
         public CreateModel()
         {
-            Entity = new AttendanceCreateModel { StatusDate = DateTime.Now };
+            Entity = new CreateDto { StatusDate = DateTime.Now };
         }
 
         public async Task<IActionResult> OnGet()

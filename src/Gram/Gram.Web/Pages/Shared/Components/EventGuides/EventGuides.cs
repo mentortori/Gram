@@ -1,22 +1,12 @@
-﻿using System.Threading.Tasks;
-using Gram.Application.EventGuides.Queries;
-using MediatR;
+﻿using Gram.Application.EventGuides.Queries;
+using Gram.Web.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Gram.Web.Pages.Shared.Components.EventGuides
 {
-    public class EventGuides : ViewComponent
+    public class EventGuides : BaseComponentModel
     {
-        private readonly IMediator _mediator;
-
-        public EventGuides(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        public async Task<IViewComponentResult> InvokeAsync(int id)
-        {
-            return View(await _mediator.Send(new GetEventGuidesQuery(id)));
-        }
+        public async Task<IViewComponentResult> InvokeAsync(int id) => View(await Mediator.Send(new GetEventGuidesQuery(id)));
     }
 }

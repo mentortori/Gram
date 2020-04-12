@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gram.Application.Attendees.Queries
 {
-    public class GetEventAttendeesQuery : IRequest<List<AttendeeListViewModel>>
+    public class GetEventAttendeesQuery : IRequest<List<ListViewModel>>
     {
         private int EventId { get; }
 
@@ -19,16 +19,16 @@ namespace Gram.Application.Attendees.Queries
             EventId = eventId;
         }
 
-        public class Handler : BaseHandler, IRequestHandler<GetEventAttendeesQuery, List<AttendeeListViewModel>>
+        public class Handler : BaseHandler, IRequestHandler<GetEventAttendeesQuery, List<ListViewModel>>
         {
             public Handler(IDataContext dataContext) : base(dataContext)
             {
             }
 
-            public async Task<List<AttendeeListViewModel>> Handle(GetEventAttendeesQuery request, CancellationToken cancellationToken) =>
+            public async Task<List<ListViewModel>> Handle(GetEventAttendeesQuery request, CancellationToken cancellationToken) =>
                 await DataContext.Attendees
                     .Where(m => m.EventId == request.EventId)
-                    .Select(m => new AttendeeListViewModel
+                    .Select(m => new ListViewModel
                     {
                         Id = m.Id,
                         Attendee = m.Person.FirstName + ' ' + m.Person.LastName,
