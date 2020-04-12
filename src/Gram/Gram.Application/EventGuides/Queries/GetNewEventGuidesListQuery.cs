@@ -29,7 +29,7 @@ namespace Gram.Application.EventGuides.Queries
             {
                 var existingGuides = await DataContext.EventGuides
                     .Where(m => m.EventId == request.EventId)
-                    .Select(m => m.GuideId)
+                    .Select(m => m.Guide.PersonId)
                     .ToArrayAsync(cancellationToken);
 
                 var existingAttendees = await DataContext.Attendees
@@ -41,7 +41,6 @@ namespace Gram.Application.EventGuides.Queries
                     .Where(m => m.Guides.Any(m => m.IsActive))
                     .Where(m => !existingGuides.Contains(m.Id))
                     .Where(m => !existingAttendees.Contains(m.Id))
-                    //.Include(m => m.Person)
                     .Select(m => new ListItemModel
                     {
                         Id = m.Id,
