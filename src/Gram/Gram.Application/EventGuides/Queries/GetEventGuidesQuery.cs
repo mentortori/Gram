@@ -25,15 +25,12 @@ namespace Gram.Application.EventGuides.Queries
             {
             }
 
-            public async Task<EventGuidesViewModel> Handle(GetEventGuidesQuery request, CancellationToken cancellationToken)
-            {
-                return new EventGuidesViewModel
+            public async Task<EventGuidesViewModel> Handle(GetEventGuidesQuery request, CancellationToken cancellationToken) =>
+                new EventGuidesViewModel
                 {
                     EventId = request.EventId,
                     Guides = await DataContext.EventGuides
                         .Where(m => m.EventId == request.EventId)
-                        .Include(m => m.Guide)
-                            .ThenInclude(m => m.Person)
                         .Select(m => new ListItemWithRowVersionModel
                         {
                             Id = m.Id,
@@ -43,7 +40,6 @@ namespace Gram.Application.EventGuides.Queries
                         .OrderBy(m => m.Name)
                         .ToListAsync(cancellationToken)
                 };
-            }
         }
     }
 }

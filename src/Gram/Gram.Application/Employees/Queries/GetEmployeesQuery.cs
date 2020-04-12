@@ -18,10 +18,8 @@ namespace Gram.Application.Employees.Queries
             {
             }
 
-            public async Task<List<EmployeeListViewModel>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
-            {
-                return await DataContext.Employees
-                    .Include(m => m.Person)
+            public async Task<List<EmployeeListViewModel>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken) =>
+                await DataContext.Employees
                     .Select(m => new EmployeeListViewModel
                     {
                         Id = m.Id,
@@ -31,7 +29,6 @@ namespace Gram.Application.Employees.Queries
                         DateOfEmployment = m.DateOfEmployment,
                         EmploymentExpiryDate = m.EmploymentExpiryDate
                     }).ToListAsync(cancellationToken);
-            }
         }
     }
 }

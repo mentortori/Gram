@@ -25,11 +25,8 @@ namespace Gram.Application.Attendees.Queries
             {
             }
 
-            public async Task<List<AttendeeListViewModel>> Handle(GetEventAttendeesQuery request, CancellationToken cancellationToken)
-            {
-                return await DataContext.Attendees
-                    .Include(m => m.Person)
-                    .Include(m => m.Status)
+            public async Task<List<AttendeeListViewModel>> Handle(GetEventAttendeesQuery request, CancellationToken cancellationToken) =>
+                await DataContext.Attendees
                     .Where(m => m.EventId == request.EventId)
                     .Select(m => new AttendeeListViewModel
                     {
@@ -39,7 +36,6 @@ namespace Gram.Application.Attendees.Queries
                         StatusDate = m.StatusDate,
                         Remarks = m.Remarks
                     }).ToListAsync(cancellationToken);
-            }
         }
     }
 }

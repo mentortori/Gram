@@ -8,10 +8,7 @@ namespace Gram.Web.Services
     {
         private readonly IdentityContext _identityContext;
 
-        public EmployeeService(IdentityContext identityContext)
-        {
-            _identityContext = identityContext;
-        }
+        public EmployeeService(IdentityContext identityContext) => _identityContext = identityContext;
 
         public bool EmployeeHasUser(int id) => _identityContext.Users.Any(m => m.EmployeeId == id);
     }

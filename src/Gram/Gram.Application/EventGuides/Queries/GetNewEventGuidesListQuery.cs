@@ -38,7 +38,7 @@ namespace Gram.Application.EventGuides.Queries
                     .ToArrayAsync(cancellationToken);
 
                 return await DataContext.People
-                    .Where(m => m.Guides.Any(m => m.IsActive))
+                    .Where(m => m.Guides.Any(n => n.IsActive))
                     .Where(m => !existingGuides.Contains(m.Id))
                     .Where(m => !existingAttendees.Contains(m.Id))
                     .Select(m => new ListItemModel

@@ -18,10 +18,8 @@ namespace Gram.Application.Partners.Queries
             {
             }
 
-            public async Task<List<PartnerListViewModel>> Handle(GetPartnersQuery request, CancellationToken cancellationToken)
-            {
-                return await DataContext.Partners
-                    .Include(m => m.EventPartners)
+            public async Task<List<PartnerListViewModel>> Handle(GetPartnersQuery request, CancellationToken cancellationToken) =>
+                await DataContext.Partners
                     .Select(m => new PartnerListViewModel
                     {
                         Id = m.Id,
@@ -29,7 +27,6 @@ namespace Gram.Application.Partners.Queries
                         EventsCount = m.EventPartners.Count(),
                         IsActive = m.IsActive
                     }).ToListAsync(cancellationToken);
-            }
         }
     }
 }

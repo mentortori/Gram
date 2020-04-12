@@ -7,14 +7,11 @@ namespace Gram.Persistence.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, string connectionString)
-        {
-            services.AddDbContext<AuditContext>(options => options.UseSqlServer(connectionString));
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
-            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
-            services.AddScoped<IAuditContext, AuditContext>();
-            services.AddScoped<IDataContext, DataContext>();
-            return services;
-        }
+        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, string connectionString) =>
+            services.AddDbContext<AuditContext>(options => options.UseSqlServer(connectionString))
+                .AddDbContext<DataContext>(options => options.UseSqlServer(connectionString))
+                .AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString))
+                .AddScoped<IAuditContext, AuditContext>()
+                .AddScoped<IDataContext, DataContext>();
     }
 }

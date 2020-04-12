@@ -18,12 +18,8 @@ namespace Gram.Application.People.Queries
             {
             }
 
-            public async Task<List<PersonListViewModel>> Handle(GetAllPeopleQuery request, CancellationToken cancellationToken)
-            {
-                return await DataContext.People
-                    .Include(m => m.Attendees)
-                    .Include(m => m.Nationality)
-                    .Include(m => m.PersonContactInfos)
+            public async Task<List<PersonListViewModel>> Handle(GetAllPeopleQuery request, CancellationToken cancellationToken) =>
+                await DataContext.People
                     .Select(m => new PersonListViewModel
                     {
                         Id = m.Id,
@@ -35,7 +31,6 @@ namespace Gram.Application.People.Queries
                         Email = m.PersonContactInfos.SingleOrDefault(n => n.ContactType.Title == "Email").Content,
                         AttendanceCount = m.Attendees.Count()
                     }).ToListAsync(cancellationToken);
-            }
         }
     }
 }

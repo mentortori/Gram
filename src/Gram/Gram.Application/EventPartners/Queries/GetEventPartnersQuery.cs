@@ -25,14 +25,12 @@ namespace Gram.Application.EventPartners.Queries
             {
             }
 
-            public async Task<EventPartnersViewModel> Handle(GetEventPartnersQuery request, CancellationToken cancellationToken)
-            {
-                return new EventPartnersViewModel
+            public async Task<EventPartnersViewModel> Handle(GetEventPartnersQuery request, CancellationToken cancellationToken) =>
+                new EventPartnersViewModel
                 {
                     EventId = request.EventId,
                     Partners = await DataContext.EventPartners
                         .Where(m => m.EventId == request.EventId)
-                        .Include(m => m.Partner)
                         .Select(m => new ListItemWithRowVersionModel
                         {
                             Id = m.Id,
@@ -42,7 +40,6 @@ namespace Gram.Application.EventPartners.Queries
                         .OrderBy(m => m.Name)
                         .ToListAsync(cancellationToken)
                 };
-            }
         }
     }
 }

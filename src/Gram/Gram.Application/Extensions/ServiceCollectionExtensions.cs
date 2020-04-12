@@ -6,10 +6,6 @@ namespace Gram.Application.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        {
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-            return services;
-        }
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services) => services.AddMediatR(Assembly.GetExecutingAssembly());
     }
 }

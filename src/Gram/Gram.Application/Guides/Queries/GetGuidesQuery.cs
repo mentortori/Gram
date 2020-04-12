@@ -18,12 +18,8 @@ namespace Gram.Application.Guides.Queries
             {
             }
 
-            public async Task<List<GuideListViewModel>> Handle(GetGuidesQuery request, CancellationToken cancellationToken)
-            {
-                return await DataContext.Guides
-                    .Include(m => m.EventGuides)
-                    .Include(m => m.Person)
-                        .ThenInclude(m => m.Nationality)
+            public async Task<List<GuideListViewModel>> Handle(GetGuidesQuery request, CancellationToken cancellationToken) =>
+                await DataContext.Guides
                     .Select(m => new GuideListViewModel
                     {
                         Id = m.Id,
@@ -34,7 +30,6 @@ namespace Gram.Application.Guides.Queries
                         EventsCount = m.EventGuides.Count(),
                         IsActive = m.IsActive
                     }).ToListAsync(cancellationToken);
-            }
         }
     }
 }
