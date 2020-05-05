@@ -17,7 +17,7 @@ namespace Gram.Web.Pages.Customers
 
         public async Task<IActionResult> OnGet()
         {
-            NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title");
+            NationalitiesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality)), "Id", "Title");
             return Page();
         }
 
@@ -25,7 +25,7 @@ namespace Gram.Web.Pages.Customers
         {
             if (!ModelState.IsValid)
             {
-                NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title");
+                NationalitiesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality)), "Id", "Title");
                 return Page();
             }
 

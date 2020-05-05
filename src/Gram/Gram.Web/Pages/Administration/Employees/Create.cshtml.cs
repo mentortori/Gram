@@ -16,7 +16,7 @@ namespace Gram.Web.Pages.Administration.Employees
 
         public async Task<IActionResult> OnGet()
         {
-            PeopleList = new SelectList((await Mediator.Send(new GetNewEmployeesListQuery())), "Id", "Name");
+            PeopleList = new SelectList(await Mediator.Send(new GetNewEmployeesListQuery()), "Id", "Name");
             return Page();
         }
 
@@ -24,7 +24,7 @@ namespace Gram.Web.Pages.Administration.Employees
         {
             if (!ModelState.IsValid)
             {
-                PeopleList = new SelectList((await Mediator.Send(new GetNewEmployeesListQuery())), "Id", "Name");
+                PeopleList = new SelectList(await Mediator.Send(new GetNewEmployeesListQuery()), "Id", "Name");
                 return Page();
             }
 

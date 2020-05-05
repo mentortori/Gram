@@ -21,7 +21,7 @@ namespace Gram.Web.Pages.Administration.Partners
 
         public async Task<IActionResult> OnGet()
         {
-            PeopleList = new SelectList((await Mediator.Send(new GetNewPartnersListQuery())), "Id", "Name");
+            PeopleList = new SelectList(await Mediator.Send(new GetNewPartnersListQuery()), "Id", "Name");
             return Page();
         }
 
@@ -29,7 +29,7 @@ namespace Gram.Web.Pages.Administration.Partners
         {
             if (!ModelState.IsValid)
             {
-                PeopleList = new SelectList((await Mediator.Send(new GetNewPartnersListQuery())), "Id", "Name");
+                PeopleList = new SelectList(await Mediator.Send(new GetNewPartnersListQuery()), "Id", "Name");
                 return Page();
             }
 

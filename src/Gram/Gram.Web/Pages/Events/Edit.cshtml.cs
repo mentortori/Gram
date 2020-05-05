@@ -22,7 +22,7 @@ namespace Gram.Web.Pages.Events
                 return NotFound();
 
             Entity = await Mediator.Send(new GetEventEditQuery(id.Value));
-            StatusesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
+            StatusesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus)), "Id", "Title", Entity.EventStatusId);
             return Page();
         }
 
@@ -33,7 +33,7 @@ namespace Gram.Web.Pages.Events
 
             if (!ModelState.IsValid)
             {
-                StatusesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title", Entity.EventStatusId);
+                StatusesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus)), "Id", "Title", Entity.EventStatusId);
                 return Page();
             }
 

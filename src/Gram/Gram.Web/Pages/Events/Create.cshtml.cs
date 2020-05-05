@@ -17,7 +17,7 @@ namespace Gram.Web.Pages.Events
 
         public async Task<IActionResult> OnGetAsync()
         {
-            StatusesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title");
+            StatusesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus)), "Id", "Title");
             return Page();
         }
 
@@ -25,7 +25,7 @@ namespace Gram.Web.Pages.Events
         {
             if (!ModelState.IsValid)
             {
-                StatusesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus))), "Id", "Title");
+                StatusesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.EventStatus)), "Id", "Title");
                 return Page();
             }
 

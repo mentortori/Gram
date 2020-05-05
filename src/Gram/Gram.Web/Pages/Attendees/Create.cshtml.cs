@@ -27,8 +27,8 @@ namespace Gram.Web.Pages.Attendees
 
         public async Task<IActionResult> OnGet()
         {
-            CustomersList = new SelectList((await Mediator.Send(new GetNewAttendeesListQuery(EventId))), "Id", "Name");
-            AttendanceStatusList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.AttendanceStatus))), "Id", "Title");
+            CustomersList = new SelectList(await Mediator.Send(new GetNewAttendeesListQuery(EventId)), "Id", "Name");
+            AttendanceStatusList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.AttendanceStatus)), "Id", "Title");
             return Page();
         }
 
@@ -36,8 +36,8 @@ namespace Gram.Web.Pages.Attendees
         {
             if (!ModelState.IsValid)
             {
-                CustomersList = new SelectList((await Mediator.Send(new GetNewAttendeesListQuery(EventId))), "Id", "Name");
-                AttendanceStatusList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.AttendanceStatus))), "Id", "Title");
+                CustomersList = new SelectList(await Mediator.Send(new GetNewAttendeesListQuery(EventId)), "Id", "Name");
+                AttendanceStatusList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.AttendanceStatus)), "Id", "Title");
                 return Page();
             }
 

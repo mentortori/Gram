@@ -22,7 +22,7 @@ namespace Gram.Web.Pages.Customers
                 return NotFound();
 
             Entity = await Mediator.Send(new GetPersonEditQuery(id.Value, Mediator));
-            NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
+            NationalitiesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality)), "Id", "Title", Entity.NationalityId);
             return Page();
         }
 
@@ -33,7 +33,7 @@ namespace Gram.Web.Pages.Customers
 
             if (!ModelState.IsValid)
             {
-                NationalitiesList = new SelectList((await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality))), "Id", "Title", Entity.NationalityId);
+                NationalitiesList = new SelectList(await Mediator.Send(new GetGeneralTypesListQuery((int)GeneralTypeParents.Nationality)), "Id", "Title", Entity.NationalityId);
                 return Page();
             }
 

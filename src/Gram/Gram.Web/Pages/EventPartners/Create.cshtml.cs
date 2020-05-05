@@ -18,7 +18,7 @@ namespace Gram.Web.Pages.EventPartners
 
         public async Task<IActionResult> OnGet()
         {
-            ParetnersList = new SelectList((await Mediator.Send(new GetNewEventPartnersListQuery(EventId))), "Id", "Name");
+            ParetnersList = new SelectList(await Mediator.Send(new GetNewEventPartnersListQuery(EventId)), "Id", "Name");
             return Page();
         }
 
@@ -26,7 +26,7 @@ namespace Gram.Web.Pages.EventPartners
         {
             if (!ModelState.IsValid)
             {
-                ParetnersList = new SelectList((await Mediator.Send(new GetNewEventPartnersListQuery(EventId))), "Id", "Name");
+                ParetnersList = new SelectList(await Mediator.Send(new GetNewEventPartnersListQuery(EventId)), "Id", "Name");
                 return Page();
             }
 

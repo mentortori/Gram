@@ -21,7 +21,7 @@ namespace Gram.Web.Pages.Administration.Guides
 
         public async Task<IActionResult> OnGet()
         {
-            PeopleList = new SelectList((await Mediator.Send(new GetNewGuidesListQuery())), "Id", "Name");
+            PeopleList = new SelectList(await Mediator.Send(new GetNewGuidesListQuery()), "Id", "Name");
             return Page();
         }
 
@@ -29,7 +29,7 @@ namespace Gram.Web.Pages.Administration.Guides
         {
             if (!ModelState.IsValid)
             {
-                PeopleList = new SelectList((await Mediator.Send(new GetNewGuidesListQuery())), "Id", "Name");
+                PeopleList = new SelectList(await Mediator.Send(new GetNewGuidesListQuery()), "Id", "Name");
                 return Page();
             }
 
