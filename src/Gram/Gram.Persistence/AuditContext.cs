@@ -28,23 +28,18 @@ namespace Gram.Persistence
             modelBuilder.ChangeOnDeleteConvention();
         }
 
-        internal DbSet<AuditDetail> AuditDetails { get; set; }
         private DbSet<AuditLog> AuditLogs { get; set; }
 
         private static readonly string[] ExcludedProperties = { "Id", "RowVersion" };
         private IUserService UserService { get; }
         private List<EntityEntry<IEntity>> AddedEntries { get; set; }
-        private List<EntityEntry<IEntity>> ModifiedEntries { get; set; }
-        private List<EntityEntry<IEntity>> DeletedEntries { get; set; }
         private List<AuditLog> NewAuditLogs { get; }
 
         public async Task DetectChangesAsync(ChangeTracker changeTracker)
         {
             AddedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Added).ToList();
-            ModifiedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Modified).ToList();
-            DeletedEntries = changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Deleted).ToList();
-            await AuditUpdatesAsync();
-            await AuditDeletesAsync();
+            await DetectUpdatesAsync(changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Modified).ToList());
+            await DetectDeletesAsync(changeTracker.Entries<IEntity>().Where(p => p.State == EntityState.Deleted).ToList());
         }
 
         public async Task AuditAsync()
@@ -91,9 +86,9 @@ namespace Gram.Persistence
             }
         }
 
-        private async Task AuditUpdatesAsync()
+        private async Task DetectUpdatesAsync(List<EntityEntry<IEntity>> updatedEntries)
         {
-            foreach (var entry in ModifiedEntries)
+            foreach (var entry in updatedEntries)
             {
                 var oldEntityValues = await entry.GetDatabaseValuesAsync();
                 var newEntityValues = entry.CurrentValues;
@@ -134,9 +129,9 @@ namespace Gram.Persistence
             }
         }
 
-        private async Task AuditDeletesAsync()
+        private async Task DetectDeletesAsync(List<EntityEntry<IEntity>> deletedEntries)
         {
-            foreach (var entry in DeletedEntries)
+            foreach (var entry in deletedEntries)
             {
                 var oldEntityValues = await entry.GetDatabaseValuesAsync();
 
