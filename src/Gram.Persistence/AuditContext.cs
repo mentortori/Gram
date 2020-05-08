@@ -28,7 +28,7 @@ namespace Gram.Persistence
             modelBuilder.ChangeOnDeleteConvention();
         }
 
-        private DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
 
         private static readonly string[] ExcludedProperties = { "Id", "RowVersion" };
         private IUserService UserService { get; }
@@ -167,7 +167,7 @@ namespace Gram.Persistence
             }
         }
 
-        internal sealed class AuditDetail
+        public class AuditDetail
         {
             public int Id { get; set; }
             public int AuditLogId { get; set; }
@@ -178,7 +178,7 @@ namespace Gram.Persistence
             public AuditLog AuditLog { get; set; }
         }
 
-        internal sealed class AuditLog
+        public class AuditLog
         {
             public AuditLog()
             {

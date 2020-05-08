@@ -1,5 +1,4 @@
 ﻿using Gram.Application.Events.Commands;
-using Gram.Application.Events.Models;
 using Gram.Application.GeneralTypes.Queries;
 using Gram.Domain.Enums;
 using Gram.Web.Abstraction;
@@ -12,7 +11,7 @@ namespace Gram.Web.Pages.Events
     public class CreateModel : BasePageModel
     {
         [BindProperty]
-        public EventCreateModel Entity { get; set; }
+        public CreateEventCommand.CreateModel Entity { get; set; }
         public SelectList StatusesList { get; set; }
 
         public async Task<IActionResult> OnGetAsync()

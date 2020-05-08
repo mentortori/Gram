@@ -3,7 +3,7 @@ using Gram.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
-namespace Gram.Application.UnitTests.Common
+namespace Gram.Tests.Common
 {
     public static class AuditContextFactory
     {

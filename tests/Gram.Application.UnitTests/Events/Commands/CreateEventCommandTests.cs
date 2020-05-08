@@ -1,7 +1,5 @@
 ﻿using Gram.Application.Events.Commands;
-using Gram.Application.Events.Models;
-using Gram.Application.UnitTests.Abstraction;
-using Microsoft.EntityFrameworkCore;
+using Gram.Tests.Common.Abstraction;
 using Shouldly;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,11 +10,10 @@ namespace Gram.Application.UnitTests.Events.Commands
     public class CreateEventCommandTests : BaseTest
     {
         [Fact]
-        public async Task Handle_ShouldPersistEvent()
+        public async Task Handler_ShouldPersistEvent_GivenAnyInput()
         {
             // Arrange
-            var model = new EventCreateModel();
-
+            var model = new CreateEventCommand.CreateModel();
             var command = new CreateEventCommand(model);
             var sut = new CreateEventCommand.Handler(DataContext);
 
@@ -25,10 +22,30 @@ namespace Gram.Application.UnitTests.Events.Commands
 
             // Assert
             var entity = await DataContext.Events.FindAsync(result);
-            var count = await DataContext.Events.CountAsync();
             entity.ShouldNotBeNull();
-            entity.Id.ShouldNotBe(0);
-            entity.Id.ShouldBe(count);
+        }
+
+        [InlineData(false, null, 0, null)]
+        [InlineData(false, "", 0, null)]
+        [InlineData(true, nameof(CreateEventCommand.CreateModel.EventName), 1, nameof(CreateEventCommand.CreateModel.EventDescription))]
+        [Theory]
+        public async Task Validator_ShouldValidateCreateModel_GivenAnyInput(bool expectedResult, string eventName, int eventStatusId, string eventDescription)
+        {
+            // Arrange
+            var model = new CreateEventCommand.CreateModel
+            {
+                EventName = eventName,
+                EventStatusId = eventStatusId,
+                EventDescription = eventDescription
+            };
+
+            var sut = new CreateEventCommand.Validator();
+
+            // Act
+            var result = await sut.ValidateAsync(model);
+
+            // Assert
+            result.IsValid.ShouldBe(expectedResult);
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using Gram.Persistence;
+﻿using Gram.Domain.Entities;
+using Gram.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gram.Application.UnitTests.Common
+namespace Gram.Tests.Common
 {
     public static class DataContextFactory
     {
@@ -10,6 +11,7 @@ namespace Gram.Application.UnitTests.Common
             var options = new DbContextOptionsBuilder<DataContext>().UseInMemoryDatabase(databaseName).Options;
             var context = new DataContext(options, auditContext);
             context.Database.EnsureCreated();
+            SeedSampleData(context);
             return context;
         }
 
@@ -17,6 +19,19 @@ namespace Gram.Application.UnitTests.Common
         {
             context.Database.EnsureDeleted();
             context.Dispose();
+        }
+
+        private static void SeedSampleData(DataContext context)
+        {
+            var model = new Event
+            {
+                EventName = nameof(Event.EventName),
+                EventStatusId = 1,
+                EventDescription = nameof(Event.EventDescription)
+            };
+
+            context.Events.Add(model);
+            context.SaveChanges();
         }
     }
 }
