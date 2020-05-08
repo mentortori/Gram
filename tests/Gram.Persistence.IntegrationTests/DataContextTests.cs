@@ -37,6 +37,26 @@ namespace Gram.Persistence.IntegrationTests
         }
 
         [Fact]
+        public async Task SaveChangesAsync_ShouldCreateAuditLog_DeletingEvent()
+        {
+            // Arrange
+            var model = await DataContext.Events.FirstAsync();
+
+            // Act
+            DataContext.Events.Remove(model);
+            await DataContext.SaveChangesAsync();
+
+            // Assert
+            var auditLog = await AuditContext.AuditLogs.SingleAsync(m => m.EntityId == model.Id && m.EntityState == "D");
+            var auditDetails = auditLog.AuditDetails;
+            auditLog.ShouldNotBeNull();
+            auditDetails.Count.ShouldBe(3);
+            auditDetails.Single(m => m.Property == nameof(Event.EventName)).OldValue.ShouldBe(model.EventName);
+            auditDetails.Single(m => m.Property == nameof(Event.EventStatusId)).OldValue.ShouldBe(model.EventStatusId.ToString());
+            auditDetails.Single(m => m.Property == nameof(Event.EventDescription)).OldValue.ShouldBe(model.EventDescription);
+        }
+
+        [Fact]
         public async Task SaveChangesAsync_ShouldCreateAuditLog_UpdatingEvent()
         {
             // Arrange
