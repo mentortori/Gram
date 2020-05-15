@@ -1,4 +1,6 @@
 ﻿using Gram.Application.Interfaces;
+using Gram.Persistence.Audit;
+using Gram.Persistence.Data;
 using Gram.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

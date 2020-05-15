@@ -1,5 +1,5 @@
 ﻿using Gram.Domain.Interfaces;
-using Gram.Persistence.Configurations;
+using Gram.Persistence.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

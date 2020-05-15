@@ -1,5 +1,6 @@
 ﻿using Gram.Domain.Entities;
-using Gram.Persistence;
+using Gram.Persistence.Audit;
+using Gram.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gram.Tests.Common

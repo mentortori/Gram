@@ -6,6 +6,6 @@ namespace Gram.Application.Interfaces
     public interface IAuditContext
     {
         Task DetectChangesAsync(ChangeTracker changeTracker);
-        Task AuditAsync();
+        Task SaveAuditLogAsync();
     }
 }
