@@ -1,4 +1,4 @@
-﻿using Gram.Application.Events.Commands;
+﻿using Gram.Application.Events.Commands.CreateEventCommand;
 using Gram.Tests.Common.Abstraction;
 using Shouldly;
 using System.Threading;
@@ -13,9 +13,9 @@ namespace Gram.Application.UnitTests.Events.Commands
         public async Task Handler_ShouldPersistEvent_GivenAnyInput()
         {
             // Arrange
-            var model = new CreateEventCommand.CreateModel();
-            var command = new CreateEventCommand(model);
-            var sut = new CreateEventCommand.Handler(DataContext);
+            var model = new Model();
+            var command = new Command(model);
+            var sut = new Command.Handler(DataContext);
 
             // Act
             var result = await sut.Handle(command, CancellationToken.None);
@@ -27,19 +27,19 @@ namespace Gram.Application.UnitTests.Events.Commands
 
         [InlineData(false, null, 0, null)]
         [InlineData(false, "", 0, null)]
-        [InlineData(true, nameof(CreateEventCommand.CreateModel.EventName), 1, nameof(CreateEventCommand.CreateModel.EventDescription))]
+        [InlineData(true, nameof(Model.EventName), 1, nameof(Model.EventDescription))]
         [Theory]
-        public async Task Validator_ShouldValidateCreateModel_GivenAnyInput(bool expectedResult, string eventName, int eventStatusId, string eventDescription)
+        public async Task Validator_ShouldValidateModel_GivenAnyInput(bool expectedResult, string eventName, int eventStatusId, string eventDescription)
         {
             // Arrange
-            var model = new CreateEventCommand.CreateModel
+            var model = new Model
             {
                 EventName = eventName,
                 EventStatusId = eventStatusId,
                 EventDescription = eventDescription
             };
 
-            var sut = new CreateEventCommand.Validator();
+            var sut = new Validator();
 
             // Act
             var result = await sut.ValidateAsync(model);

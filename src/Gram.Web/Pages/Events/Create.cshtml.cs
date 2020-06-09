@@ -1,4 +1,4 @@
-﻿using Gram.Application.Events.Commands;
+﻿using Gram.Application.Events.Commands.CreateEventCommand;
 using Gram.Application.GeneralTypes.Queries;
 using Gram.Domain.Enums;
 using Gram.Web.Abstraction;
@@ -11,7 +11,7 @@ namespace Gram.Web.Pages.Events
     public class CreateModel : BasePageModel
     {
         [BindProperty]
-        public CreateEventCommand.CreateModel Entity { get; set; }
+        public Model Entity { get; set; }
         public SelectList StatusesList { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
@@ -28,7 +28,7 @@ namespace Gram.Web.Pages.Events
                 return Page();
             }
 
-            var id = await Mediator.Send(new CreateEventCommand(Entity));
+            var id = await Mediator.Send(new Command(Entity));
             return RedirectToPage("./Details", new { id = id });
         }
     }
